@@ -1,0 +1,10 @@
+# Porte de qualité cassée (contenu attendu 'Pizzeria')
+ERROR: Fail: Response doesn't contain expected content 'Pizzeria' while calling http://restaurant-test/
+Finished: FAILURE
+
+Tags Docker Hub AVANT : 1.0.2-1a25da7 latest 
+Tags Docker Hub APRÈS : 1.0.2-1a25da7 latest 
+→ aucun nouveau tag publié
+
+Job deploy déclenché ? (dernier build deploy) :
+{"_class":"hudson.model.FreeStyleProject","lastBuild":{"_class":"hudson.model.FreeStyleBuild","number":1}}

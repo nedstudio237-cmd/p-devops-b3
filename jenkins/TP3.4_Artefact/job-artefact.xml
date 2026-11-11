@@ -1,0 +1,101 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <description>TP 3.4 : build, test d'acceptance, scan, publication Docker Hub avec tag unique</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty><parameterDefinitions>
+        <hudson.model.StringParameterDefinition><name>IMAGE_NAME</name><description>nom de l'image</description><defaultValue>restaurant</defaultValue><trim>true</trim></hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition><name>IMAGE_TAG</name><description>version humaine de l application</description><defaultValue>1.0</defaultValue><trim>true</trim></hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition><name>Votre_ID_Github</name><description>propriétaire du dépôt</description><defaultValue>Legeni07</defaultValue><trim>true</trim></hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition><name>DOCKERHUB_ID</name><description>identifiant Docker Hub</description><defaultValue>nedstudio</defaultValue><trim>true</trim></hudson.model.StringParameterDefinition>
+    </parameterDefinitions></hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs><hudson.plugins.git.UserRemoteConfig><url>https://github.com/${Votre_ID_Github}/restaurant.git</url></hudson.plugins.git.UserRemoteConfig></userRemoteConfigs>
+    <branches><hudson.plugins.git.BranchSpec><name>*/main</name></hudson.plugins.git.BranchSpec></branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations><submoduleCfg class="empty-list"/><extensions/>
+  </scm>
+  <canRoam>true</canRoam><disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding><blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/><concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell><command>#!/bin/bash
+set -euo pipefail
+TEST=${IMAGE_NAME}-test
+IMAGE=${DOCKERHUB_ID}/${IMAGE_NAME}
+UNIQUE_TAG=${IMAGE_TAG}.${BUILD_NUMBER}-${GIT_COMMIT:0:7}     # ex. 1.0.12-3f9c2ab
+
+cat &gt; Dockerfile &lt;&lt;'EOT'
+FROM nginx:1.27-alpine
+RUN apk upgrade --no-cache
+COPY . /usr/share/nginx/html/
+EXPOSE 80
+EOT
+printf '.git\nDockerfile\n' &gt; .dockerignore
+docker build --label org.opencontainers.image.revision=${GIT_COMMIT} \
+             -t ${IMAGE}:${UNIQUE_TAG} -t ${IMAGE_NAME}:${IMAGE_TAG} .
+
+JENKINS_NET=$(docker inspect jenkins -f '{{range $k, $v := .NetworkSettings.Networks}}{{$k}}{{end}}')
+docker rm -f ${TEST} 2&gt;/dev/null || true
+docker run -d --name ${TEST} --network ${JENKINS_NET} ${IMAGE}:${UNIQUE_TAG}
+for i in $(seq 1 10); do curl -sf http://${TEST}/ &gt;/dev/null &amp;&amp; break; sleep 1; done
+
+echo "${UNIQUE_TAG}" &gt; tag.txt          # transmis à l'étape de publication
+</command></hudson.tasks.Shell>
+    <jenkins.plugins.http__request.HttpRequest plugin="http_request">
+      <url>http://${IMAGE_NAME}-test/</url><ignoreSslErrors>false</ignoreSslErrors><httpMode>GET</httpMode>
+      <validResponseCodes>200</validResponseCodes><validResponseContent>Restaurant</validResponseContent>
+      <timeout>10</timeout><consoleLogResponseBody>false</consoleLogResponseBody><quiet>false</quiet>
+    </jenkins.plugins.http__request.HttpRequest>
+    <hudson.tasks.Shell><command>#!/bin/bash
+set -euo pipefail
+TEST=${IMAGE_NAME}-test
+# 1. La page d'accueil contient le titre attendu
+curl -sf http://${TEST}/ | grep -qi "&lt;title&gt;Restaurant" &amp;&amp; echo "✅ titre OK"
+# 2. Les ressources statiques sont servies
+curl -sf -o /dev/null -w "%{http_code} %{content_type}\n" http://${TEST}/1.jpg
+# 3. Une page inexistante renvoie bien 404 (le serveur ne masque pas les erreurs)
+test "$(curl -s -o /dev/null -w '%{http_code}' http://${TEST}/nexiste-pas)" = "404" &amp;&amp; echo "✅ 404 OK"
+</command></hudson.tasks.Shell>
+    <hudson.tasks.Shell><command>#!/bin/bash
+set -euo pipefail
+# Défi : refuser de publier si l'image contient une vulnérabilité CRITICAL corrigeable
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v trivy_cache:/root/.cache aquasec/trivy:0.57.1 \
+  image --quiet --severity CRITICAL --ignore-unfixed --exit-code 1 \
+  ${DOCKERHUB_ID}/${IMAGE_NAME}:$(cat tag.txt)
+echo "✅ aucune vulnérabilité CRITICAL corrigeable"
+</command></hudson.tasks.Shell>
+    <hudson.tasks.Shell><command>#!/bin/bash
+set -euo pipefail
+IMAGE=${DOCKERHUB_ID}/${IMAGE_NAME}
+UNIQUE_TAG=$(cat tag.txt)
+
+echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USER}" --password-stdin
+docker push ${IMAGE}:${UNIQUE_TAG}
+# "latest" ne pointe que vers une image qui a passé les tests
+docker tag ${IMAGE}:${UNIQUE_TAG} ${IMAGE}:latest
+docker push ${IMAGE}:latest
+docker logout
+echo "Image publiée : ${IMAGE}:${UNIQUE_TAG}"
+</command></hudson.tasks.Shell>
+    <hudson.tasks.Shell><command>#!/bin/bash
+docker rm -f ${IMAGE_NAME}-test
+</command></hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver><artifacts>tag.txt</artifacts><allowEmptyArchive>false</allowEmptyArchive><onlyIfSuccessful>false</onlyIfSuccessful><fingerprint>true</fingerprint><defaultExcludes>true</defaultExcludes><caseSensitive>true</caseSensitive><followSymlinks>false</followSymlinks></hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.BuildTrigger><childProjects>deploy</childProjects><threshold><name>SUCCESS</name><ordinal>0</ordinal><color>BLUE</color><completeBuild>true</completeBuild></threshold></hudson.tasks.BuildTrigger>
+  </publishers>
+  <buildWrappers>
+    <org.jenkinsci.plugins.credentialsbinding.impl.SecretBuildWrapper plugin="credentials-binding">
+      <bindings>
+        <org.jenkinsci.plugins.credentialsbinding.impl.UsernamePasswordMultiBinding>
+          <credentialsId>dockerhub</credentialsId>
+          <usernameVariable>DOCKERHUB_USER</usernameVariable>
+          <passwordVariable>DOCKERHUB_TOKEN</passwordVariable>
+        </org.jenkinsci.plugins.credentialsbinding.impl.UsernamePasswordMultiBinding>
+      </bindings>
+    </org.jenkinsci.plugins.credentialsbinding.impl.SecretBuildWrapper>
+  </buildWrappers>
+</project>

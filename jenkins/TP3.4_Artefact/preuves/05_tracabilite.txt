@@ -1,0 +1,13 @@
+$ docker pull nedstudio/restaurant:latest
+docker.io/nedstudio/restaurant:latest
+
+$ docker inspect nedstudio/restaurant:latest --format "{{index .Config.Labels \"org.opencontainers.image.revision\"}}"
+1a25da77c1be123a8cd6af589ac60df19461b6c8
+
+$ git ls-remote https://github.com/Legeni07/restaurant.git main
+1a25da77c1be123a8cd6af589ac60df19461b6c8	refs/heads/main
+
+# Tags sur Docker Hub : 1.0.2-1a25da7 latest 
+
+# Artefact archivé (tag.txt du build #2) :
+1.0.2-1a25da7

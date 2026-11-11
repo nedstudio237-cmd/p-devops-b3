@@ -1,0 +1,14 @@
+Started by upstream project "artefact" build number 2
+originally caused by:
+ Started by user Evina ze dieubeni romaric
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/deploy
+[deploy] $ /bin/bash /tmp/jenkins13702509745629038490.sh
+latest: Pulling from nedstudio/restaurant
+Digest: sha256:709c80e7f92a99fa957916632555b86cffb976803ebe80c0d4154589340c83ed
+Status: Image is up to date for nedstudio/restaurant:latest
+docker.io/nedstudio/restaurant:latest
+a17dc1d0634a2260adbb9f127bcb894cb576a0fe4edc5a4aa1bb0e23bb87c8af
+CONTAINER ID   IMAGE                         COMMAND                  CREATED                  STATUS                  PORTS                                     NAMES
+a17dc1d0634a   nedstudio/restaurant:latest   "/docker-entrypoint.…"   Less than a second ago   Up Less than a second   0.0.0.0:8099->80/tcp, [::]:8099->80/tcp   restaurant-prod
+Finished: SUCCESS
