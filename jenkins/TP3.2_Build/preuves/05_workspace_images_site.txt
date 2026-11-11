@@ -1,0 +1,79 @@
+$ docker exec jenkins ls -la /var/jenkins_home/workspace/build
+total 1112
+drwxr-xr-x 3 jenkins jenkins   4096 Nov  5 15:05 .
+drwxr-xr-x 5 jenkins jenkins   4096 Nov 11 21:21 ..
+-rw-r--r-- 1 jenkins jenkins     16 Nov 11 21:26 .dockerignore
+drwxr-xr-x 8 jenkins jenkins   4096 Nov 11 21:26 .git
+-rw-r--r-- 1 jenkins jenkins  11094 Nov  5 15:05 1.jpg
+-rw-r--r-- 1 jenkins jenkins  13095 Nov  5 15:05 11.jpg
+-rw-r--r-- 1 jenkins jenkins   8465 Nov  5 15:05 2.jpg
+-rw-r--r-- 1 jenkins jenkins   9639 Nov  5 15:05 22.jpg
+-rw-r--r-- 1 jenkins jenkins     89 Nov 11 21:26 Dockerfile
+-rw-r--r-- 1 jenkins jenkins  10420 Nov  5 15:05 L’histoire des-WPS Office.docx
+-rw-r--r-- 1 jenkins jenkins     13 Nov  5 15:05 README.md
+-rw-r--r-- 1 jenkins jenkins 237208 Nov  5 15:05 a.jpg
+-rw-r--r-- 1 jenkins jenkins   5228 Nov  5 15:05 aa.jpg
+-rw-r--r-- 1 jenkins jenkins   3004 Nov  5 15:05 acceuil.css
+-rw-r--r-- 1 jenkins jenkins  68917 Nov  5 15:05 b.jpg
+-rw-r--r-- 1 jenkins jenkins    373 Nov  5 15:05 baliseimage.html
+-rw-r--r-- 1 jenkins jenkins    414 Nov  5 15:05 bluetooth_content_share.html
+-rw-r--r-- 1 jenkins jenkins  10357 Nov  5 15:05 c.jpg
+-rw-r--r-- 1 jenkins jenkins  12137 Nov  5 15:05 cc.jpg
+-rw-r--r-- 1 jenkins jenkins   4506 Nov  5 15:05 d.png
+-rw-r--r-- 1 jenkins jenkins   6733 Nov  5 15:05 dd.jpg
+-rw-r--r-- 1 jenkins jenkins  25618 Nov  5 15:05 franck.jpg
+-rw-r--r-- 1 jenkins jenkins   4503 Nov  5 15:05 image.jpg
+-rw-r--r-- 1 jenkins jenkins   7674 Nov  5 15:05 images
+-rw-r--r-- 1 jenkins jenkins  10768 Nov  5 15:05 images (1)
+-rw-r--r-- 1 jenkins jenkins  14699 Nov  5 15:05 images (3).jpg
+-rw-r--r-- 1 jenkins jenkins  10963 Nov  5 15:05 images (4).jpg
+-rw-r--r-- 1 jenkins jenkins   6541 Nov  5 15:05 images (5).jpg
+-rw-r--r-- 1 jenkins jenkins  13159 Nov  5 15:05 images (6).jpg
+-rw-r--r-- 1 jenkins jenkins  11318 Nov  5 15:05 images (7).jpg
+-rw-r--r-- 1 jenkins jenkins  11697 Nov  5 15:05 images.jpg
+-rw-r--r-- 1 jenkins jenkins   1386 Nov  5 15:05 index.html
+-rw-r--r-- 1 jenkins jenkins      0 Nov  5 15:05 login.css
+-rw-r--r-- 1 jenkins jenkins   1551 Nov  5 15:05 login.html
+-rw-r--r-- 1 jenkins jenkins   6584 Nov  5 15:05 logo.png
+-rw-r--r-- 1 jenkins jenkins      0 Nov  5 15:05 menu.css
+-rw-r--r-- 1 jenkins jenkins   1565 Nov  5 15:05 menu.html
+-rw-r--r-- 1 jenkins jenkins   2530 Nov  5 15:05 nouveau.html
+-rw-r--r-- 1 jenkins jenkins   7744 Nov  5 15:05 pillé.jpg
+-rw-r--r-- 1 jenkins jenkins      0 Nov  5 15:05 propos.css
+-rw-r--r-- 1 jenkins jenkins   1521 Nov  5 15:05 propos.html
+-rw-r--r-- 1 jenkins jenkins      0 Nov  5 15:05 reservation.css
+-rw-r--r-- 1 jenkins jenkins   3447 Nov  5 15:05 reservation.html
+-rw-r--r-- 1 jenkins jenkins 200727 Nov  5 15:05 resto.pdf
+-rw-r--r-- 1 jenkins jenkins  11408 Nov  5 15:05 spaguetthi.jpg
+-rw-r--r-- 1 jenkins jenkins   8277 Nov  5 15:05 téléchargement (1).jpg
+-rw-r--r-- 1 jenkins jenkins  17260 Nov  5 15:05 téléchargement (10).jpg
+-rw-r--r-- 1 jenkins jenkins  10535 Nov  5 15:05 téléchargement (11).jpg
+-rw-r--r-- 1 jenkins jenkins   8281 Nov  5 15:05 téléchargement (12).jpg
+-rw-r--r-- 1 jenkins jenkins  12269 Nov  5 15:05 téléchargement (13).jpg
+-rw-r--r-- 1 jenkins jenkins  10671 Nov  5 15:05 téléchargement (14).jpg
+-rw-r--r-- 1 jenkins jenkins   7677 Nov  5 15:05 téléchargement (15).jpg
+-rw-r--r-- 1 jenkins jenkins   7250 Nov  5 15:05 téléchargement (16).jpg
+-rw-r--r-- 1 jenkins jenkins   8757 Nov  5 15:05 téléchargement (17).jpg
+-rw-r--r-- 1 jenkins jenkins   7874 Nov  5 15:05 téléchargement (18).jpg
+-rw-r--r-- 1 jenkins jenkins  12274 Nov  5 15:05 téléchargement (19).jpg
+-rw-r--r-- 1 jenkins jenkins  12651 Nov  5 15:05 téléchargement (2).jpg
+-rw-r--r-- 1 jenkins jenkins  12505 Nov  5 15:05 téléchargement (20).jpg
+-rw-r--r-- 1 jenkins jenkins  10613 Nov  5 15:05 téléchargement (21).jpg
+-rw-r--r-- 1 jenkins jenkins  13293 Nov  5 15:05 téléchargement (22).jpg
+-rw-r--r-- 1 jenkins jenkins  16749 Nov  5 15:05 téléchargement (3).jpg
+-rw-r--r-- 1 jenkins jenkins  12946 Nov  5 15:05 téléchargement (4).jpg
+-rw-r--r-- 1 jenkins jenkins  16614 Nov  5 15:05 téléchargement (5).jpg
+-rw-r--r-- 1 jenkins jenkins  12759 Nov  5 15:05 téléchargement (6).jpg
+-rw-r--r-- 1 jenkins jenkins  10310 Nov  5 15:05 téléchargement (9).jpg
+-rw-r--r-- 1 jenkins jenkins   6329 Nov  5 15:05 téléchargement.jpg
+
+$ docker images restaurant
+IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
+restaurant:build-4   3fa5eb118f05       75.7MB         21.9MB   U    
+restaurant:build-5   a8022e2ec219       75.7MB         21.9MB   U    
+restaurant:build-6   cac1e2fabfe3       75.7MB         21.9MB   U    
+restaurant:build-7   e26de0b69f99       75.7MB         21.9MB   U    
+restaurant:latest    e26de0b69f99       75.7MB         21.9MB   U    
+
+$ curl -s localhost:8092 | grep title
+<title>Restaurant</title>

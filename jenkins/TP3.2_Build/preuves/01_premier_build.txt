@@ -1,0 +1,10 @@
+# Build #1 (premier build, fait à la main dans l'interface)
+Cloning the remote Git repository
+Cloning repository https://github.com/Legeni07/restaurant.git
+Checking out Revision 1a25da77c1be123a8cd6af589ac60df19461b6c8 (refs/remotes/origin/main)
+Commit message: "Test 2"
+== Build n°1 du commit 1a25da7 dans /var/jenkins_home/workspace/build
+#7 naming to docker.io/library/restaurant:latest done
+#7 naming to docker.io/library/restaurant:build-1 done
+5305ed614303   restaurant:latest   "/docker-entrypoint.…"   Less than a second ago   Up Less than a second   0.0.0.0:8092->80/tcp, [::]:8092->80/tcp   legeni_website
+Finished: SUCCESS

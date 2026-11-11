@@ -1,0 +1,17 @@
+# Déclencheur : Scrutation de l'outil de gestion de version (Poll SCM), planning H/2 * * * *
+# Journal de scrutation (/var/jenkins_home/jobs/build/scm-polling.log) :
+Started on Nov 11, 2026, 9:36:00 PM
+Using strategy: Default
+[poll] Last Built Revision: Revision 1a25da77c1be123a8cd6af589ac60df19461b6c8 (refs/remotes/origin/main)
+The recommended git tool is: NONE
+No credentials specified
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git ls-remote -h -- https://github.com/Legeni07/restaurant.git # timeout=10
+Found 1 remote heads on https://github.com/Legeni07/restaurant.git
+[poll] Latest remote head revision on refs/heads/main is: 1a25da77c1be123a8cd6af589ac60df19461b6c8 - already built by 7
+Done. Took 1.8 sec
+No changes
+
+# 'No changes' : aucun nouveau commit sur Legeni07/restaurant (dépôt du professeur, pas de droit de commit).
+# Un commit sur la branche main déclencherait un build 'Started by an SCM change'.

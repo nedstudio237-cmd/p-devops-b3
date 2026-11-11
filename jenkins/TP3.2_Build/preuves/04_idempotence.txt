@@ -1,0 +1,11 @@
+# Build #3 : ligne 'docker rm -f legeni_website' retirée volontairement (étape 6)
+restaurant:latest    1a498d9c46a9       75.7MB         21.9MB   U    
+docker: Error response from daemon: Conflict. The container name "/legeni_website" is already in use by container "9083a72e4853ee803ebf61918082117d70e3016fadb08af81872e770ae2bdb71". You have to remove (or rename) that container to be able to reuse that name.
+
+Run 'docker run --help' for more information
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE
+
+# Build #4 : ligne remise -> de nouveau vert
+f3aa743c52a9   restaurant:latest   "/docker-entrypoint.…"   1 second ago   Up Less than a second   0.0.0.0:8092->80/tcp, [::]:8092->80/tcp   legeni_website
+Finished: SUCCESS

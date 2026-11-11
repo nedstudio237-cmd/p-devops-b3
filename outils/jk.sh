@@ -8,21 +8,22 @@
 set -euo pipefail
 JENKINS=${JENKINS_URL:-http://localhost:8080}
 U=$(sed -n 1p ~/.secrets/jenkins); T=$(sed -n 2p ~/.secrets/jenkins)
-api() { curl -sf -u "$U:$T" "$@"; }
+api() { curl -sfg -u "$U:$T" "$@"; }
 cmd=$1; job=${2:-}; shift 2 || true
 jobpath=$(echo "$job" | sed 's#/#/job/#g')
 case $cmd in
   create)
     if api -o /dev/null "$JENKINS/job/$jobpath/config.xml"; then
-      api -X POST -H 'Content-Type: application/xml' --data-binary @"$1" "$JENKINS/job/$jobpath/config.xml"
+      api -X POST -H 'Content-Type: application/xml; charset=UTF-8' --data-binary @"$1" "$JENKINS/job/$jobpath/config.xml"
     else
-      api -X POST -H 'Content-Type: application/xml' --data-binary @"$1" "$JENKINS/createItem?name=$job"
+      api -X POST -H 'Content-Type: application/xml; charset=UTF-8' --data-binary @"$1" "$JENKINS/createItem?name=$job"
     fi
     echo "job $job prêt" ;;
   build)
     next=$(api "$JENKINS/job/$jobpath/api/json?tree=nextBuildNumber" | sed -E 's/.*"nextBuildNumber":([0-9]+).*/\1/')
-    if [ $# -gt 0 ]; then
-      args=(); for p in "$@"; do args+=(--data-urlencode "$p"); done
+    args=(); for p in "$@"; do args+=(--data-urlencode "$p"); done
+    # job paramétré -> buildWithParameters (valeurs par défaut pour les paramètres absents)
+    if [ $# -gt 0 ] || api "$JENKINS/job/$jobpath/api/json?tree=property[parameterDefinitions[name]]" | grep -q parameterDefinitions; then
       api -X POST "${args[@]}" "$JENKINS/job/$jobpath/buildWithParameters" -o /dev/null
     else
       api -X POST "$JENKINS/job/$jobpath/build" -o /dev/null
