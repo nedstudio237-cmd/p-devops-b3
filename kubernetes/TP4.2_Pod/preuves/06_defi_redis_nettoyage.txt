@@ -1,0 +1,14 @@
+$ kubectl run redis --image=redis:7.4-alpine --labels=app=cache --dry-run=client -o yaml > redis-pod.yaml
+
+$ kubectl apply -f redis-pod.yaml
+pod/redis created
+
+$ kubectl wait --for=condition=Ready pod/redis --timeout=60s
+pod/redis condition met
+
+$ kubectl exec redis -- redis-cli PING
+PONG
+
+$ kubectl delete -f pod.yaml -f pod-sidecar.yaml -f redis-pod.yaml
+pod "redis" deleted from default namespace
+(my-pod et web-sidecar supprimés de la même façon)

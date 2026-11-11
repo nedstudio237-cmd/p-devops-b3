@@ -1,0 +1,12 @@
+$ kubectl exec my-pod -- sh -c "wget -qO- localhost | head -4"
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+
+$ kubectl port-forward pod/my-pod 8085:80   (dans un 2e terminal : curl -s localhost:8085 | grep title)
+<title>Welcome to nginx!</title>
+
+$ kubectl logs my-pod | tail -2
+::1 - - [11/Nov/2026:20:45:18 +0000] "GET / HTTP/1.1" 200 615 "-" "Wget" "-"
+127.0.0.1 - - [11/Nov/2026:20:45:21 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/8.5.0" "-"

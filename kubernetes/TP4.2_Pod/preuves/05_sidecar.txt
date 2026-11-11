@@ -1,0 +1,15 @@
+$ kubectl apply -f pod-sidecar.yaml
+pod/web-sidecar created
+
+$ kubectl get pod web-sidecar -o wide
+NAME          READY   STATUS    RESTARTS   AGE   IP           NODE       NOMINATED NODE   READINESS GATES
+web-sidecar   2/2     Running   0          2s    10.244.0.5   minikube   <none>           <none>
+
+$ kubectl exec web-sidecar -c web -- wget -qO- localhost
+Wed Nov 11 20:44:18 UTC 2026
+
+$ kubectl exec web-sidecar -c web -- wget -qO- localhost
+Wed Nov 11 20:44:23 UTC 2026
+
+$ kubectl exec web-sidecar -c generateur -- wget -qO- localhost
+Wed Nov 11 20:44:28 UTC 2026

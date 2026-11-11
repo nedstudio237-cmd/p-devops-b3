@@ -1,0 +1,18 @@
+$ kubectl apply -f pod.yaml --dry-run=server
+pod/my-pod created (server dry run)
+
+$ kubectl apply -f pod.yaml
+pod/my-pod created
+
+$ kubectl get pod my-pod -o wide
+NAME     READY   STATUS    RESTARTS   AGE   IP           NODE       NOMINATED NODE   READINESS GATES
+my-pod   1/1     Running   0          2s    10.244.0.3   minikube   <none>           <none>
+
+$ kubectl describe pod my-pod   (section Events)
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  3s    default-scheduler  Successfully assigned default/my-pod to minikube
+  Normal  Pulled     2s    kubelet            spec.containers{nginx-container}: Container image "nginx:1.27-alpine" already present on machine and can be accessed by the pod
+  Normal  Created    1s    kubelet            spec.containers{nginx-container}: Container created
+  Normal  Started    1s    kubelet            spec.containers{nginx-container}: Container started

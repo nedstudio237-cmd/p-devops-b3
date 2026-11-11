@@ -1,0 +1,53 @@
+# TP DevOps B3 – EVINA ZE ROMARIC
+
+Réalisation des TPs du dépôt [Legeni07/tp_devops_b3](https://github.com/Legeni07/tp_devops_b3) : **Jenkins**, **Kubernetes** et **Ansible**.
+
+Chaque dossier de TP contient :
+- les **fichiers réalisés** (manifestes, scripts, Jenkinsfile, playbooks…) ;
+- **`COMMANDES.md`** : les commandes utilisées et leur rôle, plus les réponses aux questions ;
+- **`preuves/`** : les sorties des commandes qui prouvent que le TP fonctionne.
+
+## Environnement
+
+Ubuntu 24.04 (VM VMware), Docker 29, Minikube (driver Docker), Jenkins et Ansible en Docker Compose sur le réseau `minikube` (TP 2.8).
+
+## Avancement
+
+### Jenkins
+| TP | Sujet | Statut |
+|---|---|---|
+| 3.1 | Installation | ⏳ |
+| 3.2 | Job freestyle `build` | ⏳ |
+| 3.3 | Test d'acceptance | ⏳ |
+| 3.4 | Artefact Docker Hub | ⏳ |
+| 3.5 | Jenkinsfile | ⏳ |
+| 3.6 | Multibranch + webhook | ⏳ |
+| 3.7 | Qualité, tests parallèles | ⏳ |
+| 3.8 | Déploiement continu | ⏳ |
+
+### Kubernetes
+| TP | Sujet | Statut |
+|---|---|---|
+| 4.1 | Installation du cluster | ⏳ |
+| 4.2 | [Le Pod](kubernetes/TP4.2_Pod/) | ✅ |
+| 4.3 | Deployment et Service | ⏳ |
+| 4.4 | Webapp fil rouge | ⏳ |
+| 4.5 | WordPress + MySQL | ⏳ |
+| 4.6 | Jobs, CronJobs, DaemonSet | ⏳ |
+| 4.7 | Namespace, ConfigMap, Secret | ⏳ |
+| 4.8 | Scaling, rolling update, rollback | ⏳ |
+| 4.9 | Probes et ressources | ⏳ |
+| 4.10 | Stockage, StatefulSet | ⏳ |
+| 4.11 | Ingress | ⏳ |
+| 4.12 | Kustomize | ⏳ |
+| 4.13 | Dépannage | ⏳ |
+
+### Ansible
+| TP | Sujet | Statut |
+|---|---|---|
+| 5.1 | Lab, inventaire, ad-hoc | ⏳ |
+| 5.2 | Premier playbook | ⏳ |
+| 5.3 | Variables, conditions, boucles | ⏳ |
+| 5.4 | Rôles Docker + webapp | ⏳ |
+| 5.5 | Vault + WordPress | ⏳ |
+| 5.6 | Ansible + Kubernetes | ⏳ |

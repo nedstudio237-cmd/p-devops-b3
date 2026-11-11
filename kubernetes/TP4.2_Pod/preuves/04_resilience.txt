@@ -1,0 +1,14 @@
+$ kubectl delete pod my-pod
+pod "my-pod" deleted from default namespace
+
+$ kubectl get pods
+No resources found in default namespace.
+
+$ kubectl apply -f pod.yaml
+pod/my-pod created
+
+$ kubectl exec my-pod -- sh -c 'kill 1'
+
+$ kubectl get pod my-pod
+NAME     READY   STATUS    RESTARTS     AGE
+my-pod   1/1     Running   1 (6s ago)   8s

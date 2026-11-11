@@ -1,0 +1,14 @@
+$ kubectl get pods --show-labels
+NAME     READY   STATUS    RESTARTS   AGE   LABELS
+my-pod   1/1     Running   0          6s    app=myapp,tier=front
+
+$ kubectl get pods -l app=myapp
+NAME     READY   STATUS    RESTARTS   AGE
+my-pod   1/1     Running   0          6s
+
+$ kubectl get pods -l 'env in (dev,staging)'
+No resources found in default namespace.
+
+$ kubectl get pods -L app,env
+NAME     READY   STATUS    RESTARTS   AGE   APP     ENV
+my-pod   1/1     Running   0          7s    myapp   
