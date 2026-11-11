@@ -1,0 +1,66 @@
+Started by user Evina ze dieubeni romaric
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/test-acceptance
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/test-acceptance/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Legeni07/restaurant.git # timeout=10
+Fetching upstream changes from https://github.com/Legeni07/restaurant.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/Legeni07/restaurant.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 1a25da77c1be123a8cd6af589ac60df19461b6c8 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 1a25da77c1be123a8cd6af589ac60df19461b6c8 # timeout=10
+Commit message: "Test 2"
+ > git rev-list --no-walk 1a25da77c1be123a8cd6af589ac60df19461b6c8 # timeout=10
+[test-acceptance] $ /bin/bash /tmp/jenkins8539679249654302647.sh
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 100B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/nginx:1.27-alpine
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 56B 0.0s done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 2.21kB 0.0s done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#5 resolve docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 0.1s done
+#5 DONE 0.1s
+
+#6 [2/2] COPY . /usr/share/nginx/html/
+#6 CACHED
+
+#7 exporting to image
+#7 exporting layers 0.0s done
+#7 exporting manifest sha256:d18888e9cbf12ade76af7b0442522d85cd95121548a8a4d5ab7fc32202c8f07f done
+#7 exporting config sha256:4d9dd584be464dcae12e8262913e9670cebbcd91d5b28a0b8d35884b6f41caa0 done
+#7 exporting attestation manifest sha256:462b1d5b86c0e2f378b646c7771dc310bc40cc7b59f275d62b3f065870b071ae 0.0s done
+#7 exporting manifest list sha256:44a73c86f1bf5c63b8d56fdb1cca21c3452a9a6306fe61400eb6ff8ae3def3a5 0.0s done
+#7 naming to docker.io/library/restaurant:latest done
+#7 unpacking to docker.io/library/restaurant:latest 0.0s done
+#7 DONE 0.2s
+Réseau de Jenkins : minikube
+abac22aa843250026d942cc2834227580d3dcc18463e797a9cf046c0283b0a35
+HttpMethod: GET
+URL: http://restaurant-test/
+Sending request to url: http://restaurant-test/
+Response Code: 200
+Success: Status code 200 is in the accepted range: 200
+ERROR: Fail: Response doesn't contain expected content 'Pizzeria' while calling http://restaurant-test/
+Finished: FAILURE
+
+# Après le build rouge : le conteneur de test est resté (la dernière étape n a pas été exécutée)
+$ docker ps -a --filter name=restaurant-test
+NAMES             STATUS
+restaurant-test   Up 3 seconds

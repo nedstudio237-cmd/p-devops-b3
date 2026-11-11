@@ -1,0 +1,2 @@
+$ docker ps -a --filter name=restaurant-test
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES

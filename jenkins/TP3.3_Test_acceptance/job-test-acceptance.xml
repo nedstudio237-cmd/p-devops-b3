@@ -1,0 +1,77 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <description>TP 3.3 : build + test d'acceptance du site restaurant (porte de qualité)</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty><parameterDefinitions>
+        <hudson.model.StringParameterDefinition><name>IMAGE_NAME</name><description>nom de l'image</description><defaultValue>restaurant</defaultValue><trim>true</trim></hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition><name>IMAGE_TAG</name><description>tag de l'image</description><defaultValue>latest</defaultValue><trim>true</trim></hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition><name>Votre_ID_Github</name><description>propriétaire du dépôt</description><defaultValue>Legeni07</defaultValue><trim>true</trim></hudson.model.StringParameterDefinition>
+    </parameterDefinitions></hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs><hudson.plugins.git.UserRemoteConfig><url>https://github.com/${Votre_ID_Github}/restaurant.git</url></hudson.plugins.git.UserRemoteConfig></userRemoteConfigs>
+    <branches><hudson.plugins.git.BranchSpec><name>*/main</name></hudson.plugins.git.BranchSpec></branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations><submoduleCfg class="empty-list"/><extensions/>
+  </scm>
+  <canRoam>true</canRoam><disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding><blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/><concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell><command>#!/bin/bash
+set -euo pipefail
+TEST=${IMAGE_NAME}-test
+
+cat &gt; Dockerfile &lt;&lt;'EOT'
+FROM nginx:1.27-alpine
+COPY . /usr/share/nginx/html/
+EXPOSE 80
+EOT
+printf '.git\nDockerfile\n' &gt; .dockerignore
+docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+
+# Jenkins tourne lui-même dans un conteneur : pour qu'il joigne le conteneur de test
+# par son nom, on place ce dernier sur le même réseau Docker que Jenkins.
+JENKINS_NET=$(docker inspect jenkins -f '{{range $k, $v := .NetworkSettings.Networks}}{{$k}}{{end}}')
+echo "Réseau de Jenkins : ${JENKINS_NET}"
+docker rm -f ${TEST} 2&gt;/dev/null || true
+docker run -d --name ${TEST} --network ${JENKINS_NET} ${IMAGE_NAME}:${IMAGE_TAG}
+
+# Attendre que nginx accepte les connexions (au plus 10 s)
+for i in $(seq 1 10); do curl -sf http://${TEST}/ &gt;/dev/null &amp;&amp; break; sleep 1; done
+</command></hudson.tasks.Shell>
+    <jenkins.plugins.http__request.HttpRequest plugin="http_request">
+      <url>http://${IMAGE_NAME}-test/</url>
+      <ignoreSslErrors>false</ignoreSslErrors>
+      <httpMode>GET</httpMode>
+      <validResponseCodes>200</validResponseCodes>
+      <validResponseContent>Restaurant</validResponseContent>
+      <timeout>10</timeout>
+      <consoleLogResponseBody>false</consoleLogResponseBody>
+      <quiet>false</quiet>
+    </jenkins.plugins.http__request.HttpRequest>
+    <hudson.tasks.Shell><command>#!/bin/bash
+set -euo pipefail
+TEST=${IMAGE_NAME}-test
+# 1. La page d'accueil contient le titre attendu
+curl -sf http://${TEST}/ | grep -qi "&lt;title&gt;Restaurant" &amp;&amp; echo "✅ titre OK"
+# 2. Les ressources statiques sont servies
+curl -sf -o /dev/null -w "%{http_code} %{content_type}\n" http://${TEST}/1.jpg
+# 3. Une page inexistante renvoie bien 404 (le serveur ne masque pas les erreurs)
+test "$(curl -s -o /dev/null -w '%{http_code}' http://${TEST}/nexiste-pas)" = "404" &amp;&amp; echo "✅ 404 OK"
+</command></hudson.tasks.Shell>
+    <hudson.tasks.Shell><command>#!/bin/bash
+set -euo pipefail
+TEMPS=$(for i in $(seq 1 10); do curl -s -o /dev/null -w '%{time_total}\n' http://${IMAGE_NAME}-test/; done)
+MOY=$(echo "$TEMPS" | awk '{s+=$1} END {printf "%.3f", s/NR}')
+echo "Temps moyen : ${MOY} s"
+awk -v m="$MOY" 'BEGIN { exit !(m &lt; 0.5) }' || { echo "❌ trop lent"; exit 1; }
+echo "✅ performance OK (&lt; 0,5 s)"
+</command></hudson.tasks.Shell>
+    <hudson.tasks.Shell><command>#!/bin/bash
+docker rm -f ${IMAGE_NAME}-test
+</command></hudson.tasks.Shell>
+  </builders>
+  <publishers/><buildWrappers/>
+</project>
