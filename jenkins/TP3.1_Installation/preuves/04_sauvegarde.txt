@@ -1,0 +1,5 @@
+$ docker run --rm -v devops-tp_jenkins_home:/source:ro -v "$PWD":/backup alpine tar czf /backup/jenkins_home_$(date +%F).tar.gz -C /source .
+Digest: sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf
+Status: Downloaded newer image for alpine:latest
+total 406M
+-rw-r--r-- 1 root root 406M nov.  11 22:24 jenkins_home_2026-11-11.tar.gz

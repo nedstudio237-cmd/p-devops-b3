@@ -1,0 +1,25 @@
+$ docker compose down
+ Container jenkins Stopping 
+ Container ansible Stopping 
+ Container jenkins Stopped 
+ Container jenkins Removing 
+ Container jenkins Removed 
+ Container ansible Stopped 
+ Container ansible Removing 
+ Container ansible Removed 
+
+$ docker compose up -d
+ Container jenkins Creating 
+ Container ansible Creating 
+ Container ansible Created 
+ Container jenkins Created 
+ Container jenkins Starting 
+ Container ansible Starting 
+ Container jenkins Started 
+ Container ansible Started 
+
+$ docker volume ls | grep jenkins_home
+local     devops-tp_jenkins_home
+
+# Jobs toujours présents après recréation du conteneur (API Jenkins) :
+{"_class":"hudson.model.Hudson","jobs":[{"_class":"hudson.model.FreeStyleProject","name":"build","lastBuild":{"_class":"hudson.model.FreeStyleBuild","number":4,"result":"SUCCESS"}},{"_class":"org.jenkinsci.plugins.workflow.job.WorkflowJob","name":"verif-outils","lastBuild":{"_class":"org.jenkinsci.plugins.workflow.job.WorkflowRun","number":1,"result":"SUCCESS"}}]}

@@ -1,0 +1,30 @@
+Started by user Evina ze dieubeni romaric
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/verif-outils
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Outils)
+[Pipeline] sh
++ docker version --format Docker serveur : {{.Server.Version}}
+Docker serveur : 29.9.3
+[Pipeline] sh
++ docker compose version
+Docker Compose version v5.7.0
+[Pipeline] sh
++ kubectl version --client
+Client Version: v1.37.2
+Kustomize Version: v5.8.1
+[Pipeline] sh
++ ansible --version
++ head -1
+ansible [core 2.17.14]
+[Pipeline] sh
++ id
+uid=1000(jenkins) gid=1000(jenkins) groups=1000(jenkins),984
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

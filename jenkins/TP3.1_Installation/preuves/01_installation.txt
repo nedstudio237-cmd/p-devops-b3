@@ -1,0 +1,10 @@
+$ echo "DOCKER_GID=$(stat -c %g /var/run/docker.sock)" > .env ; cat .env
+DOCKER_GID=984
+
+$ docker compose ps
+NAME      IMAGE                STATUS             PORTS
+ansible   devops-tp-ansible    Up About an hour   
+jenkins   legeni/jenkins:lts   Up 18 minutes      0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp, 0.0.0.0:50000->50000/tcp, [::]:50000->50000/tcp
+
+$ docker exec jenkins id
+uid=1000(jenkins) gid=1000(jenkins) groups=1000(jenkins),984

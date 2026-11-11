@@ -1,0 +1,36 @@
+services:
+  jenkins:
+    # Image du TP 3.1 : Jenkins + Docker CLI + kubectl + Ansible + plugins
+    build: ../tp_devops_b3/TP_jenkins/jenkins-docker
+    image: legeni/jenkins:lts
+    container_name: jenkins
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    group_add:
+      - "${DOCKER_GID:?Définir DOCKER_GID dans .env}"   # accès au socket Docker sans chmod 666
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      minikube:
+        ipv4_address: 192.168.49.10   # IP fixe : laisse 192.168.49.2 libre pour Minikube
+
+  ansible:
+    build: ./ansible
+    container_name: ansible
+    restart: unless-stopped
+    volumes:
+      - ./ansible/playbooks:/ansible/playbooks
+    networks:
+      minikube:
+        ipv4_address: 192.168.49.11   # IP fixe : laisse 192.168.49.2 libre pour Minikube
+
+volumes:
+  jenkins_home:
+
+# Réseau créé automatiquement par "minikube start --driver=docker"
+networks:
+  minikube:
+    external: true
