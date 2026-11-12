@@ -1,0 +1,12 @@
+# PR #2 (test cassé) — statut Jenkins publié sur GitHub :
+  état global : failure
+  continuous-integration/jenkins/pr-merge       error    This commit cannot be built
+  continuous-integration/jenkins/branch         error    This commit cannot be built
+
+# État de fusion de la PR #2 selon GitHub :
+  mergeable_state : blocked (blocked = fusion interdite par la règle de protection)
+
+# Règle de protection (ruleset) de main :
+   deletion 
+   non_fast_forward 
+   required_status_checks [{'context': 'continuous-integration/jenkins/pr-merge'}]

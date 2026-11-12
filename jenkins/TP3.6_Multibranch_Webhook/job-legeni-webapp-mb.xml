@@ -1,0 +1,37 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch">
+  <description>TP 3.6 : un pipeline par branche et par pull request (legeni-webapp)</description>
+  <properties/>
+  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy">
+    <pruneDeadBranches>true</pruneDeadBranches><daysToKeep>-1</daysToKeep><numToKeep>-1</numToKeep><abortBuilds>false</abortBuilds>
+  </orphanedItemStrategy>
+  <triggers>
+    <!-- Scan Multibranch Pipeline Triggers : "Periodically if not otherwise run" = 1 minute -->
+    <com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger><spec>* * * * *</spec><interval>60000</interval></com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger>
+  </triggers>
+  <disabled>false</disabled>
+  <sources class="jenkins.branch.MultiBranchProject$BranchSourceList">
+    <data>
+      <jenkins.branch.BranchSource>
+        <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source">
+          <id>legeni-webapp-github</id>
+          <apiUri>https://api.github.com</apiUri>
+          <credentialsId>github</credentialsId>
+          <repoOwner>nedstudio237-cmd</repoOwner>
+          <repository>legeni-webapp</repository>
+          <repositoryUrl>https://github.com/nedstudio237-cmd/legeni-webapp.git</repositoryUrl>
+          <traits>
+            <!-- Discover branches : toutes les branches -->
+            <org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait><strategyId>3</strategyId></org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
+            <!-- Discover pull requests from origin : version fusionnée avec la cible -->
+            <org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait><strategyId>1</strategyId></org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait>
+          </traits>
+        </source>
+        <strategy class="jenkins.branch.DefaultBranchPropertyStrategy"><properties class="empty-list"/></strategy>
+      </jenkins.branch.BranchSource>
+    </data>
+  </sources>
+  <factory class="org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory">
+    <scriptPath>Jenkinsfile</scriptPath>
+  </factory>
+</org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject>

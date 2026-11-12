@@ -1,0 +1,13 @@
+# Sous-jobs du Multibranch legeni-webapp-mb (blue = vert, red = rouge) :
+  feature/couleur      blue   dernier build #1 SUCCESS
+  feature/test-rouge   red    dernier build #1 FAILURE
+  main                 blue   dernier build #2 SUCCESS
+
+# Build main #2 (après merge de la PR #1) :
+Commit message: "Merge pull request #1 from nedstudio237-cmd/feature/couleur"
+  1.0.2: digest: sha256:5637178111de80f7b228bf82296bf3427ca7d7daf5f5006490d532a54ae050ba size: 856
+  latest: digest: sha256:5637178111de80f7b228bf82296bf3427ca7d7daf5f5006490d532a54ae050ba size: 856
+  Image nedstudio/legeni-webapp:1.0.2 construite et validée
+
+# Tags Docker Hub (seule main publie) :
+1.0.1 1.0.2 1.0.4 latest 

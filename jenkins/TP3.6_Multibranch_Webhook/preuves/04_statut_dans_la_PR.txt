@@ -1,0 +1,6 @@
+# Statuts publiés par Jenkins sur le commit de la PR #1 (7bf44837a8e7e1675e89f9e4f0885e7fb8d22b81) — visibles dans la pull request GitHub :
+  continuous-integration/jenkins/pr-merge       success  This commit looks good
+  continuous-integration/jenkins/pr-merge       pending  This commit is being built
+  continuous-integration/jenkins/pr-merge       pending  This commit is scheduled to be built
+  continuous-integration/jenkins/branch         success  This commit looks good
+  continuous-integration/jenkins/branch         pending  This commit is being built

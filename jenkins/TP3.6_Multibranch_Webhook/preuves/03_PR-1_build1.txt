@@ -1,0 +1,232 @@
+Branch indexing
+Connecting to https://api.github.com using nedstudio237-cmd/****** (GitHub (Personal Access Token))
+Obtained Jenkinsfile from 7bf44837a8e7e1675e89f9e4f0885e7fb8d22b81+6c8fac3c7af57a72d9d8cda93b65af79b0ad9d52 (01d56bdfa6f6a014c3e9ef19381c26891b5fd8a6)
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/legeni-webapp-mb_PR-1
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git init /var/jenkins_home/workspace/legeni-webapp-mb_PR-1 # timeout=10
+Fetching upstream changes from https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials GitHub (Personal Access Token)
+ > git fetch --no-tags --force --progress -- https://github.com/nedstudio237-cmd/legeni-webapp.git +refs/pull/1/head:refs/remotes/origin/PR-1 +refs/heads/main:refs/remotes/origin/main # timeout=10
+ > git config remote.origin.url https://github.com/nedstudio237-cmd/legeni-webapp.git # timeout=10
+ > git config --add remote.origin.fetch +refs/pull/1/head:refs/remotes/origin/PR-1 # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/main:refs/remotes/origin/main # timeout=10
+ > git config remote.origin.url https://github.com/nedstudio237-cmd/legeni-webapp.git # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/nedstudio237-cmd/legeni-webapp.git
+using GIT_ASKPASS to set credentials GitHub (Personal Access Token)
+ > git fetch --no-tags --force --progress -- https://github.com/nedstudio237-cmd/legeni-webapp.git +refs/pull/1/head:refs/remotes/origin/PR-1 +refs/heads/main:refs/remotes/origin/main # timeout=10
+Merging remotes/origin/main commit 6c8fac3c7af57a72d9d8cda93b65af79b0ad9d52 into PR head commit 7bf44837a8e7e1675e89f9e4f0885e7fb8d22b81
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 7bf44837a8e7e1675e89f9e4f0885e7fb8d22b81 # timeout=10
+ > git remote # timeout=10
+ > git config --get remote.origin.url # timeout=10
+using GIT_ASKPASS to set credentials GitHub (Personal Access Token)
+ > git merge 6c8fac3c7af57a72d9d8cda93b65af79b0ad9d52 # timeout=10
+ > git rev-parse HEAD^{commit} # timeout=10
+Merge succeeded, producing 7bf44837a8e7e1675e89f9e4f0885e7fb8d22b81
+Checking out Revision 7bf44837a8e7e1675e89f9e4f0885e7fb8d22b81 (PR-1)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 7bf44837a8e7e1675e89f9e4f0885e7fb8d22b81 # timeout=10
+Commit message: "Nouvelle couleur par défaut"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-11-12T00:52:31.732Z] Timeout set to expire in 20 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Tests unitaires)
+[Pipeline] sh
+[2026-11-12T00:52:32.142Z] + docker build --target test -t legeni-webapp:test .
+[2026-11-12T00:52:32.698Z] #0 building with "default" instance using docker driver
+[2026-11-12T00:52:32.698Z] 
+[2026-11-12T00:52:32.698Z] #1 [internal] load build definition from Dockerfile
+[2026-11-12T00:52:32.698Z] #1 transferring dockerfile: 1.23kB done
+[2026-11-12T00:52:32.698Z] #1 DONE 0.0s
+[2026-11-12T00:52:32.698Z] 
+[2026-11-12T00:52:32.698Z] #2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+[2026-11-12T00:52:33.618Z] #2 DONE 1.0s
+[2026-11-12T00:52:33.618Z] 
+[2026-11-12T00:52:33.618Z] #3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+[2026-11-12T00:52:33.618Z] #3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.0s done
+[2026-11-12T00:52:33.618Z] #3 CACHED
+[2026-11-12T00:52:33.618Z] 
+[2026-11-12T00:52:33.618Z] #4 [internal] load metadata for docker.io/library/python:3.12-slim
+[2026-11-12T00:52:34.542Z] #4 DONE 0.9s
+[2026-11-12T00:52:34.799Z] 
+[2026-11-12T00:52:34.799Z] #5 [internal] load .dockerignore
+[2026-11-12T00:52:34.799Z] #5 transferring context: 143B done
+[2026-11-12T00:52:34.799Z] #5 DONE 0.0s
+[2026-11-12T00:52:35.053Z] 
+[2026-11-12T00:52:35.053Z] #6 [base 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+[2026-11-12T00:52:35.053Z] #6 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.0s done
+[2026-11-12T00:52:35.053Z] #6 DONE 0.0s
+[2026-11-12T00:52:35.053Z] 
+[2026-11-12T00:52:35.053Z] #7 [internal] load build context
+[2026-11-12T00:52:35.053Z] #7 transferring context: 9.06kB 0.0s done
+[2026-11-12T00:52:35.053Z] #7 DONE 0.0s
+[2026-11-12T00:52:35.053Z] 
+[2026-11-12T00:52:35.053Z] #8 [base 3/4] COPY requirements.txt .
+[2026-11-12T00:52:35.053Z] #8 CACHED
+[2026-11-12T00:52:35.053Z] 
+[2026-11-12T00:52:35.053Z] #9 [base 4/4] RUN pip install --no-cache-dir -r requirements.txt
+[2026-11-12T00:52:35.053Z] #9 CACHED
+[2026-11-12T00:52:35.053Z] 
+[2026-11-12T00:52:35.053Z] #10 [test 1/4] COPY requirements-dev.txt .
+[2026-11-12T00:52:35.053Z] #10 CACHED
+[2026-11-12T00:52:35.053Z] 
+[2026-11-12T00:52:35.053Z] #11 [test 2/4] RUN pip install --no-cache-dir -r requirements-dev.txt
+[2026-11-12T00:52:35.053Z] #11 CACHED
+[2026-11-12T00:52:35.053Z] 
+[2026-11-12T00:52:35.053Z] #12 [test 3/4] COPY . .
+[2026-11-12T00:52:35.053Z] #12 CACHED
+[2026-11-12T00:52:35.053Z] 
+[2026-11-12T00:52:35.053Z] #13 [base 2/4] WORKDIR /app
+[2026-11-12T00:52:35.053Z] #13 CACHED
+[2026-11-12T00:52:35.053Z] 
+[2026-11-12T00:52:35.053Z] #14 [test 4/4] RUN flake8 . && pytest -q
+[2026-11-12T00:52:35.053Z] #14 CACHED
+[2026-11-12T00:52:35.053Z] 
+[2026-11-12T00:52:35.053Z] #15 exporting to image
+[2026-11-12T00:52:35.053Z] #15 exporting layers 0.0s done
+[2026-11-12T00:52:35.053Z] #15 exporting manifest sha256:e69bf92bdb71a2f41263fcb236f9c4f9edfdff4e93ec4b4f1f36fd08b5321b4f done
+[2026-11-12T00:52:35.053Z] #15 exporting config sha256:a73dfd1220b3cfd3fc970e3ee6aa2e09595747fc1931516e50b8c9cd3d283e81
+[2026-11-12T00:52:35.053Z] #15 exporting config sha256:a73dfd1220b3cfd3fc970e3ee6aa2e09595747fc1931516e50b8c9cd3d283e81 done
+[2026-11-12T00:52:35.053Z] #15 exporting attestation manifest sha256:32d6da4b8e12ff62934463837d976a53e4578f03dece3a757c8b1d594767fc6a 0.0s done
+[2026-11-12T00:52:35.053Z] #15 exporting manifest list sha256:19f20e919c78a35b056b546a50e73ae3fa67ac6be89e632a95025d7bf9dfa16e 0.0s done
+[2026-11-12T00:52:35.053Z] #15 naming to docker.io/library/legeni-webapp:test done
+[2026-11-12T00:52:35.053Z] #15 unpacking to docker.io/library/legeni-webapp:test 0.0s done
+[2026-11-12T00:52:35.053Z] #15 DONE 0.2s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build image)
+[Pipeline] sh
+[2026-11-12T00:52:35.745Z] + docker build --build-arg APP_VERSION=PR-1-1 -t nedstudio/legeni-webapp:PR-1-1 -t nedstudio/legeni-webapp:latest .
+[2026-11-12T00:52:36.307Z] #0 building with "default" instance using docker driver
+[2026-11-12T00:52:36.307Z] 
+[2026-11-12T00:52:36.307Z] #1 [internal] load build definition from Dockerfile
+[2026-11-12T00:52:36.307Z] #1 transferring dockerfile: 1.23kB done
+[2026-11-12T00:52:36.307Z] #1 DONE 0.0s
+[2026-11-12T00:52:36.307Z] 
+[2026-11-12T00:52:36.307Z] #2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+[2026-11-12T00:52:36.560Z] #2 DONE 0.4s
+[2026-11-12T00:52:36.817Z] 
+[2026-11-12T00:52:36.817Z] #3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+[2026-11-12T00:52:36.817Z] #3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.0s done
+[2026-11-12T00:52:36.817Z] #3 CACHED
+[2026-11-12T00:52:36.817Z] 
+[2026-11-12T00:52:36.817Z] #4 [internal] load metadata for docker.io/library/python:3.12-slim
+[2026-11-12T00:52:37.374Z] #4 DONE 0.5s
+[2026-11-12T00:52:37.374Z] 
+[2026-11-12T00:52:37.374Z] #5 [internal] load .dockerignore
+[2026-11-12T00:52:37.374Z] #5 transferring context: 143B done
+[2026-11-12T00:52:37.374Z] #5 DONE 0.0s
+[2026-11-12T00:52:37.374Z] 
+[2026-11-12T00:52:37.374Z] #6 [base 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+[2026-11-12T00:52:37.629Z] #6 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.0s done
+[2026-11-12T00:52:37.629Z] #6 DONE 0.1s
+[2026-11-12T00:52:37.629Z] 
+[2026-11-12T00:52:37.629Z] #7 [internal] load build context
+[2026-11-12T00:52:37.629Z] #7 transferring context: 63B done
+[2026-11-12T00:52:37.629Z] #7 DONE 0.0s
+[2026-11-12T00:52:37.629Z] 
+[2026-11-12T00:52:37.629Z] #8 [base 3/4] COPY requirements.txt .
+[2026-11-12T00:52:37.629Z] #8 CACHED
+[2026-11-12T00:52:37.629Z] 
+[2026-11-12T00:52:37.629Z] #9 [base 2/4] WORKDIR /app
+[2026-11-12T00:52:37.629Z] #9 CACHED
+[2026-11-12T00:52:37.629Z] 
+[2026-11-12T00:52:37.629Z] #10 [base 4/4] RUN pip install --no-cache-dir -r requirements.txt
+[2026-11-12T00:52:37.629Z] #10 CACHED
+[2026-11-12T00:52:37.629Z] 
+[2026-11-12T00:52:37.629Z] #11 [runtime 1/2] RUN useradd --create-home --uid 10001 appuser
+[2026-11-12T00:52:38.553Z] #11 DONE 0.9s
+[2026-11-12T00:52:38.553Z] 
+[2026-11-12T00:52:38.553Z] #12 [runtime 2/2] COPY app.py .
+[2026-11-12T00:52:38.553Z] #12 DONE 0.3s
+[2026-11-12T00:52:38.805Z] 
+[2026-11-12T00:52:38.805Z] #13 exporting to image
+[2026-11-12T00:52:38.805Z] #13 exporting layers
+[2026-11-12T00:52:38.805Z] #13 exporting layers 0.2s done
+[2026-11-12T00:52:39.059Z] #13 exporting manifest sha256:0b1e9ede1de10f07360b719e606ca6fb3db68977191e01d4fdaf4b10c32cc5d5 0.0s done
+[2026-11-12T00:52:39.059Z] #13 exporting config sha256:df27d09e723636e529c84cb9c040d92c1920e72c652568eda51c499adb1eda64 0.0s done
+[2026-11-12T00:52:39.059Z] #13 exporting attestation manifest sha256:ef84e21d1dbd02093186978bccdab2b3dd739a4e3a27ed31b3bd4734cfbb2c7c 0.0s done
+[2026-11-12T00:52:39.060Z] #13 exporting manifest list sha256:fce7cb2304d6216c6ccc86cf4fc84a318c1af0296bcdf624d291c034fda2cfe0
+[2026-11-12T00:52:39.060Z] #13 exporting manifest list sha256:fce7cb2304d6216c6ccc86cf4fc84a318c1af0296bcdf624d291c034fda2cfe0 0.0s done
+[2026-11-12T00:52:39.060Z] #13 naming to docker.io/nedstudio/legeni-webapp:PR-1-1 done
+[2026-11-12T00:52:39.060Z] #13 unpacking to docker.io/nedstudio/legeni-webapp:PR-1-1
+[2026-11-12T00:52:39.060Z] #13 unpacking to docker.io/nedstudio/legeni-webapp:PR-1-1 0.2s done
+[2026-11-12T00:52:39.314Z] #13 naming to docker.io/nedstudio/legeni-webapp:latest done
+[2026-11-12T00:52:39.314Z] #13 unpacking to docker.io/nedstudio/legeni-webapp:latest 0.0s done
+[2026-11-12T00:52:39.314Z] #13 DONE 0.7s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test d'acceptance)
+[Pipeline] sh
+[2026-11-12T00:52:40.013Z] + docker network create ci-net-PR-1-1
+[2026-11-12T00:52:40.014Z] 55bebbe92652f6b239833994764ec9db34b28780265a6926fcd830cfaca66d1d
+[2026-11-12T00:52:40.014Z] + docker run -d --name webapp-ci-PR-1-1 --network ci-net-PR-1-1 -e APP_COLOR= nedstudio/legeni-webapp:PR-1-1
+[2026-11-12T00:52:40.272Z] 89c0cc100001037d8ffcca6747f91040040bd6d33acad22062c35fe1347f813b
+[2026-11-12T00:52:41.191Z] + docker run --rm --network ci-net-PR-1-1 curlimages/curl:8.11.1 -sf --retry 10 --retry-connrefused --retry-delay 1 http://webapp-ci-PR-1-1:5000/health
+[2026-11-12T00:52:43.067Z] {"status":"ok"}
+[2026-11-12T00:52:43.320Z] + docker run --rm --network ci-net-PR-1-1 curlimages/curl:8.11.1 -sf http://webapp-ci-PR-1-1:5000/
+[2026-11-12T00:52:43.320Z] + grep -q Version PR-1-1
+[2026-11-12T00:52:44.670Z] + docker run --rm --network ci-net-PR-1-1 curlimages/curl:8.11.1 -sf http://webapp-ci-PR-1-1:5000/
+[2026-11-12T00:52:44.670Z] + grep -q 
+[2026-11-12T00:52:46.028Z] + echo ✅ version PR-1-1 et couleur  présentes dans la page
+[2026-11-12T00:52:46.028Z] ✅ version PR-1-1 et couleur  présentes dans la page
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Docker Hub)
+Stage "Push Docker Hub" skipped due to when conditional
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] sh
+[2026-11-12T00:52:46.729Z] + docker rm -f webapp-ci-PR-1-1
+[2026-11-12T00:52:46.984Z] webapp-ci-PR-1-1
+[2026-11-12T00:52:46.984Z] + docker network rm ci-net-PR-1-1
+[2026-11-12T00:52:47.545Z] ci-net-PR-1-1
+[Pipeline] echo
+[2026-11-12T00:52:47.598Z] Image nedstudio/legeni-webapp:PR-1-1 construite et validée
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+
+GitHub has been notified of this commit’s build result
+
+Finished: SUCCESS
