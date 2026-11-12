@@ -1,0 +1,27 @@
+$ kubectl scale deployment my-deployment --replicas=5
+deployment.apps/my-deployment scaled
+
+$ kubectl get pods -l app=myapp
+NAME                             READY   STATUS    RESTARTS   AGE
+my-deployment-7cd6b456c4-gbgbt   1/1     Running   0          2s
+my-deployment-7cd6b456c4-gcsnf   1/1     Running   0          18s
+my-deployment-7cd6b456c4-p426l   1/1     Running   0          18s
+my-deployment-7cd6b456c4-rt8qn   1/1     Running   0          2s
+my-deployment-7cd6b456c4-vwnnt   1/1     Running   0          18s
+
+$ kubectl scale deployment my-deployment --replicas=2
+deployment.apps/my-deployment scaled
+
+$ kubectl get pods -l app=myapp
+NAME                             READY   STATUS    RESTARTS   AGE
+my-deployment-7cd6b456c4-gcsnf   1/1     Running   0          24s
+my-deployment-7cd6b456c4-vwnnt   1/1     Running   0          24s
+
+# Retour déclaratif : replicas: 3 dans deployment.yaml
+$ kubectl apply -f deployment.yaml
+deployment.apps/my-deployment configured
+
+$ kubectl get deploy my-deployment
+NAME            READY   UP-TO-DATE   AVAILABLE   AGE
+my-deployment   3/3     3            3           27s
+

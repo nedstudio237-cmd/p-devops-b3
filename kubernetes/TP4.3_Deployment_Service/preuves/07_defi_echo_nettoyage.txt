@@ -1,0 +1,23 @@
+$ kubectl apply -f echo.yaml
+deployment.apps/echo created
+service/echo created
+
+$ kubectl get deploy,svc echo
+NAME                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/echo   2/2     2            2           1s
+
+NAME           TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+service/echo   ClusterIP   10.100.35.41   <none>        80/TCP    1s
+
+$ kubectl run t --rm -i --image=busybox:1.36 --restart=Never -- wget -qO- echo
+version bleue
+pod "t" deleted from default namespace
+
+$ kubectl delete -f echo.yaml
+deployment.apps "echo" deleted from default namespace
+service "echo" deleted from default namespace
+
+$ kubectl delete -f service.yaml -f deployment.yaml
+service "my-service" deleted from default namespace
+deployment.apps "my-deployment" deleted from default namespace
+

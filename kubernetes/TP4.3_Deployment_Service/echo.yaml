@@ -1,0 +1,26 @@
+# Défi TP 4.3 : http-echo en 2 réplicas derrière un Service ClusterIP
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: echo }
+  template:
+    metadata:
+      labels: { app: echo }
+    spec:
+      containers:
+        - name: echo
+          image: hashicorp/http-echo:1.0
+          args: ["-text=version bleue"]
+          ports: [{ containerPort: 5678 }]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo
+spec:
+  selector: { app: echo }
+  ports: [{ port: 80, targetPort: 5678 }]

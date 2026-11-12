@@ -1,0 +1,17 @@
+$ kubectl patch svc my-service -p '{"spec":{"type":"ClusterIP"}}'
+service/my-service patched
+
+$ kubectl get svc my-service
+NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+my-service   ClusterIP   10.104.130.200   <none>        80/TCP    8s
+
+$ curl -s --max-time 3 http://192.168.49.2:30080 || echo inaccessible
+inaccessible depuis l'extérieur
+
+$ kubectl apply -f service.yaml
+service/my-service configured
+
+$ kubectl get svc my-service
+NAME         TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+my-service   NodePort   10.104.130.200   <none>        80:30080/TCP   8s
+

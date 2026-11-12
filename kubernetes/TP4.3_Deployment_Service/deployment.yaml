@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+spec:
+  replicas: 3                       # état DÉSIRÉ : 3 Pods en permanence
+  selector:
+    matchLabels:
+      app: myapp                    # le Deployment gère les Pods portant ce label...
+  template:
+    metadata:
+      labels:
+        app: myapp                  # ...qui DOIT être identique au selector
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.27-alpine
+          ports:
+            - containerPort: 80

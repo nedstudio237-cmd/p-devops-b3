@@ -1,0 +1,37 @@
+$ kubectl get pods -l app=myapp
+NAME                             READY   STATUS    RESTARTS   AGE
+my-deployment-7cd6b456c4-ktjdq   1/1     Running   0          2s
+my-deployment-7cd6b456c4-l6njh   1/1     Running   0          2s
+my-deployment-7cd6b456c4-qsmzm   1/1     Running   0          2s
+
+$ kubectl delete pod -l app=myapp --wait=false
+pod "my-deployment-7cd6b456c4-ktjdq" deleted from default namespace
+pod "my-deployment-7cd6b456c4-l6njh" deleted from default namespace
+pod "my-deployment-7cd6b456c4-qsmzm" deleted from default namespace
+
+$ kubectl get pods -l app=myapp
+NAME                             READY   STATUS              RESTARTS   AGE
+my-deployment-7cd6b456c4-gcsnf   0/1     ContainerCreating   0          1s
+my-deployment-7cd6b456c4-ktjdq   1/1     Terminating         0          3s
+my-deployment-7cd6b456c4-l6njh   1/1     Terminating         0          3s
+my-deployment-7cd6b456c4-p426l   0/1     ContainerCreating   0          1s
+my-deployment-7cd6b456c4-qsmzm   1/1     Terminating         0          3s
+my-deployment-7cd6b456c4-vwnnt   0/1     ContainerCreating   0          1s
+
+$ kubectl get pods -l app=myapp
+NAME                             READY   STATUS    RESTARTS   AGE
+my-deployment-7cd6b456c4-gcsnf   1/1     Running   0          16s
+my-deployment-7cd6b456c4-p426l   1/1     Running   0          16s
+my-deployment-7cd6b456c4-vwnnt   1/1     Running   0          16s
+
+$ kubectl describe rs -l app=myapp | grep -A8 Events
+Events:
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  18s   replicaset-controller  Created pod: my-deployment-7cd6b456c4-l6njh
+  Normal  SuccessfulCreate  18s   replicaset-controller  Created pod: my-deployment-7cd6b456c4-ktjdq
+  Normal  SuccessfulCreate  18s   replicaset-controller  Created pod: my-deployment-7cd6b456c4-qsmzm
+  Normal  SuccessfulCreate  16s   replicaset-controller  Created pod: my-deployment-7cd6b456c4-gcsnf
+  Normal  SuccessfulCreate  16s   replicaset-controller  Created pod: my-deployment-7cd6b456c4-p426l
+  Normal  SuccessfulCreate  16s   replicaset-controller  Created pod: my-deployment-7cd6b456c4-vwnnt
+

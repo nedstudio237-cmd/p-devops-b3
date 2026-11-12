@@ -1,0 +1,41 @@
+$ for p in $(kubectl get pods -l app=myapp -o name); do kubectl exec $p -- sh -c 'echo "Servi par $(hostname)" > /usr/share/nginx/html/index.html'; done
+
+$ for i in $(seq 1 30); do curl -s $URL; done | sort | uniq -c
+      9 Servi par my-deployment-7cd6b456c4-czr28
+     11 Servi par my-deployment-7cd6b456c4-gcsnf
+     10 Servi par my-deployment-7cd6b456c4-vwnnt
+
+# DNS interne depuis un Pod jetable :
+$ kubectl run client --rm -i --image=busybox:1.36 --restart=Never -- sh -c 'wget -qO- my-service; wget -qO- my-service.default.svc.cluster.local; nslookup my-service'
+Servi par my-deployment-7cd6b456c4-vwnnt
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+
+** server can't find my-service.cluster.local: NXDOMAIN
+
+** server can't find my-service.cluster.local: NXDOMAIN
+
+Name:	my-service.default.svc.cluster.local
+Address: 10.104.130.200
+
+** server can't find my-service.svc.cluster.local: NXDOMAIN
+
+** server can't find my-service.svc.cluster.local: NXDOMAIN
+
+** server can't find my-service.localdomain: NXDOMAIN
+
+** server can't find my-service.localdomain: NXDOMAIN
+
+pod "client" deleted from default namespace
+pod default/client terminated (Error)
+
+
+# Vérification séparée des deux noms DNS :
+$ kubectl run c --rm -i --image=busybox:1.36 --restart=Never -- wget -qO- my-service | grep title
+<title>Welcome to nginx!</title>
+<title>Welcome to nginx!</title>
+
+$ kubectl run c --rm -i --image=busybox:1.36 --restart=Never -- wget -qO- my-service.default.svc.cluster.local | grep title
+<title>Welcome to nginx!</title>
+

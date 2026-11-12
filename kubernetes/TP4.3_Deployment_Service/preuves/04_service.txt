@@ -1,0 +1,14 @@
+$ kubectl apply -f service.yaml
+service/my-service created
+
+$ kubectl get svc my-service
+NAME         TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+my-service   NodePort   10.104.130.200   <none>        80:30080/TCP   0s
+
+$ kubectl get endpointslices -l kubernetes.io/service-name=my-service
+NAME               ADDRESSTYPE   PORTS   ENDPOINTS                             AGE
+my-service-szp5r   IPv4          80      10.244.0.18,10.244.0.13,10.244.0.15   0s
+
+$ minikube service my-service --url
+http://192.168.49.2:30080
+

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: NodePort                    # accessible depuis l'extérieur du cluster
+  selector:
+    app: myapp                      # envoie le trafic aux Pods portant ce label
+  ports:
+    - port: 80                      # port du Service (dans le cluster)
+      targetPort: 80                # port du conteneur
+      nodePort: 30080               # port ouvert sur le nœud (30000-32767)

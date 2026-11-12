@@ -1,0 +1,16 @@
+$ kubectl apply -f deployment.yaml
+deployment.apps/my-deployment created
+
+$ kubectl get deploy,rs,pods -l app=myapp
+NAME                                       DESIRED   CURRENT   READY   AGE
+replicaset.apps/my-deployment-7cd6b456c4   3         3         3       1s
+
+NAME                                 READY   STATUS    RESTARTS   AGE
+pod/my-deployment-7cd6b456c4-ktjdq   1/1     Running   0          1s
+pod/my-deployment-7cd6b456c4-l6njh   1/1     Running   0          1s
+pod/my-deployment-7cd6b456c4-qsmzm   1/1     Running   0          1s
+
+# Erreur n°1 : label du template différent du selector
+$ kubectl apply -f deployment-label-faux.yaml
+The Deployment "my-deployment" is invalid: spec.template.metadata.labels: Invalid value: {"app":"autre"}: `selector` does not match template `labels`
+
