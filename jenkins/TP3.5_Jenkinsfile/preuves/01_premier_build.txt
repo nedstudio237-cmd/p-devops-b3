@@ -1,0 +1,607 @@
+Started by user Evina ze dieubeni romaric
+Obtained Jenkinsfile from git https://github.com/nedstudio237-cmd/legeni-webapp.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/legeni-webapp
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git init /var/jenkins_home/workspace/legeni-webapp # timeout=10
+Fetching upstream changes from https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/nedstudio237-cmd/legeni-webapp.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/nedstudio237-cmd/legeni-webapp.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision c1983d4c6dd58cf5b54708ed80fa5c12e566c336 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f c1983d4c6dd58cf5b54708ed80fa5c12e566c336 # timeout=10
+Commit message: "Jenkinsfile : identifiant Docker Hub nedstudio + défi APP_COLOR"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-11-11T21:45:56.594Z] Timeout set to expire in 20 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Tests unitaires)
+[Pipeline] sh
+[2026-11-11T21:45:57.209Z] + docker build --target test -t legeni-webapp:test .
+[2026-11-11T21:45:57.766Z] #0 building with "default" instance using docker driver
+[2026-11-11T21:45:57.766Z] 
+[2026-11-11T21:45:57.766Z] #1 [internal] load build definition from Dockerfile
+[2026-11-11T21:45:57.766Z] #1 transferring dockerfile: 1.23kB done
+[2026-11-11T21:45:57.766Z] #1 DONE 0.0s
+[2026-11-11T21:45:57.766Z] 
+[2026-11-11T21:45:57.766Z] #2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+[2026-11-11T21:46:00.270Z] #2 DONE 2.7s
+[2026-11-11T21:46:00.525Z] 
+[2026-11-11T21:46:00.525Z] #3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+[2026-11-11T21:46:00.525Z] #3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.1s done
+[2026-11-11T21:46:00.525Z] #3 CACHED
+[2026-11-11T21:46:01.084Z] 
+[2026-11-11T21:46:01.084Z] #4 [internal] load metadata for docker.io/library/python:3.12-slim
+[2026-11-11T21:46:02.968Z] #4 DONE 1.7s
+[2026-11-11T21:46:02.968Z] 
+[2026-11-11T21:46:02.968Z] #5 [internal] load .dockerignore
+[2026-11-11T21:46:02.968Z] #5 transferring context: 143B done
+[2026-11-11T21:46:02.968Z] #5 DONE 0.0s
+[2026-11-11T21:46:02.968Z] 
+[2026-11-11T21:46:02.968Z] #6 [base 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+[2026-11-11T21:46:02.968Z] #6 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.1s done
+[2026-11-11T21:46:03.221Z] #6 DONE 0.2s
+[2026-11-11T21:46:03.221Z] 
+[2026-11-11T21:46:03.221Z] #7 [internal] load build context
+[2026-11-11T21:46:03.221Z] #7 transferring context: 9.06kB 0.0s done
+[2026-11-11T21:46:03.221Z] #7 DONE 0.2s
+[2026-11-11T21:46:03.221Z] 
+[2026-11-11T21:46:03.221Z] #8 [base 2/4] WORKDIR /app
+[2026-11-11T21:46:03.221Z] #8 DONE 0.2s
+[2026-11-11T21:46:03.222Z] 
+[2026-11-11T21:46:03.222Z] #9 [base 3/4] COPY requirements.txt .
+[2026-11-11T21:46:03.222Z] #9 DONE 0.1s
+[2026-11-11T21:46:03.222Z] 
+[2026-11-11T21:46:03.222Z] #10 [base 4/4] RUN pip install --no-cache-dir -r requirements.txt
+[2026-11-11T21:46:09.733Z] #10 6.227 Collecting flask==3.1.0 (from -r requirements.txt (line 1))
+[2026-11-11T21:46:10.654Z] #10 7.290   Downloading flask-3.1.0-py3-none-any.whl.metadata (2.7 kB)
+[2026-11-11T21:46:10.654Z] #10 7.540 Collecting gunicorn==23.0.0 (from -r requirements.txt (line 2))
+[2026-11-11T21:46:10.907Z] #10 7.733   Downloading gunicorn-23.0.0-py3-none-any.whl.metadata (4.4 kB)
+[2026-11-11T21:46:11.162Z] #10 8.052 Collecting redis==5.2.1 (from -r requirements.txt (line 3))
+[2026-11-11T21:46:11.419Z] #10 8.237   Downloading redis-5.2.1-py3-none-any.whl.metadata (9.1 kB)
+[2026-11-11T21:46:11.673Z] #10 8.498 Collecting Werkzeug>=3.1 (from flask==3.1.0->-r requirements.txt (line 1))
+[2026-11-11T21:46:11.926Z] #10 8.686   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+[2026-11-11T21:46:12.177Z] #10 8.902 Collecting Jinja2>=3.1.2 (from flask==3.1.0->-r requirements.txt (line 1))
+[2026-11-11T21:46:12.177Z] #10 9.083   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+[2026-11-11T21:46:12.428Z] #10 9.283 Collecting itsdangerous>=2.2 (from flask==3.1.0->-r requirements.txt (line 1))
+[2026-11-11T21:46:12.683Z] #10 9.464   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+[2026-11-11T21:46:12.936Z] #10 9.693 Collecting click>=8.1.3 (from flask==3.1.0->-r requirements.txt (line 1))
+[2026-11-11T21:46:12.936Z] #10 9.875   Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+[2026-11-11T21:46:13.189Z] #10 10.08 Collecting blinker>=1.9 (from flask==3.1.0->-r requirements.txt (line 1))
+[2026-11-11T21:46:13.444Z] #10 10.26   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+[2026-11-11T21:46:13.700Z] #10 10.48 Collecting packaging (from gunicorn==23.0.0->-r requirements.txt (line 2))
+[2026-11-11T21:46:13.952Z] #10 10.66   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+[2026-11-11T21:46:14.204Z] #10 11.12 Collecting MarkupSafe>=2.0 (from Jinja2>=3.1.2->flask==3.1.0->-r requirements.txt (line 1))
+[2026-11-11T21:46:14.461Z] #10 11.31   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+[2026-11-11T21:46:14.713Z] #10 11.50 Downloading flask-3.1.0-py3-none-any.whl (102 kB)
+[2026-11-11T21:46:15.274Z] #10 11.95 Downloading gunicorn-23.0.0-py3-none-any.whl (85 kB)
+[2026-11-11T21:46:15.275Z] #10 12.18 Downloading redis-5.2.1-py3-none-any.whl (261 kB)
+[2026-11-11T21:46:15.831Z] #10 12.61 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+[2026-11-11T21:46:16.083Z] #10 12.79 Downloading click-8.5.1-py3-none-any.whl (126 kB)
+[2026-11-11T21:46:16.083Z] #10 13.02 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+[2026-11-11T21:46:16.334Z] #10 13.21 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+[2026-11-11T21:46:16.588Z] #10 13.44 Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+[2026-11-11T21:46:16.843Z] #10 13.69 Downloading packaging-26.3-py3-none-any.whl (129 kB)
+[2026-11-11T21:46:17.096Z] #10 13.90 Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+[2026-11-11T21:46:17.349Z] #10 13.95 Installing collected packages: redis, packaging, MarkupSafe, itsdangerous, click, blinker, Werkzeug, Jinja2, gunicorn, flask
+[2026-11-11T21:46:18.708Z] #10 15.28 Successfully installed Jinja2-3.1.6 MarkupSafe-3.0.4 Werkzeug-3.1.9 blinker-1.9.0 click-8.5.1 flask-3.1.0 gunicorn-23.0.0 itsdangerous-2.2.0 packaging-26.3 redis-5.2.1
+[2026-11-11T21:46:18.708Z] #10 15.28 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[2026-11-11T21:46:19.264Z] #10 16.10 
+[2026-11-11T21:46:19.264Z] #10 16.10 [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-11T21:46:19.264Z] #10 16.10 [notice] To update, run: pip install --upgrade pip
+[2026-11-11T21:46:19.516Z] #10 DONE 16.3s
+[2026-11-11T21:46:19.516Z] 
+[2026-11-11T21:46:19.516Z] #11 [test 1/4] COPY requirements-dev.txt .
+[2026-11-11T21:46:19.516Z] #11 DONE 0.1s
+[2026-11-11T21:46:19.770Z] 
+[2026-11-11T21:46:19.770Z] #12 [test 2/4] RUN pip install --no-cache-dir -r requirements-dev.txt
+[2026-11-11T21:46:23.918Z] #12 4.087 Collecting pytest==8.3.4 (from -r requirements-dev.txt (line 1))
+[2026-11-11T21:46:24.838Z] #12 5.014   Downloading pytest-8.3.4-py3-none-any.whl.metadata (7.5 kB)
+[2026-11-11T21:46:24.838Z] #12 5.164 Collecting pytest-cov==6.0.0 (from -r requirements-dev.txt (line 2))
+[2026-11-11T21:46:25.089Z] #12 5.346   Downloading pytest_cov-6.0.0-py3-none-any.whl.metadata (27 kB)
+[2026-11-11T21:46:25.090Z] #12 5.571 Collecting flake8==7.1.1 (from -r requirements-dev.txt (line 3))
+[2026-11-11T21:46:25.343Z] #12 5.755   Downloading flake8-7.1.1-py2.py3-none-any.whl.metadata (3.8 kB)
+[2026-11-11T21:46:25.596Z] #12 5.899 Collecting iniconfig (from pytest==8.3.4->-r requirements-dev.txt (line 1))
+[2026-11-11T21:46:25.596Z] #12 6.084   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+[2026-11-11T21:46:25.851Z] #12 6.091 Requirement already satisfied: packaging in /usr/local/lib/python3.12/site-packages (from pytest==8.3.4->-r requirements-dev.txt (line 1)) (26.3)
+[2026-11-11T21:46:25.852Z] #12 6.221 Collecting pluggy<2,>=1.5 (from pytest==8.3.4->-r requirements-dev.txt (line 1))
+[2026-11-11T21:46:26.104Z] #12 6.405   Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+[2026-11-11T21:46:27.983Z] #12 8.300 Collecting coverage>=7.5 (from coverage[toml]>=7.5->pytest-cov==6.0.0->-r requirements-dev.txt (line 2))
+[2026-11-11T21:46:27.983Z] #12 8.485   Downloading coverage-7.17.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (8.1 kB)
+[2026-11-11T21:46:28.239Z] #12 8.630 Collecting mccabe<0.8.0,>=0.7.0 (from flake8==7.1.1->-r requirements-dev.txt (line 3))
+[2026-11-11T21:46:28.494Z] #12 8.822   Downloading mccabe-0.7.0-py2.py3-none-any.whl.metadata (5.0 kB)
+[2026-11-11T21:46:28.494Z] #12 8.963 Collecting pycodestyle<2.13.0,>=2.12.0 (from flake8==7.1.1->-r requirements-dev.txt (line 3))
+[2026-11-11T21:46:28.748Z] #12 9.144   Downloading pycodestyle-2.12.1-py2.py3-none-any.whl.metadata (4.5 kB)
+[2026-11-11T21:46:28.999Z] #12 9.288 Collecting pyflakes<3.3.0,>=3.2.0 (from flake8==7.1.1->-r requirements-dev.txt (line 3))
+[2026-11-11T21:46:28.999Z] #12 9.471   Downloading pyflakes-3.2.0-py2.py3-none-any.whl.metadata (3.5 kB)
+[2026-11-11T21:46:29.253Z] #12 9.669 Downloading pytest-8.3.4-py3-none-any.whl (343 kB)
+[2026-11-11T21:46:30.173Z] #12 10.41 Downloading pytest_cov-6.0.0-py3-none-any.whl (22 kB)
+[2026-11-11T21:46:30.173Z] #12 10.60 Downloading flake8-7.1.1-py2.py3-none-any.whl (57 kB)
+[2026-11-11T21:46:30.426Z] #12 10.81 Downloading coverage-7.17.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (263 kB)
+[2026-11-11T21:46:30.682Z] #12 11.07 Downloading mccabe-0.7.0-py2.py3-none-any.whl (7.3 kB)
+[2026-11-11T21:46:30.937Z] #12 11.25 Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+[2026-11-11T21:46:30.937Z] #12 11.44 Downloading pycodestyle-2.12.1-py2.py3-none-any.whl (31 kB)
+[2026-11-11T21:46:31.192Z] #12 11.62 Downloading pyflakes-3.2.0-py2.py3-none-any.whl (62 kB)
+[2026-11-11T21:46:31.453Z] #12 11.81 Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+[2026-11-11T21:46:31.709Z] #12 11.91 Installing collected packages: pyflakes, pycodestyle, pluggy, mccabe, iniconfig, coverage, pytest, flake8, pytest-cov
+[2026-11-11T21:46:32.629Z] #12 12.95 Successfully installed coverage-7.17.2 flake8-7.1.1 iniconfig-2.3.1 mccabe-0.7.0 pluggy-1.7.0 pycodestyle-2.12.1 pyflakes-3.2.0 pytest-8.3.4 pytest-cov-6.0.0
+[2026-11-11T21:46:32.629Z] #12 12.95 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[2026-11-11T21:46:33.183Z] #12 13.65 
+[2026-11-11T21:46:33.183Z] #12 13.65 [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-11T21:46:33.183Z] #12 13.65 [notice] To update, run: pip install --upgrade pip
+[2026-11-11T21:46:33.742Z] #12 DONE 13.9s
+[2026-11-11T21:46:33.742Z] 
+[2026-11-11T21:46:33.742Z] #13 [test 3/4] COPY . .
+[2026-11-11T21:46:33.742Z] #13 DONE 0.2s
+[2026-11-11T21:46:33.994Z] 
+[2026-11-11T21:46:33.994Z] #14 [test 4/4] RUN flake8 . && pytest -q
+[2026-11-11T21:46:39.231Z] #14 4.660 ......                                                                   [100%]
+[2026-11-11T21:46:39.231Z] #14 4.708 6 passed in 0.36s
+[2026-11-11T21:46:39.231Z] #14 DONE 4.9s
+[2026-11-11T21:46:39.231Z] 
+[2026-11-11T21:46:39.231Z] #15 exporting to image
+[2026-11-11T21:46:39.231Z] #15 exporting layers
+[2026-11-11T21:46:39.788Z] #15 exporting layers 1.3s done
+[2026-11-11T21:46:40.041Z] #15 exporting manifest sha256:c74061361333a26ea6960b13e2d2ed341c95252ddbb67102317c7caa0abc8e92 0.0s done
+[2026-11-11T21:46:40.041Z] #15 exporting config sha256:4ccf3955f301c9552da964c8d2046203b6eef85f5c013dfb9b1dead75130534b 0.0s done
+[2026-11-11T21:46:40.041Z] #15 exporting attestation manifest sha256:31ac3a63240b8fb69490be2873c1d87c00031b5c7d7c9af88f86a8f2ca5e47da 0.0s done
+[2026-11-11T21:46:40.041Z] #15 exporting manifest list sha256:a70cfc22ba671770fde8a4e84ed9c258e2d270742923bbd5c7230ae3b83bb6e2 0.0s done
+[2026-11-11T21:46:40.042Z] #15 naming to docker.io/library/legeni-webapp:test done
+[2026-11-11T21:46:40.042Z] #15 unpacking to docker.io/library/legeni-webapp:test
+[2026-11-11T21:46:40.601Z] #15 unpacking to docker.io/library/legeni-webapp:test 0.6s done
+[2026-11-11T21:46:40.856Z] #15 DONE 2.1s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build image)
+[Pipeline] sh
+[2026-11-11T21:46:41.281Z] + docker build --build-arg APP_VERSION=1.0.1 -t nedstudio/legeni-webapp:1.0.1 -t nedstudio/legeni-webapp:latest .
+[2026-11-11T21:46:41.835Z] #0 building with "default" instance using docker driver
+[2026-11-11T21:46:41.835Z] 
+[2026-11-11T21:46:41.835Z] #1 [internal] load build definition from Dockerfile
+[2026-11-11T21:46:41.835Z] #1 transferring dockerfile: 1.23kB done
+[2026-11-11T21:46:41.835Z] #1 DONE 0.0s
+[2026-11-11T21:46:41.835Z] 
+[2026-11-11T21:46:41.835Z] #2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+[2026-11-11T21:46:42.393Z] #2 DONE 0.9s
+[2026-11-11T21:46:42.648Z] 
+[2026-11-11T21:46:42.648Z] #3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+[2026-11-11T21:46:42.648Z] #3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.0s done
+[2026-11-11T21:46:42.648Z] #3 CACHED
+[2026-11-11T21:46:42.648Z] 
+[2026-11-11T21:46:42.648Z] #4 [internal] load metadata for docker.io/library/python:3.12-slim
+[2026-11-11T21:46:44.002Z] #4 DONE 1.1s
+[2026-11-11T21:46:44.002Z] 
+[2026-11-11T21:46:44.002Z] #5 [internal] load .dockerignore
+[2026-11-11T21:46:44.002Z] #5 transferring context: 143B done
+[2026-11-11T21:46:44.002Z] #5 DONE 0.0s
+[2026-11-11T21:46:44.253Z] 
+[2026-11-11T21:46:44.253Z] #6 [internal] load build context
+[2026-11-11T21:46:44.253Z] #6 transferring context: 63B done
+[2026-11-11T21:46:44.253Z] #6 DONE 0.0s
+[2026-11-11T21:46:44.253Z] 
+[2026-11-11T21:46:44.253Z] #7 [base 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+[2026-11-11T21:46:44.253Z] #7 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.1s done
+[2026-11-11T21:46:44.253Z] #7 DONE 0.1s
+[2026-11-11T21:46:44.253Z] 
+[2026-11-11T21:46:44.253Z] #8 [base 3/4] COPY requirements.txt .
+[2026-11-11T21:46:44.253Z] #8 CACHED
+[2026-11-11T21:46:44.253Z] 
+[2026-11-11T21:46:44.253Z] #9 [base 2/4] WORKDIR /app
+[2026-11-11T21:46:44.260Z] #9 CACHED
+[2026-11-11T21:46:44.260Z] 
+[2026-11-11T21:46:44.260Z] #10 [base 4/4] RUN pip install --no-cache-dir -r requirements.txt
+[2026-11-11T21:46:44.260Z] #10 CACHED
+[2026-11-11T21:46:44.260Z] 
+[2026-11-11T21:46:44.261Z] #11 [runtime 1/2] RUN useradd --create-home --uid 10001 appuser
+[2026-11-11T21:46:45.183Z] #11 DONE 1.0s
+[2026-11-11T21:46:45.183Z] 
+[2026-11-11T21:46:45.183Z] #12 [runtime 2/2] COPY app.py .
+[2026-11-11T21:46:45.183Z] #12 DONE 0.1s
+[2026-11-11T21:46:45.446Z] 
+[2026-11-11T21:46:45.446Z] #13 exporting to image
+[2026-11-11T21:46:45.446Z] #13 exporting layers
+[2026-11-11T21:46:45.446Z] #13 exporting layers 0.2s done
+[2026-11-11T21:46:45.446Z] #13 exporting manifest sha256:69fa3f2905009beb4759c055f246098cb2980a9f172e6b4cb959a4c88bb7f49e
+[2026-11-11T21:46:45.446Z] #13 exporting manifest sha256:69fa3f2905009beb4759c055f246098cb2980a9f172e6b4cb959a4c88bb7f49e 0.0s done
+[2026-11-11T21:46:45.446Z] #13 exporting config sha256:e48e50a54eaf8ef627f37c5102df55f9c49207aade60adbdb9906e5f269643c5 0.0s done
+[2026-11-11T21:46:45.446Z] #13 exporting attestation manifest sha256:a2ab269112fba9456f78d528671da1ffdfdf290847d632f0bb3ab6a3220a8d91 0.0s done
+[2026-11-11T21:46:45.446Z] #13 exporting manifest list sha256:6b3e3c64998291d0178e306d98462e5e07d7282d1135963263d48d3e16cf37c5 0.0s done
+[2026-11-11T21:46:45.451Z] #13 naming to docker.io/nedstudio/legeni-webapp:1.0.1 done
+[2026-11-11T21:46:45.451Z] #13 unpacking to docker.io/nedstudio/legeni-webapp:1.0.1 0.1s done
+[2026-11-11T21:46:45.709Z] #13 naming to docker.io/nedstudio/legeni-webapp:latest done
+[2026-11-11T21:46:45.709Z] #13 unpacking to docker.io/nedstudio/legeni-webapp:latest done
+[2026-11-11T21:46:45.709Z] #13 DONE 0.4s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test d'acceptance)
+[Pipeline] sh
+[2026-11-11T21:46:46.210Z] + docker network create ci-net-1
+[2026-11-11T21:46:46.466Z] b700e1136ea4aff8d2df65c87665049e5426b6d1a5a6fd8c35eceaacf1c3b9ce
+[2026-11-11T21:46:46.466Z] + docker run -d --name webapp-ci-1 --network ci-net-1 -e APP_COLOR= nedstudio/legeni-webapp:1.0.1
+[2026-11-11T21:46:47.021Z] 40c533bf295fbc4f766b06dbce45080d229b7ecfb5eec5ba565d78263fc91895
+[2026-11-11T21:46:47.482Z] + docker run --rm --network ci-net-1 curlimages/curl:8.11.1 -sf --retry 10 --retry-connrefused --retry-delay 1 http://webapp-ci-1:5000/health
+[2026-11-11T21:46:51.636Z] {"status":"ok"}
+[2026-11-11T21:46:51.887Z] + docker run --rm --network ci-net-1 curlimages/curl:8.11.1 -sf http://webapp-ci-1:5000/
+[2026-11-11T21:46:51.887Z] + grep -q Version 1.0.1
+[2026-11-11T21:46:53.245Z] + docker run --rm --network ci-net-1 curlimages/curl:8.11.1 -sf http://webapp-ci-1:5000/
+[2026-11-11T21:46:53.245Z] + grep -q 
+[2026-11-11T21:46:54.604Z] + echo ✅ version 1.0.1 et couleur  présentes dans la page
+[2026-11-11T21:46:54.604Z] ✅ version 1.0.1 et couleur  présentes dans la page
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Docker Hub)
+[Pipeline] withCredentials
+[2026-11-11T21:46:54.981Z] Masking supported pattern matches of $DH_TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2026-11-11T21:46:55.416Z] + echo ****
+[2026-11-11T21:46:55.418Z] + docker login -u nedstudio --password-stdin
+[2026-11-11T21:46:57.922Z] 
+[2026-11-11T21:46:57.928Z] WARNING! Your credentials are stored unencrypted in '/var/jenkins_home/.docker/config.json'.
+[2026-11-11T21:46:57.928Z] Configure a credential helper to remove this warning. See
+[2026-11-11T21:46:57.928Z] https://docs.docker.com/go/credential-store/
+[2026-11-11T21:46:57.928Z] 
+[2026-11-11T21:46:57.928Z] Login Succeeded
+[2026-11-11T21:46:57.928Z] + docker push nedstudio/legeni-webapp:1.0.1
+[2026-11-11T21:46:57.928Z] The push refers to repository [docker.io/nedstudio/legeni-webapp]
+[2026-11-11T21:46:57.928Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:57.928Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:57.928Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:57.928Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:57.928Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:57.928Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:57.928Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:57.930Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:58.189Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:58.189Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:58.189Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:58.189Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:58.189Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:58.189Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:58.189Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:58.189Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:58.444Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:58.444Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:58.444Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:58.444Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:58.444Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:58.444Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:58.444Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:58.444Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:58.444Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:58.444Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:58.444Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:58.444Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:58.695Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:58.696Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:58.696Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:58.696Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:58.696Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:58.696Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:58.696Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:58.696Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:58.947Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:58.947Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:58.947Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:58.947Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:58.947Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:58.947Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:58.947Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:58.948Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:58.948Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:58.948Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:58.948Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:58.948Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:59.203Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:59.203Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:59.203Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:59.203Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:59.203Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:59.203Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:59.203Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:59.203Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:59.458Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:59.458Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:59.458Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:59.458Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:59.458Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:59.458Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:59.458Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:59.458Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:59.458Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:59.458Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:59.458Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:59.458Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:59.713Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:59.713Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:59.713Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:59.713Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:59.713Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:59.713Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:59.713Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:59.713Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:59.713Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:59.713Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:59.713Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:59.713Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:59.967Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:59.967Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:59.967Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:59.967Z] 37fb86c2a767: Waiting
+[2026-11-11T21:46:59.967Z] 68bced9e0afa: Waiting
+[2026-11-11T21:46:59.967Z] 44136fa355b3: Waiting
+[2026-11-11T21:46:59.967Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:46:59.967Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:00.218Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:00.218Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:00.219Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:00.219Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:00.219Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:00.219Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:00.219Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:00.219Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:00.219Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:00.219Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:00.219Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:00.472Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:00.472Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:00.472Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:00.472Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:00.472Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:00.472Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:00.723Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:00.724Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:00.724Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:00.724Z] 68bced9e0afa: Mounted from library/python
+[2026-11-11T21:47:00.724Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:00.724Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:00.724Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:00.724Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:00.724Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:00.724Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:00.979Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:00.979Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:00.979Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:00.979Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:00.979Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:00.979Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:00.979Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:01.233Z] 7139c377612d: Waiting
+[2026-11-11T21:47:01.233Z] 45e441366676: Waiting
+[2026-11-11T21:47:01.233Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:01.233Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:01.233Z] 5cc95e23c80f: Pushed
+[2026-11-11T21:47:01.233Z] 37fb86c2a767: Mounted from library/python
+[2026-11-11T21:47:01.233Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:01.233Z] 7139c377612d: Waiting
+[2026-11-11T21:47:01.233Z] 45e441366676: Waiting
+[2026-11-11T21:47:01.233Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:01.233Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:01.233Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:01.233Z] 45e441366676: Waiting
+[2026-11-11T21:47:01.233Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:01.233Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:01.233Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:01.233Z] 7139c377612d: Waiting
+[2026-11-11T21:47:01.487Z] 7139c377612d: Waiting
+[2026-11-11T21:47:01.487Z] 45e441366676: Waiting
+[2026-11-11T21:47:01.487Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:01.487Z] 44136fa355b3: Mounted from nedstudio/restaurant
+[2026-11-11T21:47:01.487Z] ab7fc9c5b443: Waiting
+[2026-11-11T21:47:01.487Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:01.487Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:01.487Z] 7139c377612d: Waiting
+[2026-11-11T21:47:01.487Z] 45e441366676: Waiting
+[2026-11-11T21:47:01.487Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:01.487Z] ab7fc9c5b443: Waiting
+[2026-11-11T21:47:01.740Z] 7139c377612d: Waiting
+[2026-11-11T21:47:01.740Z] 45e441366676: Waiting
+[2026-11-11T21:47:01.740Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:01.740Z] 91d77c6ba1c8: Waiting
+[2026-11-11T21:47:01.740Z] ab7fc9c5b443: Waiting
+[2026-11-11T21:47:01.740Z] 2dc99d2d0a39: Mounted from library/python
+[2026-11-11T21:47:01.740Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:01.740Z] 91d77c6ba1c8: Waiting
+[2026-11-11T21:47:01.740Z] ab7fc9c5b443: Waiting
+[2026-11-11T21:47:01.740Z] 7139c377612d: Waiting
+[2026-11-11T21:47:01.740Z] 45e441366676: Waiting
+[2026-11-11T21:47:01.740Z] 45e441366676: Waiting
+[2026-11-11T21:47:01.740Z] 05e0eee5572e: Mounted from library/python
+[2026-11-11T21:47:01.740Z] 91d77c6ba1c8: Waiting
+[2026-11-11T21:47:01.740Z] ab7fc9c5b443: Waiting
+[2026-11-11T21:47:01.740Z] 5f4c1e76c0df: Waiting
+[2026-11-11T21:47:01.740Z] 7139c377612d: Waiting
+[2026-11-11T21:47:01.994Z] 91d77c6ba1c8: Waiting
+[2026-11-11T21:47:01.994Z] ab7fc9c5b443: Waiting
+[2026-11-11T21:47:01.995Z] 5f4c1e76c0df: Waiting
+[2026-11-11T21:47:01.995Z] 91d77c6ba1c8: Waiting
+[2026-11-11T21:47:01.995Z] ab7fc9c5b443: Waiting
+[2026-11-11T21:47:01.995Z] 5f4c1e76c0df: Waiting
+[2026-11-11T21:47:02.252Z] 91d77c6ba1c8: Waiting
+[2026-11-11T21:47:02.253Z] ab7fc9c5b443: Waiting
+[2026-11-11T21:47:02.253Z] 5f4c1e76c0df: Waiting
+[2026-11-11T21:47:02.253Z] 5f4c1e76c0df: Waiting
+[2026-11-11T21:47:02.253Z] 5f4c1e76c0df: Waiting
+[2026-11-11T21:47:02.505Z] 5f4c1e76c0df: Waiting
+[2026-11-11T21:47:02.760Z] 7139c377612d: Pushed
+[2026-11-11T21:47:03.013Z] 45e441366676: Pushed
+[2026-11-11T21:47:03.013Z] 91d77c6ba1c8: Pushed
+[2026-11-11T21:47:03.569Z] 5f4c1e76c0df: Pushed
+[2026-11-11T21:47:06.074Z] ab7fc9c5b443: Pushed
+[2026-11-11T21:47:09.325Z] 1.0.1: digest: sha256:6b3e3c64998291d0178e306d98462e5e07d7282d1135963263d48d3e16cf37c5 size: 856
+[2026-11-11T21:47:09.325Z] + docker push nedstudio/legeni-webapp:latest
+[2026-11-11T21:47:09.325Z] The push refers to repository [docker.io/nedstudio/legeni-webapp]
+[2026-11-11T21:47:09.325Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:09.325Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:09.325Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:09.325Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:09.325Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:09.325Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:09.325Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:09.325Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:09.325Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:09.325Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:09.325Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:09.325Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:09.325Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:09.325Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:09.325Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:09.325Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:09.325Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:09.325Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:09.325Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:09.325Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:09.585Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:09.585Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:09.585Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:09.585Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:09.585Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:09.585Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:09.585Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:09.585Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:09.839Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:09.839Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:09.839Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:09.839Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:09.839Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:09.839Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:09.839Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:09.839Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:09.839Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:09.839Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:09.839Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:09.839Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:10.095Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:10.095Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:10.095Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:10.095Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:10.095Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:10.095Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:10.095Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:10.095Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:10.348Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:10.348Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:10.348Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:10.348Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:10.348Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:10.348Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:10.348Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:10.348Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:10.348Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:10.348Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:10.348Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:10.348Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:10.599Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:10.599Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:10.599Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:10.599Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:10.600Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:10.600Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:10.600Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:10.600Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:10.852Z] 68bced9e0afa: Waiting
+[2026-11-11T21:47:10.852Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:10.852Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:10.852Z] 37fb86c2a767: Waiting
+[2026-11-11T21:47:10.852Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:10.852Z] 68bced9e0afa: Layer already exists
+[2026-11-11T21:47:10.852Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:10.852Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:10.852Z] 37fb86c2a767: Layer already exists
+[2026-11-11T21:47:10.852Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:10.852Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:10.852Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:10.852Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:10.852Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:11.104Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:11.104Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:11.104Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:11.104Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:11.104Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:11.104Z] 5cc95e23c80f: Waiting
+[2026-11-11T21:47:11.104Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:11.104Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:11.359Z] 7139c377612d: Waiting
+[2026-11-11T21:47:11.359Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:11.360Z] 5cc95e23c80f: Already exists
+[2026-11-11T21:47:11.360Z] 45e441366676: Waiting
+[2026-11-11T21:47:11.360Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:11.360Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:11.360Z] 7139c377612d: Waiting
+[2026-11-11T21:47:11.360Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:11.360Z] 45e441366676: Waiting
+[2026-11-11T21:47:11.360Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:11.360Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:11.360Z] 7139c377612d: Waiting
+[2026-11-11T21:47:11.360Z] 44136fa355b3: Waiting
+[2026-11-11T21:47:11.360Z] 45e441366676: Waiting
+[2026-11-11T21:47:11.360Z] 2dc99d2d0a39: Waiting
+[2026-11-11T21:47:11.360Z] 05e0eee5572e: Waiting
+[2026-11-11T21:47:11.615Z] 44136fa355b3: Already exists
+[2026-11-11T21:47:11.615Z] ab7fc9c5b443: Waiting
+[2026-11-11T21:47:11.615Z] 45e441366676: Layer already exists
+[2026-11-11T21:47:11.615Z] 2dc99d2d0a39: Layer already exists
+[2026-11-11T21:47:11.615Z] 05e0eee5572e: Layer already exists
+[2026-11-11T21:47:11.615Z] 91d77c6ba1c8: Waiting
+[2026-11-11T21:47:11.615Z] 5f4c1e76c0df: Waiting
+[2026-11-11T21:47:11.615Z] 7139c377612d: Layer already exists
+[2026-11-11T21:47:11.615Z] ab7fc9c5b443: Layer already exists
+[2026-11-11T21:47:11.615Z] 91d77c6ba1c8: Waiting
+[2026-11-11T21:47:11.615Z] 5f4c1e76c0df: Waiting
+[2026-11-11T21:47:11.615Z] 91d77c6ba1c8: Waiting
+[2026-11-11T21:47:11.871Z] 5f4c1e76c0df: Waiting
+[2026-11-11T21:47:11.871Z] 91d77c6ba1c8: Layer already exists
+[2026-11-11T21:47:11.871Z] 5f4c1e76c0df: Layer already exists
+[2026-11-11T21:47:14.371Z] latest: digest: sha256:6b3e3c64998291d0178e306d98462e5e07d7282d1135963263d48d3e16cf37c5 size: 856
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] sh
+[2026-11-11T21:47:15.092Z] + docker rm -f webapp-ci-1
+[2026-11-11T21:47:15.348Z] webapp-ci-1
+[2026-11-11T21:47:15.348Z] + docker network rm ci-net-1
+[2026-11-11T21:47:15.604Z] ci-net-1
+[Pipeline] echo
+[2026-11-11T21:47:15.693Z] Image nedstudio/legeni-webapp:1.0.1 construite et validée
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline

@@ -1,0 +1,11 @@
+# Stage View (API wfapi) du build #2 : nom du stage -> statut (durée ms)
+Build #2 SUCCESS
+  Declarative: Checkout SCM    SUCCESS  3085 ms
+  Tests unitaires              SUCCESS  5757 ms
+  Build image                  SUCCESS  4155 ms
+  Test d'acceptance            SUCCESS  5071 ms
+  Push Docker Hub              SUCCESS  15542 ms
+  Declarative: Post Actions    SUCCESS  912 ms
+
+# Tags Docker Hub nedstudio/legeni-webapp :
+latest 1.0.2 1.0.1 

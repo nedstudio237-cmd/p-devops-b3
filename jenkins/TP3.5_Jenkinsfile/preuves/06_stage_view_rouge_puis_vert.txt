@@ -1,0 +1,25 @@
+# Build #3 (Started by an SCM change)
+  statut : FAILED
+  Declarative: Checkout SCM    SUCCESS
+  Tests unitaires              FAILED
+  Build image                  FAILED
+  Test d'acceptance            FAILED
+  Push Docker Hub              FAILED
+  Declarative: Post Actions    SUCCESS
+# Build #4 (Started by an SCM change)
+  statut : SUCCESS
+  Declarative: Checkout SCM    SUCCESS
+  Tests unitaires              SUCCESS
+  Build image                  SUCCESS
+  Test d'acceptance            SUCCESS
+  Push Docker Hub              SUCCESS
+  Declarative: Post Actions    SUCCESS
+
+# Tags Docker Hub nedstudio/legeni-webapp (le build #3 rouge n'a rien publié) :
+1.0.1 1.0.2 1.0.4 latest 
+
+# Remarque : la Stage View affiche FAILED pour les stages après l'échec, mais la console du build #3 indique :
+Stage "Build image" skipped due to earlier failure(s)
+Stage "Test d'acceptance" skipped due to earlier failure(s)
+Stage "Push Docker Hub" skipped due to earlier failure(s)
+  → aucun docker build de l'image finale, aucun docker push (0 ligne 'Login Succeeded').

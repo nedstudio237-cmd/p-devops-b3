@@ -20,7 +20,7 @@ Ubuntu 24.04 (VM VMware), Docker 29, Minikube (driver Docker), Jenkins et Ansibl
 | 3.2 | [Job freestyle `build`](jenkins/TP3.2_Build/) | ✅ |
 | 3.3 | [Test d'acceptance](jenkins/TP3.3_Test_acceptance/) | ✅ |
 | 3.4 | [Artefact Docker Hub](jenkins/TP3.4_Artefact/) | ✅ |
-| 3.5 | Jenkinsfile | ⏳ |
+| 3.5 | [Jenkinsfile](jenkins/TP3.5_Jenkinsfile/) | ✅ |
 | 3.6 | Multibranch + webhook | ⏳ |
 | 3.7 | Qualité, tests parallèles | ⏳ |
 | 3.8 | Déploiement continu | ⏳ |

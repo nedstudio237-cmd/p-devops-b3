@@ -1,0 +1,14 @@
+# Déclencheur Poll SCM H/2 * * * * — journal de scrutation
+Started on Nov 12, 2026, 12:46:00 AM
+Using strategy: Default
+[poll] Last Built Revision: Revision cdc525a33041c86510800ed099d369408e3e316f (refs/remotes/origin/main)
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git ls-remote -h -- https://github.com/nedstudio237-cmd/legeni-webapp.git # timeout=10
+Found 1 remote heads on https://github.com/nedstudio237-cmd/legeni-webapp.git
+[poll] Latest remote head revision on refs/heads/main is: 2f506893163be9a0286818444619db54b081c102
+Done. Took 1.7 sec
+Changes found
