@@ -1,0 +1,27 @@
+$ kubectl apply -f 11-job-echec.yaml
+job.batch/migration-ratee created
+
+$ kubectl wait --for=condition=failed job/migration-ratee --timeout=180s
+job.batch/migration-ratee condition met
+
+$ kubectl get pods -l job-name=migration-ratee
+NAME                    READY   STATUS   RESTARTS   AGE
+migration-ratee-4bm5x   0/1     Error    0          5s
+migration-ratee-7dtqs   0/1     Error    0          28s
+migration-ratee-q66gr   0/1     Error    0          41s
+
+$ kubectl get job migration-ratee -o jsonpath='{.status.conditions}'   (conditions du Job)
+FailureTarget=True (BackoffLimitExceeded: Job has reached the specified backoff limit)
+Failed=True (BackoffLimitExceeded: Job has reached the specified backoff limit)
+
+$ kubectl logs -l job-name=migration-ratee --prefix | head -6
+[pod/migration-ratee-4bm5x/migration] Migration du schéma...
+[pod/migration-ratee-4bm5x/migration] ERREUR : table verrouillée
+[pod/migration-ratee-7dtqs/migration] Migration du schéma...
+[pod/migration-ratee-7dtqs/migration] ERREUR : table verrouillée
+[pod/migration-ratee-q66gr/migration] Migration du schéma...
+[pod/migration-ratee-q66gr/migration] ERREUR : table verrouillée
+
+$ kubectl wait --for=condition=failed job/migration-ratee && echo '→ le pipeline doit s'arrêter ici'
+job.batch/migration-ratee condition met
+→ le pipeline doit s arrêter ici

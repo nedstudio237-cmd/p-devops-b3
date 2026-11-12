@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migration-ratee
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migration
+          image: busybox:1.36
+          command: ["sh", "-c", "echo 'Migration du schéma...'; sleep 2; echo 'ERREUR : table verrouillée' >&2; exit 1"]

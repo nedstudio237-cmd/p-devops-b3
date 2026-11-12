@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: webapp-redis }
+  template:
+    metadata:
+      labels: { app: webapp-redis }
+    spec:
+      # Sans cela, le Service "redis" injecte REDIS_PORT=tcp://<ip>:6379 dans les Pods créés après lui,
+      # et l'application (qui attend un nombre dans REDIS_PORT) plante : int('tcp://...').
+      enableServiceLinks: false
+      initContainers:
+        - name: attendre-redis
+          image: busybox:1.36
+          command: ["sh", "-c", "until nc -z redis 6379; do echo 'Redis indisponible, attente...'; sleep 2; done; echo 'Redis OK'"]
+      containers:
+        - name: webapp
+          image: nedstudio/legeni-webapp:1.0.2
+          env:
+            - name: REDIS_HOST
+              value: redis
+          ports: [{ containerPort: 5000 }]

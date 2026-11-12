@@ -1,0 +1,16 @@
+$ kubectl apply -f 10-job-pi.yaml
+job.batch/calcul-pi created
+
+$ kubectl wait --for=condition=complete job/calcul-pi --timeout=180s
+job.batch/calcul-pi condition met
+
+$ kubectl get jobs,pods
+NAME                  STATUS     COMPLETIONS   DURATION   AGE
+job.batch/calcul-pi   Complete   1/1           3s         3s
+
+NAME                  READY   STATUS      RESTARTS   AGE
+pod/calcul-pi-fq4p5   0/1     Completed   0          3s
+
+$ kubectl logs job/calcul-pi | cut -c1-120
+3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066
+

@@ -1,0 +1,18 @@
+# Défi TP 4.6 : Job de migration (attend Redis, initialise le compteur à 1000)
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migration-compteur
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: Never
+      initContainers:
+        - name: attendre-redis
+          image: busybox:1.36
+          command: ["sh", "-c", "until nc -z redis 6379; do sleep 2; done"]
+      containers:
+        - name: migration
+          image: redis:7.4-alpine
+          command: ["redis-cli", "-h", "redis", "SET", "visits", "1000"]

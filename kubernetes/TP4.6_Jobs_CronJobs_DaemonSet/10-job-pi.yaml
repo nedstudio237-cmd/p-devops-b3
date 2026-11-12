@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: calcul-pi
+spec:
+  backoffLimit: 3                    # nombre de nouvelles tentatives en cas d'échec
+  ttlSecondsAfterFinished: 600       # le Job et ses Pods sont supprimés 10 min après la fin
+  template:
+    spec:
+      restartPolicy: Never           # obligatoire pour un Job : Never ou OnFailure
+      containers:
+        - name: pi
+          image: perl:5.40-slim
+          command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(500)"]

@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: controle-sante
+spec:
+  schedule: "*/1 * * * *"            # format cron : minute heure jour mois jour-semaine
+  concurrencyPolicy: Forbid          # ne pas lancer un contrôle si le précédent tourne encore
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: curl
+              image: curlimages/curl:8.11.1
+              command: ["sh", "-c", "date; curl -sf --max-time 5 http://webapp/health && echo ' → OK'"]

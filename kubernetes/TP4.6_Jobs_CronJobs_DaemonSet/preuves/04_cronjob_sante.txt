@@ -1,0 +1,45 @@
+$ kubectl create deployment webapp --image=nedstudio/legeni-webapp:1.0.2 --port=5000
+deployment.apps/webapp created
+
+$ kubectl expose deployment webapp --port=80 --target-port=5000
+service/webapp exposed
+
+$ kubectl apply -f 20-cronjob-sante.yaml
+cronjob.batch/controle-sante created
+
+$ kubectl get cronjob controle-sante
+NAME             SCHEDULE      TIMEZONE   SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+controle-sante   */1 * * * *   <none>     False     0        <none>          0s
+
+$ kubectl get jobs | grep -E 'NAME|controle'
+NAME                      STATUS     COMPLETIONS   DURATION   AGE
+controle-sante-29907482   Complete   1/1           4s         104s
+controle-sante-29907483   Complete   1/1           3s         44s
+
+$ kubectl logs job/controle-sante-29907483
+Thu Nov 12 02:03:00 UTC 2026
+{"status":"ok"}
+ → OK
+
+# PANNE : application arrêtée
+$ kubectl scale deployment webapp --replicas=0
+deployment.apps/webapp scaled
+
+$ kubectl get jobs | grep -E 'NAME|controle'
+NAME                      STATUS     COMPLETIONS   DURATION   AGE
+controle-sante-29907482   Complete   1/1           4s         3m
+controle-sante-29907483   Complete   1/1           3s         2m
+controle-sante-29907484   Failed     0/1           60s        60s
+controle-sante-29907485   Running    0/1           0s         0s
+
+$ kubectl scale deployment webapp --replicas=1
+deployment.apps/webapp scaled
+
+$ kubectl create job --from=cronjob/controle-sante controle-manuel
+job.batch/controle-manuel created
+
+$ kubectl logs job/controle-manuel
+Thu Nov 12 02:05:02 UTC 2026
+{"status":"ok"}
+ → OK
+

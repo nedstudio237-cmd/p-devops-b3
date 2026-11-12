@@ -1,0 +1,36 @@
+$ kubectl apply -f 50-migration.yaml && kubectl wait --for=condition=complete job/migration-compteur --timeout=120s && kubectl rollout restart deployment/webapp-redis && kubectl rollout status deployment/webapp-redis
+job.batch/migration-compteur created
+job.batch/migration-compteur condition met
+deployment.apps/webapp-redis restarted
+Waiting for deployment "webapp-redis" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "webapp-redis" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "webapp-redis" rollout to finish: 1 old replicas are pending termination...
+deployment "webapp-redis" successfully rolled out
+
+$ kubectl port-forward deploy/webapp-redis 5000:5000 & curl -s localhost:5000 | grep -E "visites|compteur"
+
+$ kubectl get job migration-compteur
+NAME                 STATUS     COMPLETIONS   DURATION   AGE
+migration-compteur   Complete   1/1           5s         29s
+
+# PROBLÈME : après le rollout restart, le Pod webapp-redis redémarre en boucle
+$ kubectl logs <pod> -c webapp
+ValueError: invalid literal for int() with base 10: 'tcp://10.108.35.149:6379'
+# Cause : le Service 'redis' injecte REDIS_PORT=tcp://… dans les nouveaux Pods (service links).
+# Correction : enableServiceLinks: false dans 40-webapp-init.yaml
+
+$ kubectl apply -f 40-webapp-init.yaml
+deployment.apps/webapp-redis configured
+Waiting for deployment "webapp-redis" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "webapp-redis" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "webapp-redis" rollout to finish: 1 old replicas are pending termination...
+deployment "webapp-redis" successfully rolled out
+
+$ kubectl get pods -l app=webapp-redis
+NAME                           READY   STATUS    RESTARTS   AGE
+webapp-redis-c8b9dc849-65w25   1/1     Running   0          5s
+
+$ kubectl port-forward deploy/webapp-redis 5000:5000 & curl -s localhost:5000 | grep -E "visites|compteur"
+<tr><td>Nombre de visites</td><td><b>1001</b></td></tr>
+<tr><td>Stockage du compteur</td><td><b>redis</b></td></tr>
+<tr><td>Nombre de visites</td><td><b>1002</b></td></tr>

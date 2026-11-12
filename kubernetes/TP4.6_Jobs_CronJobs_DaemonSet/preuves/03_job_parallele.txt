@@ -1,0 +1,19 @@
+$ kubectl apply -f 12-job-lots.yaml
+job.batch/traitement-lots created
+
+# Pods Running simultanés (échantillon toutes les 2 s) :
+      3   0 en cours
+      9   2 en cours
+
+$ for p in $(kubectl get pods -l job-name=traitement-lots -o name); do kubectl logs $p; done | sort
+Traitement du lot 0 sur traitement-lots-0
+Traitement du lot 1 sur traitement-lots-1
+Traitement du lot 2 sur traitement-lots-2
+Traitement du lot 3 sur traitement-lots-3
+Traitement du lot 4 sur traitement-lots-4
+Traitement du lot 5 sur traitement-lots-5
+
+$ kubectl get job traitement-lots
+NAME              STATUS     COMPLETIONS   DURATION   AGE
+traitement-lots   Complete   6/6           25s        27s
+

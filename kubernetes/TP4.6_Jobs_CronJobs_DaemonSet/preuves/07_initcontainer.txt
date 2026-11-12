@@ -1,0 +1,24 @@
+$ kubectl apply -f 40-webapp-init.yaml
+deployment.apps/webapp-redis created
+
+$ kubectl get pods -l app=webapp-redis
+NAME                            READY   STATUS     RESTARTS   AGE
+webapp-redis-594975957c-5l84j   0/1     Init:0/1   0          15s
+
+$ kubectl logs deploy/webapp-redis -c attendre-redis | tail -3
+Redis indisponible, attente...
+nc: bad address 'redis'
+Redis indisponible, attente...
+
+$ kubectl create deployment redis --image=redis:7.4-alpine --port=6379 && kubectl expose deployment redis --port=6379
+deployment.apps/redis created
+service/redis exposed
+
+$ kubectl get pods -l app=webapp-redis
+NAME                            READY   STATUS    RESTARTS   AGE
+webapp-redis-594975957c-5l84j   1/1     Running   0          18s
+
+$ kubectl logs deploy/webapp-redis -c attendre-redis | tail -2
+Redis indisponible, attente...
+Redis OK
+

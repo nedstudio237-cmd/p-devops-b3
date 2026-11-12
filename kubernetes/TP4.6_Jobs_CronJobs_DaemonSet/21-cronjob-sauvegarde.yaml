@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sauvegardes
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sauvegarde
+spec:
+  schedule: "*/2 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: sauvegarde
+              image: busybox:1.36
+              command:
+                - sh
+                - -c
+                - |
+                  F=/backup/info-$(date +%Y%m%d-%H%M).json
+                  wget -qO "$F" http://webapp/api/info && echo "Sauvegarde : $F"
+                  ls -1t /backup/*.json | tail -n +6 | xargs -r rm     # ne garder que les 5 dernières
+                  ls -l /backup
+              volumeMounts:
+                - name: backup
+                  mountPath: /backup
+          volumes:
+            - name: backup
+              persistentVolumeClaim:
+                claimName: sauvegardes

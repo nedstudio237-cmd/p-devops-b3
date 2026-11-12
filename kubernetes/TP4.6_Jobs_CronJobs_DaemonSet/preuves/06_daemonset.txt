@@ -1,0 +1,21 @@
+$ kubectl apply -f 30-daemonset-agent.yaml
+daemonset.apps/agent-noeud created
+
+$ kubectl get daemonset agent-noeud
+NAME          DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+agent-noeud   1         1         1       1            1           <none>          5s
+
+$ kubectl get pods -l app=agent-noeud -o wide
+NAME                READY   STATUS    RESTARTS   AGE   IP            NODE       NOMINATED NODE   READINESS GATES
+agent-noeud-cjs6v   1/1     Running   0          5s    10.244.0.57   minikube   <none>           <none>
+
+$ kubectl logs ds/agent-noeud | tail -2
+Thu Nov 12 02:05:45 UTC 2026 nœud=minikube pods_logs=32
+
+$ kubectl get ds -A
+NAMESPACE     NAME          DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
+batch         agent-noeud   1         1         1       1            1           <none>                   5s
+kube-system   kindnet       1         1         1       1            1           <none>                   6d11h
+kube-system   kube-proxy    1         1         1       1            1           kubernetes.io/os=linux   6d11h
+
+# Bonus 'minikube node add' non réalisé : RAM insuffisante (7,7 Go pour Minikube + Jenkins + Ansible).
