@@ -1,0 +1,219 @@
+Started by user Evina ze dieubeni romaric
+Obtained Jenkinsfile.qualite from git https://github.com/nedstudio237-cmd/legeni-webapp.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/legeni-qualite
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git init /var/jenkins_home/workspace/legeni-qualite # timeout=10
+Fetching upstream changes from https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/nedstudio237-cmd/legeni-webapp.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/nedstudio237-cmd/legeni-webapp.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/qualite^{commit} # timeout=10
+Checking out Revision e650721d1cd875bdd0b1c6362c1a9a6e34d1a7d6 (refs/remotes/origin/qualite)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f e650721d1cd875bdd0b1c6362c1a9a6e34d1a7d6 # timeout=10
+Commit message: "Quality gate 1 : ligne de 150 caractères"
+ > git rev-list --no-walk 11e504c5a3bda25723a46c3dd8448abc8d58d151 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-11-12T01:17:58.967Z] Timeout set to expire in 20 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Qualité du code)
+[Pipeline] parallel
+[Pipeline] { (Branch: Tests unitaires)
+[Pipeline] { (Branch: Lint Python)
+[Pipeline] { (Branch: Lint Dockerfile)
+[Pipeline] stage
+[Pipeline] { (Tests unitaires)
+[Pipeline] stage
+[Pipeline] { (Lint Python)
+[Pipeline] stage
+[Pipeline] { (Lint Dockerfile)
+[Pipeline] getContext
+[Pipeline] getContext
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-12T01:17:59.985Z] + docker run --rm -i hadolint/hadolint:v2.12.0
+[2026-11-12T01:18:00.031Z] + docker inspect -f . python:3.12-slim
+[2026-11-12T01:18:00.087Z] + docker inspect -f . python:3.12-slim
+[2026-11-12T01:18:00.601Z] .
+[2026-11-12T01:18:00.654Z] .
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-11-12T01:18:01.239Z] Jenkins seems to be running inside container a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940
+[2026-11-12T01:18:01.441Z] $ docker run -t -d -u 1000:1000 -e HOME=/tmp -w /var/jenkins_home/workspace/legeni-qualite --volumes-from a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12-slim cat
+[2026-11-12T01:18:02.295Z] $ docker top 5c427e6b4f6a90e7e099ad3fa72e8a94ed6d34e1582a531703a0a2cd17666127 -eo pid,comm
+[Pipeline] {
+[Pipeline] withDockerContainer
+[2026-11-12T01:18:02.813Z] Jenkins seems to be running inside container a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940
+[2026-11-12T01:18:02.958Z] $ docker run -t -d -u 1000:1000 -e HOME=/tmp -w /var/jenkins_home/workspace/legeni-qualite --volumes-from a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12-slim cat
+[2026-11-12T01:18:03.701Z] $ docker top eb23a0c6f44586d11f00f70478c934b97c7cbdce6fb9ac8baaf19e087cd22264 -eo pid,comm
+[Pipeline] {
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-12T01:18:04.457Z] + python -m venv /tmp/venv
+[2026-11-12T01:18:04.712Z] + python -m venv /tmp/venv
+[2026-11-12T01:18:14.397Z] + /tmp/venv/bin/pip install -q flake8==7.1.1
+[2026-11-12T01:18:14.656Z] + /tmp/venv/bin/pip install -q -r requirements.txt -r requirements-dev.txt
+[2026-11-12T01:18:20.921Z] 
+[2026-11-12T01:18:20.921Z] [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-12T01:18:20.921Z] [notice] To update, run: python -m pip install --upgrade pip
+[2026-11-12T01:18:20.921Z] + mkdir -p reports
+[2026-11-12T01:18:20.921Z] + /tmp/venv/bin/flake8 --output-file=reports/flake8.txt --tee .
+[2026-11-12T01:18:21.478Z] ./app.py:140:101: E501 line too long (147 > 100 characters)
+Post stage
+[Pipeline] recordIssues
+[2026-11-12T01:18:21.593Z] [analysis] Skipping execution of recorder since overall result is 'FAILURE'
+[Pipeline] }
+[2026-11-12T01:18:21.663Z] $ docker stop --time=1 eb23a0c6f44586d11f00f70478c934b97c7cbdce6fb9ac8baaf19e087cd22264
+[2026-11-12T01:18:23.368Z] $ docker rm -f --volumes eb23a0c6f44586d11f00f70478c934b97c7cbdce6fb9ac8baaf19e087cd22264
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-12T01:18:23.720Z] Failed in branch Lint Python
+[2026-11-12T01:18:36.525Z] 
+[2026-11-12T01:18:36.525Z] [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-12T01:18:36.525Z] [notice] To update, run: python -m pip install --upgrade pip
+[2026-11-12T01:18:36.525Z] + mkdir -p reports
+[2026-11-12T01:18:36.525Z] + /tmp/venv/bin/pytest --junitxml=reports/junit.xml --cov=app --cov-report=xml:reports/coverage.xml --cov-fail-under=80
+[2026-11-12T01:18:39.032Z] ============================= test session starts ==============================
+[2026-11-12T01:18:39.032Z] platform linux -- Python 3.12.16, pytest-8.3.4, pluggy-1.7.0
+[2026-11-12T01:18:39.032Z] rootdir: /var/jenkins_home/workspace/legeni-qualite
+[2026-11-12T01:18:39.032Z] configfile: pytest.ini
+[2026-11-12T01:18:39.032Z] testpaths: tests
+[2026-11-12T01:18:39.032Z] plugins: cov-6.0.0
+[2026-11-12T01:18:39.032Z] collected 6 items
+[2026-11-12T01:18:39.032Z] 
+[2026-11-12T01:18:39.290Z] tests/test_app.py ......                                                 [100%]
+[2026-11-12T01:18:39.290Z] 
+[2026-11-12T01:18:39.290Z] - generated xml file: /var/jenkins_home/workspace/legeni-qualite/reports/junit.xml -
+[2026-11-12T01:18:39.290Z] 
+[2026-11-12T01:18:39.290Z] ---------- coverage: platform linux, python 3.12.16-final-0 ----------
+[2026-11-12T01:18:39.290Z] Coverage XML written to file reports/coverage.xml
+[2026-11-12T01:18:39.290Z] 
+[2026-11-12T01:18:39.290Z] Required test coverage of 80% reached. Total coverage: 83.93%
+[2026-11-12T01:18:39.290Z] ============================== 6 passed in 1.24s ===============================
+Post stage
+[Pipeline] junit
+[2026-11-12T01:18:39.338Z] Recording test results
+[2026-11-12T01:18:39.361Z] [Checks API] No suitable checks publisher found.
+[Pipeline] recordCoverage
+[2026-11-12T01:18:39.417Z] [Coverage] Recording coverage results
+[2026-11-12T01:18:39.417Z] [Coverage] Creating parser for Cobertura Coverage Reports
+[2026-11-12T01:18:39.417Z] [Coverage] Searching for all files in '/var/jenkins_home/workspace/legeni-qualite' that match the pattern 'reports/coverage.xml'
+[2026-11-12T01:18:39.417Z] [Coverage] Traversing of symbolic links: enabled
+[2026-11-12T01:18:39.417Z] [Coverage] -> found 1 file
+[2026-11-12T01:18:39.417Z] [Coverage] Successfully parsed file '/var/jenkins_home/workspace/legeni-qualite/reports/coverage.xml'
+[2026-11-12T01:18:39.417Z] [Coverage] Module Coverage: 100.00% (1/1)
+[2026-11-12T01:18:39.417Z] [Coverage] Package Coverage: 100.00% (1/1)
+[2026-11-12T01:18:39.417Z] [Coverage] File Coverage: 100.00% (1/1)
+[2026-11-12T01:18:39.417Z] [Coverage] Class Coverage: 100.00% (1/1)
+[2026-11-12T01:18:39.417Z] [Coverage] Line Coverage: 83.93% (47/56)
+[2026-11-12T01:18:39.417Z] [Coverage] Lines of Code: 56
+[2026-11-12T01:18:39.417Z] [Coverage] Cyclomatic Complexity: 0
+[2026-11-12T01:18:39.417Z] [Coverage] Successfully processed file 'reports/coverage.xml'
+[2026-11-12T01:18:39.420Z] [Coverage] Resolving source code files...
+[2026-11-12T01:18:39.420Z] [Coverage] Searching for source code files in '/var/jenkins_home/workspace/legeni-qualite/src/main/java'
+[2026-11-12T01:18:39.420Z] [Coverage] -> resolved absolute paths for all 1 source files
+[2026-11-12T01:18:39.477Z] [Checks API] No suitable checks publisher found.
+[2026-11-12T01:18:39.477Z] [Coverage] Obtaining result action of reference build
+[2026-11-12T01:18:39.477Z] [Coverage] Reference build recorder is not configured
+[2026-11-12T01:18:39.477Z] [Coverage] -> Found no reference build
+[2026-11-12T01:18:39.477Z] [Coverage] No quality gates have been set - skipping
+[2026-11-12T01:18:39.477Z] [Coverage] Executing source code painting...
+[2026-11-12T01:18:39.477Z] [Coverage] Painting 1 source files on agent
+[2026-11-12T01:18:39.477Z] [Coverage] -> finished painting successfully
+[2026-11-12T01:18:39.477Z] [Coverage] -> zipping sources from folder '/var/jenkins_home/workspace/legeni-qualite/coverage-sources-.tmp10565870383359896061/coverage' as '/var/jenkins_home/workspace/legeni-qualite/coverage-sources-coverage.zip'
+[2026-11-12T01:18:39.477Z] [Coverage] -> deleted temporary source folder '/var/jenkins_home/workspace/legeni-qualite/coverage-sources-.tmp10565870383359896061'
+[2026-11-12T01:18:39.477Z] [Coverage] Copying painted sources from agent to build folder
+[2026-11-12T01:18:39.477Z] [Coverage] -> extracting...
+[2026-11-12T01:18:39.477Z] [Coverage] -> done
+[2026-11-12T01:18:39.477Z] [Coverage] Deleting source code files of build #1
+[2026-11-12T01:18:39.477Z] [Coverage] Finished coverage processing - adding the action to the build...
+[Pipeline] }
+[2026-11-12T01:18:39.558Z] $ docker stop --time=1 5c427e6b4f6a90e7e099ad3fa72e8a94ed6d34e1582a531703a0a2cd17666127
+[2026-11-12T01:18:41.089Z] $ docker rm -f --volumes 5c427e6b4f6a90e7e099ad3fa72e8a94ed6d34e1582a531703a0a2cd17666127
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build image)
+Stage "Build image" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Scan de sécurité)
+Stage "Scan de sécurité" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] cleanWs
+[2026-11-12T01:18:42.140Z] [WS-CLEANUP] Deleting project workspace...
+[2026-11-12T01:18:42.141Z] [WS-CLEANUP] Deferred wipeout is used...
+[2026-11-12T01:18:42.155Z] [WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
+
+# Statut des stages (build #2) :
+  Declarative: Checkout SCM  SUCCESS
+  Qualité du code            SUCCESS
+  Tests unitaires            SUCCESS
+  Lint Python                FAILED
+  Lint Dockerfile            SUCCESS
+  Build image                FAILED
+  Scan de sécurité           FAILED
+  Declarative: Post Actions  SUCCESS

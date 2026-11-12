@@ -1,0 +1,205 @@
+Started by user Evina ze dieubeni romaric
+Obtained Jenkinsfile.qualite from git https://github.com/nedstudio237-cmd/legeni-webapp.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/legeni-qualite
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git init /var/jenkins_home/workspace/legeni-qualite # timeout=10
+Fetching upstream changes from https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/nedstudio237-cmd/legeni-webapp.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/nedstudio237-cmd/legeni-webapp.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/qualite^{commit} # timeout=10
+Checking out Revision 8abdf1ac6332c848290040c7a5462d6925949f28 (refs/remotes/origin/qualite)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 8abdf1ac6332c848290040c7a5462d6925949f28 # timeout=10
+Commit message: "Quality gate 2 : fonction sans test"
+ > git rev-list --no-walk e650721d1cd875bdd0b1c6362c1a9a6e34d1a7d6 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-11-12T01:19:13.192Z] Timeout set to expire in 20 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Qualité du code)
+[Pipeline] parallel
+[Pipeline] { (Branch: Tests unitaires)
+[Pipeline] { (Branch: Lint Python)
+[Pipeline] { (Branch: Lint Dockerfile)
+[Pipeline] stage
+[Pipeline] { (Tests unitaires)
+[Pipeline] stage
+[Pipeline] { (Lint Python)
+[Pipeline] stage
+[Pipeline] { (Lint Dockerfile)
+[Pipeline] getContext
+[Pipeline] getContext
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-12T01:19:14.180Z] + docker run --rm -i hadolint/hadolint:v2.12.0
+[2026-11-12T01:19:14.227Z] + docker inspect -f . python:3.12-slim
+[2026-11-12T01:19:14.259Z] + docker inspect -f . python:3.12-slim
+[2026-11-12T01:19:14.479Z] .
+[Pipeline] }
+[2026-11-12T01:19:14.513Z] .
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-11-12T01:19:14.907Z] Jenkins seems to be running inside container a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940
+[2026-11-12T01:19:15.218Z] $ docker run -t -d -u 1000:1000 -e HOME=/tmp -w /var/jenkins_home/workspace/legeni-qualite --volumes-from a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12-slim cat
+[2026-11-12T01:19:16.027Z] $ docker top 964f253b85ded90ab3c2bb12f45f168885fa94d5e6f8247732a1266beb7830fc -eo pid,comm
+[Pipeline] {
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-11-12T01:19:16.549Z] Jenkins seems to be running inside container a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940
+[2026-11-12T01:19:16.655Z] $ docker run -t -d -u 1000:1000 -e HOME=/tmp -w /var/jenkins_home/workspace/legeni-qualite --volumes-from a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12-slim cat
+[2026-11-12T01:19:17.348Z] $ docker top 76af917d8802f799933128883684244b8bbc2aad8e506f4333fcdc2b28cdfc3d -eo pid,comm
+[Pipeline] {
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-12T01:19:18.354Z] + python -m venv /tmp/venv
+[2026-11-12T01:19:18.404Z] + python -m venv /tmp/venv
+[2026-11-12T01:19:28.314Z] + /tmp/venv/bin/pip install -q -r requirements.txt -r requirements-dev.txt
+[2026-11-12T01:19:28.342Z] + /tmp/venv/bin/pip install -q flake8==7.1.1
+[2026-11-12T01:19:38.269Z] 
+[2026-11-12T01:19:38.269Z] [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-12T01:19:38.269Z] [notice] To update, run: python -m pip install --upgrade pip
+[2026-11-12T01:19:38.269Z] + mkdir -p reports
+[2026-11-12T01:19:38.269Z] + /tmp/venv/bin/flake8 --output-file=reports/flake8.txt --tee .
+Post stage
+[Pipeline] recordIssues
+[2026-11-12T01:19:38.881Z] [Flake8] Searching for all files in '/var/jenkins_home/workspace/legeni-qualite' that match the pattern 'reports/flake8.txt'
+[2026-11-12T01:19:38.882Z] [Flake8] Traversing of symbolic links: enabled
+[2026-11-12T01:19:38.882Z] [Flake8] -> found 1 file
+[2026-11-12T01:19:38.882Z] [Flake8] Skipping file 'reports/flake8.txt' because it's empty
+[2026-11-12T01:19:38.890Z] [Flake8] Skipping post processing
+[2026-11-12T01:19:38.890Z] [Flake8] No filter has been set, publishing all 0 issues
+[2026-11-12T01:19:38.890Z] [Flake8] Repository miner is not configured, skipping repository mining
+[2026-11-12T01:19:38.892Z] [Flake8] Reference build recorder is not configured
+[2026-11-12T01:19:38.892Z] [Flake8] No valid reference build found
+[2026-11-12T01:19:38.892Z] [Flake8] All reported issues will be considered outstanding
+[2026-11-12T01:19:38.892Z] [Flake8] No quality gates have been set - skipping
+[2026-11-12T01:19:38.892Z] [Flake8] Health report is disabled - skipping
+[2026-11-12T01:19:38.892Z] [Flake8] Created analysis result for 0 issues (found 0 new issues, fixed 0 issues)
+[2026-11-12T01:19:38.892Z] [Flake8] Attaching ResultAction with ID 'flake8' to build 'legeni-qualite #3'.
+[2026-11-12T01:19:39.077Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[2026-11-12T01:19:39.197Z] $ docker stop --time=1 76af917d8802f799933128883684244b8bbc2aad8e506f4333fcdc2b28cdfc3d
+[2026-11-12T01:19:41.267Z] $ docker rm -f --volumes 76af917d8802f799933128883684244b8bbc2aad8e506f4333fcdc2b28cdfc3d
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-12T01:19:54.787Z] 
+[2026-11-12T01:19:54.787Z] [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-12T01:19:54.787Z] [notice] To update, run: python -m pip install --upgrade pip
+[2026-11-12T01:19:54.787Z] + mkdir -p reports
+[2026-11-12T01:19:54.787Z] + /tmp/venv/bin/pytest --junitxml=reports/junit.xml --cov=app --cov-report=xml:reports/coverage.xml --cov-fail-under=80
+[2026-11-12T01:19:56.672Z] ============================= test session starts ==============================
+[2026-11-12T01:19:56.672Z] platform linux -- Python 3.12.16, pytest-8.3.4, pluggy-1.7.0
+[2026-11-12T01:19:56.672Z] rootdir: /var/jenkins_home/workspace/legeni-qualite
+[2026-11-12T01:19:56.672Z] configfile: pytest.ini
+[2026-11-12T01:19:56.672Z] testpaths: tests
+[2026-11-12T01:19:56.672Z] plugins: cov-6.0.0
+[2026-11-12T01:19:56.672Z] collected 6 items
+[2026-11-12T01:19:56.672Z] 
+[2026-11-12T01:19:56.672Z] tests/test_app.py ....../tmp/venv/lib/python3.12/site-packages/pytest_cov/plugin.py:355: CovFailUnderWarning: Coverage failure: total of 67 is less than fail-under=80
+[2026-11-12T01:19:56.672Z]   warnings.warn(CovFailUnderWarning(message), stacklevel=1)
+[2026-11-12T01:19:56.672Z] 
+[2026-11-12T01:19:56.672Z] ERROR: Coverage failure: total of 67 is less than fail-under=80
+[2026-11-12T01:19:56.672Z]                                                                          [100%]
+[2026-11-12T01:19:56.672Z] 
+[2026-11-12T01:19:56.672Z] - generated xml file: /var/jenkins_home/workspace/legeni-qualite/reports/junit.xml -
+[2026-11-12T01:19:56.672Z] 
+[2026-11-12T01:19:56.672Z] ---------- coverage: platform linux, python 3.12.16-final-0 ----------
+[2026-11-12T01:19:56.672Z] Coverage XML written to file reports/coverage.xml
+[2026-11-12T01:19:56.672Z] 
+[2026-11-12T01:19:56.672Z] FAIL Required test coverage of 80% not reached. Total coverage: 67.14%
+[2026-11-12T01:19:56.672Z] ============================== 6 passed in 0.99s ===============================
+Post stage
+[Pipeline] junit
+[2026-11-12T01:19:56.740Z] Recording test results
+[2026-11-12T01:19:56.761Z] [Checks API] No suitable checks publisher found.
+[Pipeline] recordCoverage
+[2026-11-12T01:19:56.800Z] [Coverage] Skipping execution of coverage recorder since overall result is 'FAILURE'
+[Pipeline] }
+[2026-11-12T01:19:56.867Z] $ docker stop --time=1 964f253b85ded90ab3c2bb12f45f168885fa94d5e6f8247732a1266beb7830fc
+[2026-11-12T01:19:58.338Z] $ docker rm -f --volumes 964f253b85ded90ab3c2bb12f45f168885fa94d5e6f8247732a1266beb7830fc
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-12T01:19:58.706Z] Failed in branch Tests unitaires
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build image)
+Stage "Build image" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Scan de sécurité)
+Stage "Scan de sécurité" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] cleanWs
+[2026-11-12T01:19:59.348Z] [WS-CLEANUP] Deleting project workspace...
+[2026-11-12T01:19:59.349Z] [WS-CLEANUP] Deferred wipeout is used...
+[2026-11-12T01:19:59.364Z] [WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
+
+# Statut des stages (build #3) :
+  Declarative: Checkout SCM  SUCCESS
+  Qualité du code            SUCCESS
+  Tests unitaires            FAILED
+  Lint Python                SUCCESS
+  Lint Dockerfile            SUCCESS
+  Build image                FAILED
+  Scan de sécurité           FAILED
+  Declarative: Post Actions  SUCCESS

@@ -1,0 +1,320 @@
+Started by user Evina ze dieubeni romaric
+Obtained Jenkinsfile.qualite from git https://github.com/nedstudio237-cmd/legeni-webapp.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/legeni-qualite
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git init /var/jenkins_home/workspace/legeni-qualite # timeout=10
+Fetching upstream changes from https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/nedstudio237-cmd/legeni-webapp.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/nedstudio237-cmd/legeni-webapp.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/qualite^{commit} # timeout=10
+Checking out Revision 60e69045a78e76359c36879d3f18eab0798d2ca1 (refs/remotes/origin/qualite)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 60e69045a78e76359c36879d3f18eab0798d2ca1 # timeout=10
+Commit message: "Défi TP 3.7 : suppression du faux jeton + .gitleaksignore"
+ > git rev-list --no-walk 7bf5f6d5a80a575d5aedf9bafc4bcf74283307f1 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-11-12T01:30:44.591Z] Timeout set to expire in 20 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Qualité du code)
+[Pipeline] parallel
+[Pipeline] { (Branch: Tests unitaires)
+[Pipeline] { (Branch: Lint Python)
+[Pipeline] { (Branch: Secrets)
+[Pipeline] { (Branch: Lint Dockerfile)
+[Pipeline] stage
+[Pipeline] { (Tests unitaires)
+[Pipeline] stage
+[Pipeline] { (Lint Python)
+[Pipeline] stage
+[Pipeline] { (Secrets)
+[Pipeline] stage
+[Pipeline] { (Lint Dockerfile)
+[Pipeline] getContext
+[Pipeline] getContext
+[Pipeline] getContext
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-12T01:30:45.747Z] + docker run --rm -i hadolint/hadolint:v2.12.0
+[2026-11-12T01:30:45.794Z] + docker inspect -f . python:3.12-slim
+[2026-11-12T01:30:45.857Z] + docker inspect -f . python:3.12-slim
+[2026-11-12T01:30:45.964Z] + docker inspect -f . zricethezav/gitleaks:v8.21.2
+[2026-11-12T01:30:46.356Z] .
+[Pipeline] }
+[2026-11-12T01:30:46.421Z] .
+[2026-11-12T01:30:46.530Z] .
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-11-12T01:30:46.859Z] Jenkins seems to be running inside container a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940
+[2026-11-12T01:30:47.135Z] $ docker run -t -d -u 1000:1000 -e HOME=/tmp -w /var/jenkins_home/workspace/legeni-qualite --volumes-from a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12-slim cat
+[2026-11-12T01:30:49.378Z] $ docker top 0cead7e7d769492a98b85486beb8bbfef8a426bbf08fcd0ae22fdfc8df7323c6 -eo pid,comm
+[Pipeline] {
+[Pipeline] }
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-11-12T01:30:50.309Z] Jenkins seems to be running inside container a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940
+[2026-11-12T01:30:50.892Z] $ docker run -t -d -u 1000:1000 -e HOME=/tmp -w /var/jenkins_home/workspace/legeni-qualite --volumes-from a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12-slim cat
+[2026-11-12T01:30:52.901Z] $ docker top d540a6f6d92c0a1e03b36b58c03ee2585ea508145cd186927010ceeb0738cc13 -eo pid,comm
+[Pipeline] {
+[Pipeline] withDockerContainer
+[2026-11-12T01:30:53.778Z] Jenkins seems to be running inside container a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940
+[2026-11-12T01:30:54.120Z] $ docker run -t -d -u 1000:1000 --entrypoint= -w /var/jenkins_home/workspace/legeni-qualite --volumes-from a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** zricethezav/gitleaks:v8.21.2 cat
+[2026-11-12T01:30:55.363Z] $ docker top 401ba31487b3279534aad61050c4d2610fd176cd5becc6d4eece5aeb08fb0061 -eo pid,comm
+[Pipeline] {
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-12T01:30:56.407Z] + python -m venv /tmp/venv
+[2026-11-12T01:30:56.466Z] + python -m venv /tmp/venv
+[2026-11-12T01:30:56.501Z] + gitleaks detect --source . --no-banner --redact -v
+[2026-11-12T01:30:56.755Z] [90m1:30AM[0m [32mINF[0m 22 commits scanned.
+[2026-11-12T01:30:56.755Z] [90m1:30AM[0m [32mINF[0m scan completed in 140ms
+[2026-11-12T01:30:56.755Z] [90m1:30AM[0m [32mINF[0m no leaks found
+[Pipeline] }
+[2026-11-12T01:30:56.801Z] $ docker stop --time=1 401ba31487b3279534aad61050c4d2610fd176cd5becc6d4eece5aeb08fb0061
+[2026-11-12T01:30:59.597Z] $ docker rm -f --volumes 401ba31487b3279534aad61050c4d2610fd176cd5becc6d4eece5aeb08fb0061
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-12T01:31:08.557Z] + /tmp/venv/bin/pip install -q -r requirements.txt -r requirements-dev.txt
+[2026-11-12T01:31:08.631Z] + /tmp/venv/bin/pip install -q flake8==7.1.1
+[2026-11-12T01:31:15.161Z] 
+[2026-11-12T01:31:15.161Z] [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-12T01:31:15.161Z] [notice] To update, run: python -m pip install --upgrade pip
+[2026-11-12T01:31:15.161Z] + mkdir -p reports
+[2026-11-12T01:31:15.161Z] + /tmp/venv/bin/flake8 --output-file=reports/flake8.txt --tee .
+Post stage
+[Pipeline] recordIssues
+[2026-11-12T01:31:16.568Z] [Flake8] Searching for all files in '/var/jenkins_home/workspace/legeni-qualite' that match the pattern 'reports/flake8.txt'
+[2026-11-12T01:31:16.568Z] [Flake8] Traversing of symbolic links: enabled
+[2026-11-12T01:31:16.568Z] [Flake8] -> found 1 file
+[2026-11-12T01:31:16.568Z] [Flake8] Skipping file 'reports/flake8.txt' because it's empty
+[2026-11-12T01:31:16.569Z] [Flake8] Skipping post processing
+[2026-11-12T01:31:16.569Z] [Flake8] No filter has been set, publishing all 0 issues
+[2026-11-12T01:31:16.569Z] [Flake8] Repository miner is not configured, skipping repository mining
+[2026-11-12T01:31:16.571Z] [Flake8] Reference build recorder is not configured
+[2026-11-12T01:31:16.571Z] [Flake8] No valid reference build found
+[2026-11-12T01:31:16.572Z] [Flake8] All reported issues will be considered outstanding
+[2026-11-12T01:31:16.572Z] [Flake8] No quality gates have been set - skipping
+[2026-11-12T01:31:16.572Z] [Flake8] Health report is disabled - skipping
+[2026-11-12T01:31:16.572Z] [Flake8] Created analysis result for 0 issues (found 0 new issues, fixed 0 issues)
+[2026-11-12T01:31:16.572Z] [Flake8] Attaching ResultAction with ID 'flake8' to build 'legeni-qualite #10'.
+[2026-11-12T01:31:16.655Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[2026-11-12T01:31:16.715Z] $ docker stop --time=1 d540a6f6d92c0a1e03b36b58c03ee2585ea508145cd186927010ceeb0738cc13
+[2026-11-12T01:31:18.303Z] $ docker rm -f --volumes d540a6f6d92c0a1e03b36b58c03ee2585ea508145cd186927010ceeb0738cc13
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-12T01:31:30.429Z] 
+[2026-11-12T01:31:30.429Z] [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-12T01:31:30.429Z] [notice] To update, run: python -m pip install --upgrade pip
+[2026-11-12T01:31:30.429Z] + mkdir -p reports
+[2026-11-12T01:31:30.429Z] + /tmp/venv/bin/pytest --junitxml=reports/junit.xml --cov=app --cov-report=xml:reports/coverage.xml --cov-fail-under=80
+[2026-11-12T01:31:30.429Z] ============================= test session starts ==============================
+[2026-11-12T01:31:30.429Z] platform linux -- Python 3.12.16, pytest-8.3.4, pluggy-1.7.0
+[2026-11-12T01:31:30.429Z] rootdir: /var/jenkins_home/workspace/legeni-qualite
+[2026-11-12T01:31:30.429Z] configfile: pytest.ini
+[2026-11-12T01:31:30.429Z] testpaths: tests
+[2026-11-12T01:31:30.429Z] plugins: cov-6.0.0
+[2026-11-12T01:31:30.429Z] collected 6 items
+[2026-11-12T01:31:30.429Z] 
+[2026-11-12T01:31:30.938Z] tests/test_app.py ......                                                 [100%]
+[2026-11-12T01:31:30.938Z] 
+[2026-11-12T01:31:30.938Z] - generated xml file: /var/jenkins_home/workspace/legeni-qualite/reports/junit.xml -
+[2026-11-12T01:31:30.938Z] 
+[2026-11-12T01:31:30.938Z] ---------- coverage: platform linux, python 3.12.16-final-0 ----------
+[2026-11-12T01:31:30.938Z] Coverage XML written to file reports/coverage.xml
+[2026-11-12T01:31:30.938Z] 
+[2026-11-12T01:31:30.938Z] Required test coverage of 80% reached. Total coverage: 83.64%
+[2026-11-12T01:31:30.938Z] ============================== 6 passed in 1.82s ===============================
+Post stage
+[Pipeline] junit
+[2026-11-12T01:31:31.228Z] Recording test results
+[2026-11-12T01:31:31.260Z] [Checks API] No suitable checks publisher found.
+[Pipeline] recordCoverage
+[2026-11-12T01:31:31.334Z] [Coverage] Recording coverage results
+[2026-11-12T01:31:31.334Z] [Coverage] Creating parser for Cobertura Coverage Reports
+[2026-11-12T01:31:31.334Z] [Coverage] Searching for all files in '/var/jenkins_home/workspace/legeni-qualite' that match the pattern 'reports/coverage.xml'
+[2026-11-12T01:31:31.334Z] [Coverage] Traversing of symbolic links: enabled
+[2026-11-12T01:31:31.334Z] [Coverage] -> found 1 file
+[2026-11-12T01:31:31.334Z] [Coverage] Successfully parsed file '/var/jenkins_home/workspace/legeni-qualite/reports/coverage.xml'
+[2026-11-12T01:31:31.334Z] [Coverage] Module Coverage: 100.00% (1/1)
+[2026-11-12T01:31:31.334Z] [Coverage] Package Coverage: 100.00% (1/1)
+[2026-11-12T01:31:31.334Z] [Coverage] File Coverage: 100.00% (1/1)
+[2026-11-12T01:31:31.334Z] [Coverage] Class Coverage: 100.00% (1/1)
+[2026-11-12T01:31:31.336Z] [Coverage] Line Coverage: 83.64% (46/55)
+[2026-11-12T01:31:31.336Z] [Coverage] Lines of Code: 55
+[2026-11-12T01:31:31.336Z] [Coverage] Cyclomatic Complexity: 0
+[2026-11-12T01:31:31.336Z] [Coverage] Successfully processed file 'reports/coverage.xml'
+[2026-11-12T01:31:31.338Z] [Coverage] Resolving source code files...
+[2026-11-12T01:31:31.338Z] [Coverage] Searching for source code files in '/var/jenkins_home/workspace/legeni-qualite/src/main/java'
+[2026-11-12T01:31:31.338Z] [Coverage] -> resolved absolute paths for all 1 source files
+[2026-11-12T01:31:31.381Z] [Checks API] No suitable checks publisher found.
+[2026-11-12T01:31:31.381Z] [Coverage] Obtaining result action of reference build
+[2026-11-12T01:31:31.381Z] [Coverage] Reference build recorder is not configured
+[2026-11-12T01:31:31.381Z] [Coverage] -> Found no reference build
+[2026-11-12T01:31:31.381Z] [Coverage] No quality gates have been set - skipping
+[2026-11-12T01:31:31.381Z] [Coverage] Executing source code painting...
+[2026-11-12T01:31:31.381Z] [Coverage] Painting 1 source files on agent
+[2026-11-12T01:31:31.381Z] [Coverage] -> finished painting successfully
+[2026-11-12T01:31:31.381Z] [Coverage] -> zipping sources from folder '/var/jenkins_home/workspace/legeni-qualite/coverage-sources-.tmp10947141069090208999/coverage' as '/var/jenkins_home/workspace/legeni-qualite/coverage-sources-coverage.zip'
+[2026-11-12T01:31:31.381Z] [Coverage] -> deleted temporary source folder '/var/jenkins_home/workspace/legeni-qualite/coverage-sources-.tmp10947141069090208999'
+[2026-11-12T01:31:31.381Z] [Coverage] Copying painted sources from agent to build folder
+[2026-11-12T01:31:31.381Z] [Coverage] -> extracting...
+[2026-11-12T01:31:31.381Z] [Coverage] -> done
+[2026-11-12T01:31:31.381Z] [Coverage] Deleting source code files of build #9
+[2026-11-12T01:31:31.381Z] [Coverage] Finished coverage processing - adding the action to the build...
+[Pipeline] }
+[2026-11-12T01:31:31.429Z] $ docker stop --time=1 0cead7e7d769492a98b85486beb8bbfef8a426bbf08fcd0ae22fdfc8df7323c6
+[2026-11-12T01:31:33.256Z] $ docker rm -f --volumes 0cead7e7d769492a98b85486beb8bbfef8a426bbf08fcd0ae22fdfc8df7323c6
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build image)
+[Pipeline] sh
+[2026-11-12T01:31:34.338Z] + docker build --build-arg APP_VERSION=1.0.10 -t legeni-webapp:1.0.10 .
+[2026-11-12T01:31:34.903Z] #0 building with "default" instance using docker driver
+[2026-11-12T01:31:34.903Z] 
+[2026-11-12T01:31:34.903Z] #1 [internal] load build definition from Dockerfile
+[2026-11-12T01:31:34.903Z] #1 transferring dockerfile: 1.23kB done
+[2026-11-12T01:31:34.903Z] #1 DONE 0.0s
+[2026-11-12T01:31:34.903Z] 
+[2026-11-12T01:31:34.903Z] #2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+[2026-11-12T01:31:35.157Z] #2 DONE 0.4s
+[2026-11-12T01:31:35.157Z] 
+[2026-11-12T01:31:35.157Z] #3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+[2026-11-12T01:31:35.157Z] #3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.0s done
+[2026-11-12T01:31:35.157Z] #3 CACHED
+[2026-11-12T01:31:35.415Z] 
+[2026-11-12T01:31:35.415Z] #4 [internal] load metadata for docker.io/library/python:3.12-slim
+[2026-11-12T01:31:35.975Z] #4 DONE 0.5s
+[2026-11-12T01:31:35.975Z] 
+[2026-11-12T01:31:35.975Z] #5 [base 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+[2026-11-12T01:31:35.975Z] #5 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.1s done
+[2026-11-12T01:31:35.975Z] #5 DONE 0.1s
+[2026-11-12T01:31:35.975Z] 
+[2026-11-12T01:31:35.975Z] #6 [internal] load .dockerignore
+[2026-11-12T01:31:35.975Z] #6 transferring context: 143B done
+[2026-11-12T01:31:35.975Z] #6 DONE 0.0s
+[2026-11-12T01:31:36.233Z] 
+[2026-11-12T01:31:36.233Z] #7 [internal] load build context
+[2026-11-12T01:31:36.233Z] #7 transferring context: 3.91kB done
+[2026-11-12T01:31:36.233Z] #7 DONE 0.0s
+[2026-11-12T01:31:36.233Z] 
+[2026-11-12T01:31:36.233Z] #8 [base 4/4] RUN pip install --no-cache-dir -r requirements.txt
+[2026-11-12T01:31:36.233Z] #8 CACHED
+[2026-11-12T01:31:36.233Z] 
+[2026-11-12T01:31:36.233Z] #9 [base 2/4] WORKDIR /app
+[2026-11-12T01:31:36.233Z] #9 CACHED
+[2026-11-12T01:31:36.233Z] 
+[2026-11-12T01:31:36.233Z] #10 [base 3/4] COPY requirements.txt .
+[2026-11-12T01:31:36.233Z] #10 CACHED
+[2026-11-12T01:31:36.233Z] 
+[2026-11-12T01:31:36.233Z] #11 [base 4/4] RUN pip install --no-cache-dir -r requirements.txt
+[2026-11-12T01:31:36.233Z] #11 CACHED
+[2026-11-12T01:31:36.233Z] 
+[2026-11-12T01:31:36.233Z] #12 [runtime 1/2] RUN useradd --create-home --uid 10001 appuser
+[2026-11-12T01:31:37.591Z] #12 DONE 1.3s
+[2026-11-12T01:31:37.591Z] 
+[2026-11-12T01:31:37.591Z] #13 [runtime 2/2] COPY app.py .
+[2026-11-12T01:31:37.591Z] #13 DONE 0.2s
+[2026-11-12T01:31:37.851Z] 
+[2026-11-12T01:31:37.851Z] #14 exporting to image
+[2026-11-12T01:31:37.851Z] #14 exporting layers
+[2026-11-12T01:31:38.108Z] #14 exporting layers 0.5s done
+[2026-11-12T01:31:38.365Z] #14 exporting manifest sha256:2d05f1b731479bfc9f38cf07ae564a61cdcdea019127f89bd83308307f82a343 0.0s done
+[2026-11-12T01:31:38.365Z] #14 exporting config sha256:c583aea437ab1091d8beb031d3a1f1c02b814477d71f02309760b1cba3458c5d 0.0s done
+[2026-11-12T01:31:38.365Z] #14 exporting attestation manifest sha256:ee634df792dd7bd495f9a96c32bf260670a16799f3963faa340f0a74bfcdadd0 0.1s done
+[2026-11-12T01:31:38.365Z] #14 exporting manifest list sha256:fe4699165d662d9c87a28e5bf369ffe9cd16feda118f4bd671e7cd84d2ff4aeb
+[2026-11-12T01:31:38.365Z] #14 exporting manifest list sha256:fe4699165d662d9c87a28e5bf369ffe9cd16feda118f4bd671e7cd84d2ff4aeb 0.0s done
+[2026-11-12T01:31:38.365Z] #14 naming to docker.io/library/legeni-webapp:1.0.10 done
+[2026-11-12T01:31:38.365Z] #14 unpacking to docker.io/library/legeni-webapp:1.0.10 0.1s done
+[2026-11-12T01:31:38.365Z] #14 DONE 0.8s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Scan de sécurité)
+[Pipeline] sh
+[2026-11-12T01:31:39.030Z] + docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v trivy_cache:/root/.cache aquasec/trivy:0.57.1 image --severity CRITICAL --ignore-unfixed --exit-code 1 legeni-webapp:1.0.10
+[2026-11-12T01:31:40.391Z] 2026-11-12T01:31:40Z	INFO	[vuln] Vulnerability scanning is enabled
+[2026-11-12T01:31:40.391Z] 2026-11-12T01:31:40Z	INFO	[secret] Secret scanning is enabled
+[2026-11-12T01:31:40.391Z] 2026-11-12T01:31:40Z	INFO	[secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+[2026-11-12T01:31:40.391Z] 2026-11-12T01:31:40Z	INFO	[secret] Please see also https://aquasecurity.github.io/trivy/v0.57/docs/scanner/secret#recommendation for faster secret detection
+[2026-11-12T01:31:48.469Z] 2026-11-12T01:31:47Z	INFO	Detected OS	family="debian" version="13.7"
+[2026-11-12T01:31:48.469Z] 2026-11-12T01:31:47Z	INFO	[debian] Detecting vulnerabilities...	os_version="13" pkg_num=87
+[2026-11-12T01:31:48.469Z] 2026-11-12T01:31:47Z	INFO	Number of language-specific files	num=1
+[2026-11-12T01:31:48.469Z] 2026-11-12T01:31:47Z	INFO	[python-pkg] Detecting vulnerabilities...
+[2026-11-12T01:31:48.469Z] 2026-11-12T01:31:47Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://aquasecurity.github.io/trivy/v0.57/docs/scanner/vulnerability#severity-selection for details.
+[2026-11-12T01:31:48.469Z] 
+[2026-11-12T01:31:48.469Z] legeni-webapp:1.0.10 (debian 13.7)
+[2026-11-12T01:31:48.469Z] ==================================
+[2026-11-12T01:31:48.469Z] Total: 0 (CRITICAL: 0)
+[2026-11-12T01:31:48.469Z] 
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] cleanWs
+[2026-11-12T01:31:49.031Z] [WS-CLEANUP] Deleting project workspace...
+[2026-11-12T01:31:49.032Z] [WS-CLEANUP] Deferred wipeout is used...
+[2026-11-12T01:31:49.048Z] [WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

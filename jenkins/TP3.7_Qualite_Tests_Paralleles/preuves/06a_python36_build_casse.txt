@@ -1,0 +1,298 @@
+Started by user Evina ze dieubeni romaric
+Obtained Jenkinsfile.qualite from git https://github.com/nedstudio237-cmd/legeni-webapp.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Still waiting to schedule task
+Waiting for next available executor
+Running on Jenkins in /var/jenkins_home/workspace/legeni-qualite
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git init /var/jenkins_home/workspace/legeni-qualite # timeout=10
+Fetching upstream changes from https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/nedstudio237-cmd/legeni-webapp.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/nedstudio237-cmd/legeni-webapp.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/qualite^{commit} # timeout=10
+Checking out Revision b5cfe9a1d27b431601daabca4fe3e355b9f00007 (refs/remotes/origin/qualite)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f b5cfe9a1d27b431601daabca4fe3e355b9f00007 # timeout=10
+Commit message: "Quality gate 4 : FROM python:3.6-slim"
+ > git rev-list --no-walk 1447e8a224e1104ee39962935234de3db7124086 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-11-12T01:22:37.569Z] Timeout set to expire in 20 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Qualité du code)
+[Pipeline] parallel
+[Pipeline] { (Branch: Tests unitaires)
+[Pipeline] { (Branch: Lint Python)
+[Pipeline] { (Branch: Lint Dockerfile)
+[Pipeline] stage
+[Pipeline] { (Tests unitaires)
+[Pipeline] stage
+[Pipeline] { (Lint Python)
+[Pipeline] stage
+[Pipeline] { (Lint Dockerfile)
+[Pipeline] getContext
+[Pipeline] getContext
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-12T01:22:38.498Z] + docker run --rm -i hadolint/hadolint:v2.12.0
+[2026-11-12T01:22:38.542Z] + docker inspect -f . python:3.12-slim
+[2026-11-12T01:22:38.595Z] + docker inspect -f . python:3.12-slim
+[2026-11-12T01:22:38.799Z] .
+[Pipeline] }
+[2026-11-12T01:22:38.849Z] .
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-11-12T01:22:39.320Z] Jenkins seems to be running inside container a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940
+[2026-11-12T01:22:39.540Z] $ docker run -t -d -u 1000:1000 -e HOME=/tmp -w /var/jenkins_home/workspace/legeni-qualite --volumes-from a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12-slim cat
+[2026-11-12T01:22:40.916Z] $ docker top 72394c7e81e868a9f8e0987df3f2d9bdabd5a97e4da4f64f50fe872126b825b6 -eo pid,comm
+[Pipeline] {
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-11-12T01:22:41.464Z] Jenkins seems to be running inside container a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940
+[2026-11-12T01:22:41.630Z] $ docker run -t -d -u 1000:1000 -e HOME=/tmp -w /var/jenkins_home/workspace/legeni-qualite --volumes-from a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12-slim cat
+[2026-11-12T01:22:42.578Z] $ docker top 957c8ff4974c0957e3f770fd07cacb7c0e54228dfd16b5539aba263a1bd129dd -eo pid,comm
+[Pipeline] {
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-12T01:22:43.721Z] + python -m venv /tmp/venv
+[2026-11-12T01:22:43.805Z] + python -m venv /tmp/venv
+[2026-11-12T01:22:58.537Z] + /tmp/venv/bin/pip install -q -r requirements.txt -r requirements-dev.txt
+[2026-11-12T01:22:58.621Z] + /tmp/venv/bin/pip install -q flake8==7.1.1
+[2026-11-12T01:23:03.856Z] 
+[2026-11-12T01:23:03.856Z] [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-12T01:23:03.856Z] [notice] To update, run: python -m pip install --upgrade pip
+[2026-11-12T01:23:03.856Z] + mkdir -p reports
+[2026-11-12T01:23:03.856Z] + /tmp/venv/bin/flake8 --output-file=reports/flake8.txt --tee .
+Post stage
+[Pipeline] recordIssues
+[2026-11-12T01:23:05.778Z] [Flake8] Searching for all files in '/var/jenkins_home/workspace/legeni-qualite' that match the pattern 'reports/flake8.txt'
+[2026-11-12T01:23:05.778Z] [Flake8] Traversing of symbolic links: enabled
+[2026-11-12T01:23:05.778Z] [Flake8] -> found 1 file
+[2026-11-12T01:23:05.778Z] [Flake8] Skipping file 'reports/flake8.txt' because it's empty
+[2026-11-12T01:23:05.778Z] [Flake8] Skipping post processing
+[2026-11-12T01:23:05.778Z] [Flake8] No filter has been set, publishing all 0 issues
+[2026-11-12T01:23:05.778Z] [Flake8] Repository miner is not configured, skipping repository mining
+[2026-11-12T01:23:05.779Z] [Flake8] Reference build recorder is not configured
+[2026-11-12T01:23:05.779Z] [Flake8] No valid reference build found
+[2026-11-12T01:23:05.780Z] [Flake8] All reported issues will be considered outstanding
+[2026-11-12T01:23:05.780Z] [Flake8] No quality gates have been set - skipping
+[2026-11-12T01:23:05.780Z] [Flake8] Health report is disabled - skipping
+[2026-11-12T01:23:05.780Z] [Flake8] Created analysis result for 0 issues (found 0 new issues, fixed 0 issues)
+[2026-11-12T01:23:05.780Z] [Flake8] Attaching ResultAction with ID 'flake8' to build 'legeni-qualite #5'.
+[2026-11-12T01:23:05.850Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[2026-11-12T01:23:05.891Z] $ docker stop --time=1 957c8ff4974c0957e3f770fd07cacb7c0e54228dfd16b5539aba263a1bd129dd
+[2026-11-12T01:23:07.339Z] $ docker rm -f --volumes 957c8ff4974c0957e3f770fd07cacb7c0e54228dfd16b5539aba263a1bd129dd
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-12T01:23:20.398Z] 
+[2026-11-12T01:23:20.399Z] [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-12T01:23:20.399Z] [notice] To update, run: python -m pip install --upgrade pip
+[2026-11-12T01:23:20.399Z] + mkdir -p reports
+[2026-11-12T01:23:20.399Z] + /tmp/venv/bin/pytest --junitxml=reports/junit.xml --cov=app --cov-report=xml:reports/coverage.xml --cov-fail-under=80
+[2026-11-12T01:23:20.956Z] ============================= test session starts ==============================
+[2026-11-12T01:23:20.957Z] platform linux -- Python 3.12.16, pytest-8.3.4, pluggy-1.7.0
+[2026-11-12T01:23:20.957Z] rootdir: /var/jenkins_home/workspace/legeni-qualite
+[2026-11-12T01:23:20.957Z] configfile: pytest.ini
+[2026-11-12T01:23:20.957Z] testpaths: tests
+[2026-11-12T01:23:20.957Z] plugins: cov-6.0.0
+[2026-11-12T01:23:20.957Z] collected 6 items
+[2026-11-12T01:23:20.957Z] 
+[2026-11-12T01:23:21.212Z] tests/test_app.py ......                                                 [100%]
+[2026-11-12T01:23:21.212Z] 
+[2026-11-12T01:23:21.212Z] - generated xml file: /var/jenkins_home/workspace/legeni-qualite/reports/junit.xml -
+[2026-11-12T01:23:21.212Z] 
+[2026-11-12T01:23:21.212Z] ---------- coverage: platform linux, python 3.12.16-final-0 ----------
+[2026-11-12T01:23:21.212Z] Coverage XML written to file reports/coverage.xml
+[2026-11-12T01:23:21.212Z] 
+[2026-11-12T01:23:21.212Z] Required test coverage of 80% reached. Total coverage: 83.64%
+[2026-11-12T01:23:21.212Z] ============================== 6 passed in 0.95s ===============================
+Post stage
+[Pipeline] junit
+[2026-11-12T01:23:21.493Z] Recording test results
+[2026-11-12T01:23:21.509Z] [Checks API] No suitable checks publisher found.
+[Pipeline] recordCoverage
+[2026-11-12T01:23:21.553Z] [Coverage] Recording coverage results
+[2026-11-12T01:23:21.554Z] [Coverage] Creating parser for Cobertura Coverage Reports
+[2026-11-12T01:23:21.554Z] [Coverage] Searching for all files in '/var/jenkins_home/workspace/legeni-qualite' that match the pattern 'reports/coverage.xml'
+[2026-11-12T01:23:21.554Z] [Coverage] Traversing of symbolic links: enabled
+[2026-11-12T01:23:21.554Z] [Coverage] -> found 1 file
+[2026-11-12T01:23:21.554Z] [Coverage] Successfully parsed file '/var/jenkins_home/workspace/legeni-qualite/reports/coverage.xml'
+[2026-11-12T01:23:21.554Z] [Coverage] Module Coverage: 100.00% (1/1)
+[2026-11-12T01:23:21.554Z] [Coverage] Package Coverage: 100.00% (1/1)
+[2026-11-12T01:23:21.554Z] [Coverage] File Coverage: 100.00% (1/1)
+[2026-11-12T01:23:21.554Z] [Coverage] Class Coverage: 100.00% (1/1)
+[2026-11-12T01:23:21.554Z] [Coverage] Line Coverage: 83.64% (46/55)
+[2026-11-12T01:23:21.554Z] [Coverage] Lines of Code: 55
+[2026-11-12T01:23:21.554Z] [Coverage] Cyclomatic Complexity: 0
+[2026-11-12T01:23:21.554Z] [Coverage] Successfully processed file 'reports/coverage.xml'
+[2026-11-12T01:23:21.556Z] [Coverage] Resolving source code files...
+[2026-11-12T01:23:21.556Z] [Coverage] Searching for source code files in '/var/jenkins_home/workspace/legeni-qualite/src/main/java'
+[2026-11-12T01:23:21.556Z] [Coverage] -> resolved absolute paths for all 1 source files
+[2026-11-12T01:23:21.614Z] [Checks API] No suitable checks publisher found.
+[2026-11-12T01:23:21.614Z] [Coverage] Obtaining result action of reference build
+[2026-11-12T01:23:21.614Z] [Coverage] Reference build recorder is not configured
+[2026-11-12T01:23:21.614Z] [Coverage] -> Found no reference build
+[2026-11-12T01:23:21.614Z] [Coverage] No quality gates have been set - skipping
+[2026-11-12T01:23:21.614Z] [Coverage] Executing source code painting...
+[2026-11-12T01:23:21.614Z] [Coverage] Painting 1 source files on agent
+[2026-11-12T01:23:21.614Z] [Coverage] -> finished painting successfully
+[2026-11-12T01:23:21.614Z] [Coverage] -> zipping sources from folder '/var/jenkins_home/workspace/legeni-qualite/coverage-sources-.tmp1011828360893958019/coverage' as '/var/jenkins_home/workspace/legeni-qualite/coverage-sources-coverage.zip'
+[2026-11-12T01:23:21.614Z] [Coverage] -> deleted temporary source folder '/var/jenkins_home/workspace/legeni-qualite/coverage-sources-.tmp1011828360893958019'
+[2026-11-12T01:23:21.614Z] [Coverage] Copying painted sources from agent to build folder
+[2026-11-12T01:23:21.614Z] [Coverage] -> extracting...
+[2026-11-12T01:23:21.614Z] [Coverage] -> done
+[2026-11-12T01:23:21.614Z] [Coverage] Deleting source code files of build #4
+[2026-11-12T01:23:21.614Z] [Coverage] Finished coverage processing - adding the action to the build...
+[Pipeline] }
+[2026-11-12T01:23:21.655Z] $ docker stop --time=1 72394c7e81e868a9f8e0987df3f2d9bdabd5a97e4da4f64f50fe872126b825b6
+[2026-11-12T01:23:23.177Z] $ docker rm -f --volumes 72394c7e81e868a9f8e0987df3f2d9bdabd5a97e4da4f64f50fe872126b825b6
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build image)
+[Pipeline] sh
+[2026-11-12T01:23:24.101Z] + docker build --build-arg APP_VERSION=1.0.5 -t legeni-webapp:1.0.5 .
+[2026-11-12T01:23:24.683Z] #0 building with "default" instance using docker driver
+[2026-11-12T01:23:24.683Z] 
+[2026-11-12T01:23:24.683Z] #1 [internal] load build definition from Dockerfile
+[2026-11-12T01:23:24.683Z] #1 transferring dockerfile: 1.23kB done
+[2026-11-12T01:23:24.683Z] #1 DONE 0.0s
+[2026-11-12T01:23:24.683Z] 
+[2026-11-12T01:23:24.683Z] #2 [auth] docker/dockerfile:pull token for registry-1.docker.io
+[2026-11-12T01:23:24.683Z] #2 DONE 0.0s
+[2026-11-12T01:23:24.683Z] 
+[2026-11-12T01:23:24.683Z] #3 resolve image config for docker-image://docker.io/docker/dockerfile:1
+[2026-11-12T01:23:26.567Z] #3 DONE 1.8s
+[2026-11-12T01:23:26.567Z] 
+[2026-11-12T01:23:26.567Z] #4 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+[2026-11-12T01:23:26.567Z] #4 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.1s done
+[2026-11-12T01:23:26.567Z] #4 CACHED
+[2026-11-12T01:23:26.567Z] 
+[2026-11-12T01:23:26.567Z] #5 [internal] load metadata for docker.io/library/python:3.6-slim
+[2026-11-12T01:23:26.824Z] #5 ...
+[2026-11-12T01:23:26.824Z] 
+[2026-11-12T01:23:26.824Z] #6 [auth] library/python:pull token for registry-1.docker.io
+[2026-11-12T01:23:26.824Z] #6 DONE 0.0s
+[2026-11-12T01:23:26.824Z] 
+[2026-11-12T01:23:26.824Z] #5 [internal] load metadata for docker.io/library/python:3.6-slim
+[2026-11-12T01:23:28.184Z] #5 DONE 1.3s
+[2026-11-12T01:23:28.185Z] 
+[2026-11-12T01:23:28.185Z] #7 [internal] load .dockerignore
+[2026-11-12T01:23:28.185Z] #7 transferring context: 143B done
+[2026-11-12T01:23:28.185Z] #7 DONE 0.0s
+[2026-11-12T01:23:28.185Z] 
+[2026-11-12T01:23:28.185Z] #8 [internal] load build context
+[2026-11-12T01:23:28.185Z] #8 transferring context: 3.91kB 0.0s done
+[2026-11-12T01:23:28.185Z] #8 DONE 0.0s
+[2026-11-12T01:23:28.185Z] 
+[2026-11-12T01:23:28.185Z] #9 [base 1/4] FROM docker.io/library/python:3.6-slim@sha256:2cfebc27956e6a55f78606864d91fe527696f9e32a724e6f9702b5f9602d0474
+[2026-11-12T01:23:28.185Z] #9 resolve docker.io/library/python:3.6-slim@sha256:2cfebc27956e6a55f78606864d91fe527696f9e32a724e6f9702b5f9602d0474 0.1s done
+[2026-11-12T01:23:28.185Z] #9 DONE 0.1s
+[2026-11-12T01:23:28.185Z] 
+[2026-11-12T01:23:28.185Z] #10 [base 2/4] WORKDIR /app
+[2026-11-12T01:23:28.185Z] #10 CACHED
+[2026-11-12T01:23:28.185Z] 
+[2026-11-12T01:23:28.185Z] #11 [base 3/4] COPY requirements.txt .
+[2026-11-12T01:23:28.185Z] #11 CACHED
+[2026-11-12T01:23:28.185Z] 
+[2026-11-12T01:23:28.185Z] #12 [base 4/4] RUN pip install --no-cache-dir -r requirements.txt
+[2026-11-12T01:23:33.421Z] #12 4.547 ERROR: Could not find a version that satisfies the requirement flask==3.1.0 (from versions: 0.1, 0.2, 0.3, 0.3.1, 0.4, 0.5, 0.5.1, 0.5.2, 0.6, 0.6.1, 0.7, 0.7.1, 0.7.2, 0.8, 0.8.1, 0.9, 0.10, 0.10.1, 0.11, 0.11.1, 0.12, 0.12.1, 0.12.2, 0.12.3, 0.12.4, 0.12.5, 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4, 1.1.0, 1.1.1, 1.1.2, 1.1.3, 1.1.4, 2.0.0rc1, 2.0.0rc2, 2.0.0, 2.0.1, 2.0.2, 2.0.3)
+[2026-11-12T01:23:33.422Z] #12 4.548 ERROR: No matching distribution found for flask==3.1.0
+[2026-11-12T01:23:33.422Z] #12 5.350 WARNING: You are using pip version 21.2.4; however, version 21.3.1 is available.
+[2026-11-12T01:23:33.422Z] #12 5.350 You should consider upgrading via the '/usr/local/bin/python -m pip install --upgrade pip' command.
+[2026-11-12T01:23:33.677Z] #12 ERROR: process "/bin/sh -c pip install --no-cache-dir -r requirements.txt" did not complete successfully: exit code: 1
+[2026-11-12T01:23:33.934Z] ------
+[2026-11-12T01:23:33.934Z]  > [base 4/4] RUN pip install --no-cache-dir -r requirements.txt:
+[2026-11-12T01:23:33.935Z] 4.547 ERROR: Could not find a version that satisfies the requirement flask==3.1.0 (from versions: 0.1, 0.2, 0.3, 0.3.1, 0.4, 0.5, 0.5.1, 0.5.2, 0.6, 0.6.1, 0.7, 0.7.1, 0.7.2, 0.8, 0.8.1, 0.9, 0.10, 0.10.1, 0.11, 0.11.1, 0.12, 0.12.1, 0.12.2, 0.12.3, 0.12.4, 0.12.5, 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4, 1.1.0, 1.1.1, 1.1.2, 1.1.3, 1.1.4, 2.0.0rc1, 2.0.0rc2, 2.0.0, 2.0.1, 2.0.2, 2.0.3)
+[2026-11-12T01:23:33.935Z] 4.548 ERROR: No matching distribution found for flask==3.1.0
+[2026-11-12T01:23:33.935Z] 5.350 WARNING: You are using pip version 21.2.4; however, version 21.3.1 is available.
+[2026-11-12T01:23:33.935Z] 5.350 You should consider upgrading via the '/usr/local/bin/python -m pip install --upgrade pip' command.
+[2026-11-12T01:23:33.935Z] ------
+[2026-11-12T01:23:33.935Z] Dockerfile:10
+[2026-11-12T01:23:33.935Z] --------------------
+[2026-11-12T01:23:33.935Z]    8 |     # tant que les dépendances ne changent pas.
+[2026-11-12T01:23:33.935Z]    9 |     COPY requirements.txt .
+[2026-11-12T01:23:33.935Z]   10 | >>> RUN pip install --no-cache-dir -r requirements.txt
+[2026-11-12T01:23:33.935Z]   11 |     
+[2026-11-12T01:23:33.935Z]   12 |     # ---------- Étape 2 : lint + tests (docker build --target test) ----------
+[2026-11-12T01:23:33.935Z] --------------------
+[2026-11-12T01:23:33.935Z] ERROR: failed to build: failed to solve: process "/bin/sh -c pip install --no-cache-dir -r requirements.txt" did not complete successfully: exit code: 1
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Scan de sécurité)
+Stage "Scan de sécurité" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] cleanWs
+[2026-11-12T01:23:34.339Z] [WS-CLEANUP] Deleting project workspace...
+[2026-11-12T01:23:34.339Z] [WS-CLEANUP] Deferred wipeout is used...
+[2026-11-12T01:23:34.348Z] [WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
+
+# Statut des stages (build #5) :
+  Declarative: Checkout SCM  SUCCESS
+  Qualité du code            SUCCESS
+  Tests unitaires            SUCCESS
+  Lint Python                SUCCESS
+  Lint Dockerfile            SUCCESS
+  Build image                FAILED
+  Scan de sécurité           FAILED
+  Declarative: Post Actions  SUCCESS

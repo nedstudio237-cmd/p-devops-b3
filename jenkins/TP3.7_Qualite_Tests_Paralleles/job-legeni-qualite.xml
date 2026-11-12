@@ -1,0 +1,19 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job">
+  <description>TP 3.7 : contrôles qualité en parallèle (Jenkinsfile.qualite, branche qualite)</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps">
+    <scm class="hudson.plugins.git.GitSCM" plugin="git">
+      <configVersion>2</configVersion>
+      <userRemoteConfigs><hudson.plugins.git.UserRemoteConfig><url>https://github.com/nedstudio237-cmd/legeni-webapp.git</url></hudson.plugins.git.UserRemoteConfig></userRemoteConfigs>
+      <branches><hudson.plugins.git.BranchSpec><name>*/qualite</name></hudson.plugins.git.BranchSpec></branches>
+      <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations><submoduleCfg class="empty-list"/><extensions/>
+    </scm>
+    <scriptPath>Jenkinsfile.qualite</scriptPath>
+    <lightweight>true</lightweight>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

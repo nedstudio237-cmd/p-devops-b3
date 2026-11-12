@@ -1,0 +1,426 @@
+Started by user Evina ze dieubeni romaric
+Obtained Jenkinsfile.qualite from git https://github.com/nedstudio237-cmd/legeni-webapp.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/legeni-qualite
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git init /var/jenkins_home/workspace/legeni-qualite # timeout=10
+Fetching upstream changes from https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/nedstudio237-cmd/legeni-webapp.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/nedstudio237-cmd/legeni-webapp.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/qualite^{commit} # timeout=10
+Checking out Revision 2a2b472bfeb24a6319710b16571c547cca82c59f (refs/remotes/origin/qualite)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 2a2b472bfeb24a6319710b16571c547cca82c59f # timeout=10
+Commit message: "Quality gate 4 : FROM python:3.12.0-slim (image de 2023 non corrigée)"
+ > git rev-list --no-walk b5cfe9a1d27b431601daabca4fe3e355b9f00007 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-11-12T01:24:43.422Z] Timeout set to expire in 20 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Qualité du code)
+[Pipeline] parallel
+[Pipeline] { (Branch: Tests unitaires)
+[Pipeline] { (Branch: Lint Python)
+[Pipeline] { (Branch: Lint Dockerfile)
+[Pipeline] stage
+[Pipeline] { (Tests unitaires)
+[Pipeline] stage
+[Pipeline] { (Lint Python)
+[Pipeline] stage
+[Pipeline] { (Lint Dockerfile)
+[Pipeline] getContext
+[Pipeline] getContext
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-12T01:24:44.176Z] + docker run --rm -i hadolint/hadolint:v2.12.0
+[2026-11-12T01:24:44.211Z] + docker inspect -f . python:3.12-slim
+[2026-11-12T01:24:44.239Z] + docker inspect -f . python:3.12-slim
+[2026-11-12T01:24:44.239Z] .
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-11-12T01:24:44.399Z] Jenkins seems to be running inside container a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940
+[2026-11-12T01:24:44.463Z] .
+[2026-11-12T01:24:44.663Z] $ docker run -t -d -u 1000:1000 -e HOME=/tmp -w /var/jenkins_home/workspace/legeni-qualite --volumes-from a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12-slim cat
+[2026-11-12T01:24:45.316Z] $ docker top ea8b207e67dbe2b5f676d03fee5cc2beb2cd97a7507564af4804e719925d12e3 -eo pid,comm
+[Pipeline] {
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-11-12T01:24:45.625Z] Jenkins seems to be running inside container a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940
+[2026-11-12T01:24:45.703Z] $ docker run -t -d -u 1000:1000 -e HOME=/tmp -w /var/jenkins_home/workspace/legeni-qualite --volumes-from a8427d820470528e951e43d63622305dc701d2b0f05027ac68e83888840f5940 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12-slim cat
+[2026-11-12T01:24:46.179Z] $ docker top 26bbbd2520f22213fecfa51978d8429879064f89b93dfe3b8b9418f6b95347d9 -eo pid,comm
+[Pipeline] {
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-12T01:24:46.778Z] + python -m venv /tmp/venv
+[2026-11-12T01:24:46.800Z] + python -m venv /tmp/venv
+[2026-11-12T01:24:53.295Z] + /tmp/venv/bin/pip install -q flake8==7.1.1
+[2026-11-12T01:24:53.328Z] + /tmp/venv/bin/pip install -q -r requirements.txt -r requirements-dev.txt
+[2026-11-12T01:24:58.519Z] 
+[2026-11-12T01:24:58.519Z] [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-12T01:24:58.519Z] [notice] To update, run: python -m pip install --upgrade pip
+[2026-11-12T01:24:58.772Z] + mkdir -p reports
+[2026-11-12T01:24:58.772Z] + /tmp/venv/bin/flake8 --output-file=reports/flake8.txt --tee .
+Post stage
+[Pipeline] recordIssues
+[2026-11-12T01:24:59.758Z] [Flake8] Searching for all files in '/var/jenkins_home/workspace/legeni-qualite' that match the pattern 'reports/flake8.txt'
+[2026-11-12T01:24:59.758Z] [Flake8] Traversing of symbolic links: enabled
+[2026-11-12T01:24:59.758Z] [Flake8] -> found 1 file
+[2026-11-12T01:24:59.758Z] [Flake8] Skipping file 'reports/flake8.txt' because it's empty
+[2026-11-12T01:24:59.759Z] [Flake8] Skipping post processing
+[2026-11-12T01:24:59.759Z] [Flake8] No filter has been set, publishing all 0 issues
+[2026-11-12T01:24:59.759Z] [Flake8] Repository miner is not configured, skipping repository mining
+[2026-11-12T01:24:59.762Z] [Flake8] Reference build recorder is not configured
+[2026-11-12T01:24:59.762Z] [Flake8] No valid reference build found
+[2026-11-12T01:24:59.762Z] [Flake8] All reported issues will be considered outstanding
+[2026-11-12T01:24:59.762Z] [Flake8] No quality gates have been set - skipping
+[2026-11-12T01:24:59.762Z] [Flake8] Health report is disabled - skipping
+[2026-11-12T01:24:59.762Z] [Flake8] Created analysis result for 0 issues (found 0 new issues, fixed 0 issues)
+[2026-11-12T01:24:59.762Z] [Flake8] Attaching ResultAction with ID 'flake8' to build 'legeni-qualite #6'.
+[2026-11-12T01:24:59.820Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[2026-11-12T01:24:59.854Z] $ docker stop --time=1 ea8b207e67dbe2b5f676d03fee5cc2beb2cd97a7507564af4804e719925d12e3
+[2026-11-12T01:25:01.303Z] $ docker rm -f --volumes ea8b207e67dbe2b5f676d03fee5cc2beb2cd97a7507564af4804e719925d12e3
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-12T01:25:08.156Z] 
+[2026-11-12T01:25:08.156Z] [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-12T01:25:08.156Z] [notice] To update, run: python -m pip install --upgrade pip
+[2026-11-12T01:25:08.412Z] + mkdir -p reports
+[2026-11-12T01:25:08.412Z] + /tmp/venv/bin/pytest --junitxml=reports/junit.xml --cov=app --cov-report=xml:reports/coverage.xml --cov-fail-under=80
+[2026-11-12T01:25:10.298Z] ============================= test session starts ==============================
+[2026-11-12T01:25:10.298Z] platform linux -- Python 3.12.16, pytest-8.3.4, pluggy-1.7.0
+[2026-11-12T01:25:10.298Z] rootdir: /var/jenkins_home/workspace/legeni-qualite
+[2026-11-12T01:25:10.298Z] configfile: pytest.ini
+[2026-11-12T01:25:10.298Z] testpaths: tests
+[2026-11-12T01:25:10.298Z] plugins: cov-6.0.0
+[2026-11-12T01:25:10.298Z] collected 6 items
+[2026-11-12T01:25:10.298Z] 
+[2026-11-12T01:25:10.298Z] tests/test_app.py ......                                                 [100%]
+[2026-11-12T01:25:10.298Z] 
+[2026-11-12T01:25:10.298Z] - generated xml file: /var/jenkins_home/workspace/legeni-qualite/reports/junit.xml -
+[2026-11-12T01:25:10.298Z] 
+[2026-11-12T01:25:10.298Z] ---------- coverage: platform linux, python 3.12.16-final-0 ----------
+[2026-11-12T01:25:10.298Z] Coverage XML written to file reports/coverage.xml
+[2026-11-12T01:25:10.298Z] 
+[2026-11-12T01:25:10.298Z] Required test coverage of 80% reached. Total coverage: 83.64%
+[2026-11-12T01:25:10.298Z] ============================== 6 passed in 0.75s ===============================
+Post stage
+[Pipeline] junit
+[2026-11-12T01:25:10.575Z] Recording test results
+[2026-11-12T01:25:10.589Z] [Checks API] No suitable checks publisher found.
+[Pipeline] recordCoverage
+[2026-11-12T01:25:10.621Z] [Coverage] Recording coverage results
+[2026-11-12T01:25:10.622Z] [Coverage] Creating parser for Cobertura Coverage Reports
+[2026-11-12T01:25:10.622Z] [Coverage] Searching for all files in '/var/jenkins_home/workspace/legeni-qualite' that match the pattern 'reports/coverage.xml'
+[2026-11-12T01:25:10.622Z] [Coverage] Traversing of symbolic links: enabled
+[2026-11-12T01:25:10.622Z] [Coverage] -> found 1 file
+[2026-11-12T01:25:10.622Z] [Coverage] Successfully parsed file '/var/jenkins_home/workspace/legeni-qualite/reports/coverage.xml'
+[2026-11-12T01:25:10.622Z] [Coverage] Module Coverage: 100.00% (1/1)
+[2026-11-12T01:25:10.622Z] [Coverage] Package Coverage: 100.00% (1/1)
+[2026-11-12T01:25:10.622Z] [Coverage] File Coverage: 100.00% (1/1)
+[2026-11-12T01:25:10.622Z] [Coverage] Class Coverage: 100.00% (1/1)
+[2026-11-12T01:25:10.622Z] [Coverage] Line Coverage: 83.64% (46/55)
+[2026-11-12T01:25:10.622Z] [Coverage] Lines of Code: 55
+[2026-11-12T01:25:10.622Z] [Coverage] Cyclomatic Complexity: 0
+[2026-11-12T01:25:10.622Z] [Coverage] Successfully processed file 'reports/coverage.xml'
+[2026-11-12T01:25:10.629Z] [Coverage] Resolving source code files...
+[2026-11-12T01:25:10.629Z] [Coverage] Searching for source code files in '/var/jenkins_home/workspace/legeni-qualite/src/main/java'
+[2026-11-12T01:25:10.629Z] [Coverage] -> resolved absolute paths for all 1 source files
+[2026-11-12T01:25:10.662Z] [Checks API] No suitable checks publisher found.
+[2026-11-12T01:25:10.662Z] [Coverage] Obtaining result action of reference build
+[2026-11-12T01:25:10.662Z] [Coverage] Reference build recorder is not configured
+[2026-11-12T01:25:10.662Z] [Coverage] -> Found no reference build
+[2026-11-12T01:25:10.662Z] [Coverage] No quality gates have been set - skipping
+[2026-11-12T01:25:10.662Z] [Coverage] Executing source code painting...
+[2026-11-12T01:25:10.662Z] [Coverage] Painting 1 source files on agent
+[2026-11-12T01:25:10.662Z] [Coverage] -> finished painting successfully
+[2026-11-12T01:25:10.662Z] [Coverage] -> zipping sources from folder '/var/jenkins_home/workspace/legeni-qualite/coverage-sources-.tmp4929344855835389529/coverage' as '/var/jenkins_home/workspace/legeni-qualite/coverage-sources-coverage.zip'
+[2026-11-12T01:25:10.662Z] [Coverage] -> deleted temporary source folder '/var/jenkins_home/workspace/legeni-qualite/coverage-sources-.tmp4929344855835389529'
+[2026-11-12T01:25:10.662Z] [Coverage] Copying painted sources from agent to build folder
+[2026-11-12T01:25:10.662Z] [Coverage] -> extracting...
+[2026-11-12T01:25:10.662Z] [Coverage] -> done
+[2026-11-12T01:25:10.662Z] [Coverage] Deleting source code files of build #5
+[2026-11-12T01:25:10.662Z] [Coverage] Finished coverage processing - adding the action to the build...
+[Pipeline] }
+[2026-11-12T01:25:10.688Z] $ docker stop --time=1 26bbbd2520f22213fecfa51978d8429879064f89b93dfe3b8b9418f6b95347d9
+[2026-11-12T01:25:12.120Z] $ docker rm -f --volumes 26bbbd2520f22213fecfa51978d8429879064f89b93dfe3b8b9418f6b95347d9
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build image)
+[Pipeline] sh
+[2026-11-12T01:25:12.803Z] + docker build --build-arg APP_VERSION=1.0.6 -t legeni-webapp:1.0.6 .
+[2026-11-12T01:25:13.358Z] #0 building with "default" instance using docker driver
+[2026-11-12T01:25:13.358Z] 
+[2026-11-12T01:25:13.358Z] #1 [internal] load build definition from Dockerfile
+[2026-11-12T01:25:13.358Z] #1 transferring dockerfile: 1.24kB done
+[2026-11-12T01:25:13.358Z] #1 DONE 0.0s
+[2026-11-12T01:25:13.358Z] 
+[2026-11-12T01:25:13.358Z] #2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+[2026-11-12T01:25:13.921Z] #2 DONE 1.0s
+[2026-11-12T01:25:14.178Z] 
+[2026-11-12T01:25:14.178Z] #3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+[2026-11-12T01:25:14.178Z] #3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.0s done
+[2026-11-12T01:25:14.178Z] #3 CACHED
+[2026-11-12T01:25:14.178Z] 
+[2026-11-12T01:25:14.178Z] #4 [internal] load metadata for docker.io/library/python:3.12.0-slim
+[2026-11-12T01:25:15.541Z] #4 DONE 1.0s
+[2026-11-12T01:25:15.541Z] 
+[2026-11-12T01:25:15.541Z] #5 [internal] load .dockerignore
+[2026-11-12T01:25:15.541Z] #5 transferring context: 143B done
+[2026-11-12T01:25:15.541Z] #5 DONE 0.0s
+[2026-11-12T01:25:15.541Z] 
+[2026-11-12T01:25:15.541Z] #6 [internal] load build context
+[2026-11-12T01:25:15.541Z] #6 transferring context: 3.91kB 0.0s done
+[2026-11-12T01:25:15.541Z] #6 DONE 0.0s
+[2026-11-12T01:25:15.541Z] 
+[2026-11-12T01:25:15.541Z] #7 [base 1/4] FROM docker.io/library/python:3.12.0-slim@sha256:19a6235339a74eca01227b03629f63b6f5020abc21142436eced6ec3a9839a76
+[2026-11-12T01:25:15.541Z] #7 resolve docker.io/library/python:3.12.0-slim@sha256:19a6235339a74eca01227b03629f63b6f5020abc21142436eced6ec3a9839a76 0.0s done
+[2026-11-12T01:25:15.541Z] #7 DONE 0.1s
+[2026-11-12T01:25:15.795Z] 
+[2026-11-12T01:25:15.795Z] #7 [base 1/4] FROM docker.io/library/python:3.12.0-slim@sha256:19a6235339a74eca01227b03629f63b6f5020abc21142436eced6ec3a9839a76
+[2026-11-12T01:25:15.795Z] #7 extracting sha256:1f7ce2fa46ab3942feabee654933948821303a5a821789dddab2d8c3df59e227
+[2026-11-12T01:25:17.152Z] #7 extracting sha256:1f7ce2fa46ab3942feabee654933948821303a5a821789dddab2d8c3df59e227 1.6s done
+[2026-11-12T01:25:17.152Z] #7 DONE 1.7s
+[2026-11-12T01:25:17.152Z] 
+[2026-11-12T01:25:17.152Z] #7 [base 1/4] FROM docker.io/library/python:3.12.0-slim@sha256:19a6235339a74eca01227b03629f63b6f5020abc21142436eced6ec3a9839a76
+[2026-11-12T01:25:17.152Z] #7 extracting sha256:442c5d63eafd969b755d7c8e0914319677ca8d5112a84e851b16677a4fc1d189
+[2026-11-12T01:25:17.403Z] #7 extracting sha256:442c5d63eafd969b755d7c8e0914319677ca8d5112a84e851b16677a4fc1d189 0.2s done
+[2026-11-12T01:25:17.403Z] #7 DONE 1.9s
+[2026-11-12T01:25:17.403Z] 
+[2026-11-12T01:25:17.403Z] #7 [base 1/4] FROM docker.io/library/python:3.12.0-slim@sha256:19a6235339a74eca01227b03629f63b6f5020abc21142436eced6ec3a9839a76
+[2026-11-12T01:25:17.403Z] #7 extracting sha256:887bfde6878857d734681d49c8ce7f56ffec04d91d4d848426b33bbeb955c6f8
+[2026-11-12T01:25:17.964Z] #7 extracting sha256:887bfde6878857d734681d49c8ce7f56ffec04d91d4d848426b33bbeb955c6f8 0.6s done
+[2026-11-12T01:25:17.964Z] #7 DONE 2.5s
+[2026-11-12T01:25:17.964Z] 
+[2026-11-12T01:25:17.964Z] #7 [base 1/4] FROM docker.io/library/python:3.12.0-slim@sha256:19a6235339a74eca01227b03629f63b6f5020abc21142436eced6ec3a9839a76
+[2026-11-12T01:25:17.964Z] #7 extracting sha256:78be9143582f51cc4f735fb4300dfa0c454f34bb8c1ec95af7d37fc5c4c35064 0.0s done
+[2026-11-12T01:25:17.964Z] #7 extracting sha256:ac7ada22b54e5155a820af45411f77108c09935489794375f7bfc455be8130d2
+[2026-11-12T01:25:18.345Z] #7 extracting sha256:ac7ada22b54e5155a820af45411f77108c09935489794375f7bfc455be8130d2 0.3s done
+[2026-11-12T01:25:18.345Z] #7 DONE 2.8s
+[2026-11-12T01:25:18.345Z] 
+[2026-11-12T01:25:18.345Z] #8 [base 2/4] WORKDIR /app
+[2026-11-12T01:25:18.908Z] #8 DONE 0.7s
+[2026-11-12T01:25:19.162Z] 
+[2026-11-12T01:25:19.162Z] #9 [base 3/4] COPY requirements.txt .
+[2026-11-12T01:25:19.162Z] #9 DONE 0.1s
+[2026-11-12T01:25:19.162Z] 
+[2026-11-12T01:25:19.162Z] #10 [base 4/4] RUN pip install --no-cache-dir -r requirements.txt
+[2026-11-12T01:25:24.403Z] #10 4.857 Collecting flask==3.1.0 (from -r requirements.txt (line 1))
+[2026-11-12T01:25:24.403Z] #10 4.858   Obtaining dependency information for flask==3.1.0 from https://files.pythonhosted.org/packages/af/47/93213ee66ef8fae3b93b3e29206f6b251e65c97bd91d8e1c5596ef15af0a/flask-3.1.0-py3-none-any.whl.metadata
+[2026-11-12T01:25:24.403Z] #10 5.590   Downloading flask-3.1.0-py3-none-any.whl.metadata (2.7 kB)
+[2026-11-12T01:25:24.964Z] #10 5.879 Collecting gunicorn==23.0.0 (from -r requirements.txt (line 2))
+[2026-11-12T01:25:24.964Z] #10 5.879   Obtaining dependency information for gunicorn==23.0.0 from https://files.pythonhosted.org/packages/cb/7d/6dac2a6e1eba33ee43f318edbed4ff29151a49b5d37f080aad1e6469bca4/gunicorn-23.0.0-py3-none-any.whl.metadata
+[2026-11-12T01:25:24.964Z] #10 6.009   Downloading gunicorn-23.0.0-py3-none-any.whl.metadata (4.4 kB)
+[2026-11-12T01:25:25.220Z] #10 6.395 Collecting redis==5.2.1 (from -r requirements.txt (line 3))
+[2026-11-12T01:25:25.220Z] #10 6.395   Obtaining dependency information for redis==5.2.1 from https://files.pythonhosted.org/packages/3c/5f/fa26b9b2672cbe30e07d9a5bdf39cf16e3b80b42916757c5f92bca88e4ba/redis-5.2.1-py3-none-any.whl.metadata
+[2026-11-12T01:25:25.474Z] #10 6.543   Downloading redis-5.2.1-py3-none-any.whl.metadata (9.1 kB)
+[2026-11-12T01:25:25.729Z] #10 6.872 Collecting Werkzeug>=3.1 (from flask==3.1.0->-r requirements.txt (line 1))
+[2026-11-12T01:25:25.980Z] #10 6.876   Obtaining dependency information for Werkzeug>=3.1 from https://files.pythonhosted.org/packages/a1/38/df03f564f43cec2684823f3cccae1a652ee7face1cbaa76fb223096e64d7/werkzeug-3.1.9-py3-none-any.whl.metadata
+[2026-11-12T01:25:25.980Z] #10 6.996   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+[2026-11-12T01:25:26.234Z] #10 7.213 Collecting Jinja2>=3.1.2 (from flask==3.1.0->-r requirements.txt (line 1))
+[2026-11-12T01:25:26.234Z] #10 7.214   Obtaining dependency information for Jinja2>=3.1.2 from https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl.metadata
+[2026-11-12T01:25:26.234Z] #10 7.335   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+[2026-11-12T01:25:26.489Z] #10 7.519 Collecting itsdangerous>=2.2 (from flask==3.1.0->-r requirements.txt (line 1))
+[2026-11-12T01:25:26.489Z] #10 7.519   Obtaining dependency information for itsdangerous>=2.2 from https://files.pythonhosted.org/packages/04/96/92447566d16df59b2a776c0fb82dbc4d9e07cd95062562af01e408583fc4/itsdangerous-2.2.0-py3-none-any.whl.metadata
+[2026-11-12T01:25:26.489Z] #10 7.644   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+[2026-11-12T01:25:26.743Z] #10 7.888 Collecting click>=8.1.3 (from flask==3.1.0->-r requirements.txt (line 1))
+[2026-11-12T01:25:26.997Z] #10 7.889   Obtaining dependency information for click>=8.1.3 from https://files.pythonhosted.org/packages/31/7d/164b7ffc8624fe9efb4221bf9af485d5c1e41b9ae118045d2b6dc5457d8b/click-8.5.1-py3-none-any.whl.metadata
+[2026-11-12T01:25:26.997Z] #10 8.010   Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+[2026-11-12T01:25:26.997Z] #10 8.159 Collecting blinker>=1.9 (from flask==3.1.0->-r requirements.txt (line 1))
+[2026-11-12T01:25:27.258Z] #10 8.161   Obtaining dependency information for blinker>=1.9 from https://files.pythonhosted.org/packages/10/cb/f2ad4230dc2eb1a74edf38f1a38b9b52277f75bef262d8908e60d957e13c/blinker-1.9.0-py3-none-any.whl.metadata
+[2026-11-12T01:25:27.258Z] #10 8.315   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+[2026-11-12T01:25:27.512Z] #10 8.526 Collecting packaging (from gunicorn==23.0.0->-r requirements.txt (line 2))
+[2026-11-12T01:25:27.512Z] #10 8.526   Obtaining dependency information for packaging from https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl.metadata
+[2026-11-12T01:25:27.512Z] #10 8.648   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+[2026-11-12T01:25:28.070Z] #10 9.227 Collecting MarkupSafe>=2.0 (from Jinja2>=3.1.2->flask==3.1.0->-r requirements.txt (line 1))
+[2026-11-12T01:25:28.323Z] #10 9.228   Obtaining dependency information for MarkupSafe>=2.0 from https://files.pythonhosted.org/packages/4f/a7/aeedb5140afa41fc74c225e9184ab96723a6e873b6ee1c9fede7283456d8/markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+[2026-11-12T01:25:28.323Z] #10 9.352   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+[2026-11-12T01:25:28.323Z] #10 9.505 Downloading flask-3.1.0-py3-none-any.whl (102 kB)
+[2026-11-12T01:25:28.830Z] #10 9.690    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 103.0/103.0 kB 533.5 kB/s eta 0:00:00
+[2026-11-12T01:25:28.830Z] #10 9.833 Downloading gunicorn-23.0.0-py3-none-any.whl (85 kB)
+[2026-11-12T01:25:28.830Z] #10 9.871    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 85.0/85.0 kB 51.1 MB/s eta 0:00:00
+[2026-11-12T01:25:28.830Z] #10 10.02 Downloading redis-5.2.1-py3-none-any.whl (261 kB)
+[2026-11-12T01:25:29.082Z] #10 10.26    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 261.5/261.5 kB 1.1 MB/s eta 0:00:00
+[2026-11-12T01:25:29.339Z] #10 10.39 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+[2026-11-12T01:25:29.339Z] #10 10.51 Downloading click-8.5.1-py3-none-any.whl (126 kB)
+[2026-11-12T01:25:29.597Z] #10 10.57    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 126.2/126.2 kB 7.4 MB/s eta 0:00:00
+[2026-11-12T01:25:29.597Z] #10 10.71 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+[2026-11-12T01:25:29.849Z] #10 10.83 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+[2026-11-12T01:25:29.849Z] #10 10.91    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.9/134.9 kB 2.4 MB/s eta 0:00:00
+[2026-11-12T01:25:29.849Z] #10 11.03 Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+[2026-11-12T01:25:30.107Z] #10 11.13    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 228.7/228.7 kB 2.4 MB/s eta 0:00:00
+[2026-11-12T01:25:30.107Z] #10 11.26 Downloading packaging-26.3-py3-none-any.whl (129 kB)
+[2026-11-12T01:25:30.360Z] #10 11.32    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 130.0/130.0 kB 9.0 MB/s eta 0:00:00
+[2026-11-12T01:25:30.360Z] #10 11.45 Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+[2026-11-12T01:25:30.617Z] #10 11.62 Installing collected packages: redis, packaging, MarkupSafe, itsdangerous, click, blinker, Werkzeug, Jinja2, gunicorn, flask
+[2026-11-12T01:25:31.972Z] #10 12.94 Successfully installed Jinja2-3.1.6 MarkupSafe-3.0.4 Werkzeug-3.1.9 blinker-1.9.0 click-8.5.1 flask-3.1.0 gunicorn-23.0.0 itsdangerous-2.2.0 packaging-26.3 redis-5.2.1
+[2026-11-12T01:25:31.972Z] #10 12.94 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+[2026-11-12T01:25:32.894Z] #10 13.77 
+[2026-11-12T01:25:32.895Z] #10 13.77 [notice] A new release of pip is available: 23.2.1 -> 26.3
+[2026-11-12T01:25:32.895Z] #10 13.77 [notice] To update, run: pip install --upgrade pip
+[2026-11-12T01:25:32.895Z] #10 DONE 14.1s
+[2026-11-12T01:25:33.146Z] 
+[2026-11-12T01:25:33.146Z] #11 [runtime 1/2] RUN useradd --create-home --uid 10001 appuser
+[2026-11-12T01:25:36.414Z] #11 DONE 3.1s
+[2026-11-12T01:25:36.414Z] 
+[2026-11-12T01:25:36.414Z] #12 [runtime 2/2] COPY app.py .
+[2026-11-12T01:25:36.414Z] #12 DONE 0.2s
+[2026-11-12T01:25:36.414Z] 
+[2026-11-12T01:25:36.414Z] #13 exporting to image
+[2026-11-12T01:25:36.414Z] #13 exporting layers
+[2026-11-12T01:25:39.668Z] #13 exporting layers 2.9s done
+[2026-11-12T01:25:39.669Z] #13 exporting manifest sha256:3d30bbf788493b6bc8c3f1c170f35d9b07a937b80194e43dd5b325064ee38249
+[2026-11-12T01:25:39.669Z] #13 exporting manifest sha256:3d30bbf788493b6bc8c3f1c170f35d9b07a937b80194e43dd5b325064ee38249 0.0s done
+[2026-11-12T01:25:39.669Z] #13 exporting config sha256:1acebb6a1dca414631423c68ba5c2db2232c9a470456b2c1b39620e9c3630fc2 0.0s done
+[2026-11-12T01:25:39.669Z] #13 exporting attestation manifest sha256:a71eeecca7e6c2d7bad12098ea2bfe126e7b6ab96823a5fd79851ebb62645616 0.0s done
+[2026-11-12T01:25:39.669Z] #13 exporting manifest list sha256:17579e165c9a322124ab0d71a65b187f89d8afe6385a197627e59aa30be6b012
+[2026-11-12T01:25:39.669Z] #13 exporting manifest list sha256:17579e165c9a322124ab0d71a65b187f89d8afe6385a197627e59aa30be6b012 0.0s done
+[2026-11-12T01:25:39.669Z] #13 naming to docker.io/library/legeni-webapp:1.0.6 done
+[2026-11-12T01:25:39.669Z] #13 unpacking to docker.io/library/legeni-webapp:1.0.6
+[2026-11-12T01:25:40.593Z] #13 unpacking to docker.io/library/legeni-webapp:1.0.6 1.2s done
+[2026-11-12T01:25:40.595Z] #13 DONE 4.4s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Scan de sécurité)
+[Pipeline] sh
+[2026-11-12T01:25:41.545Z] + docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v trivy_cache:/root/.cache aquasec/trivy:0.57.1 image --severity CRITICAL --ignore-unfixed --exit-code 1 legeni-webapp:1.0.6
+[2026-11-12T01:25:43.449Z] 2026-11-12T01:25:43Z	INFO	[vuln] Vulnerability scanning is enabled
+[2026-11-12T01:25:43.449Z] 2026-11-12T01:25:43Z	INFO	[secret] Secret scanning is enabled
+[2026-11-12T01:25:43.449Z] 2026-11-12T01:25:43Z	INFO	[secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+[2026-11-12T01:25:43.449Z] 2026-11-12T01:25:43Z	INFO	[secret] Please see also https://aquasecurity.github.io/trivy/v0.57/docs/scanner/secret#recommendation for faster secret detection
+[2026-11-12T01:25:48.708Z] 2026-11-12T01:25:48Z	INFO	[python] License acquired from METADATA classifiers may be subject to additional terms	name="gunicorn" version="23.0.0"
+[2026-11-12T01:25:48.708Z] 2026-11-12T01:25:48Z	INFO	[python] License acquired from METADATA classifiers may be subject to additional terms	name="redis" version="5.2.1"
+[2026-11-12T01:25:48.708Z] 2026-11-12T01:25:48Z	INFO	Detected OS	family="debian" version="12.2"
+[2026-11-12T01:25:48.708Z] 2026-11-12T01:25:48Z	INFO	[debian] Detecting vulnerabilities...	os_version="12" pkg_num=106
+[2026-11-12T01:25:48.708Z] 2026-11-12T01:25:48Z	INFO	Number of language-specific files	num=1
+[2026-11-12T01:25:48.708Z] 2026-11-12T01:25:48Z	INFO	[python-pkg] Detecting vulnerabilities...
+[2026-11-12T01:25:48.708Z] 2026-11-12T01:25:48Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://aquasecurity.github.io/trivy/v0.57/docs/scanner/vulnerability#severity-selection for details.
+[2026-11-12T01:25:48.960Z] 
+[2026-11-12T01:25:48.960Z] legeni-webapp:1.0.6 (debian 12.2)
+[2026-11-12T01:25:48.960Z] =================================
+[2026-11-12T01:25:48.960Z] Total: 13 (CRITICAL: 13)
+[2026-11-12T01:25:48.960Z] 
+[2026-11-12T01:25:48.960Z] ┌──────────────────┬────────────────┬──────────┬────────┬───────────────────┬──────────────────┬────────────────────────────────────────────────────────────┐
+[2026-11-12T01:25:48.960Z] │     Library      │ Vulnerability  │ Severity │ Status │ Installed Version │  Fixed Version   │                           Title                            │
+[2026-11-12T01:25:48.961Z] ├──────────────────┼────────────────┼──────────┼────────┼───────────────────┼──────────────────┼────────────────────────────────────────────────────────────┤
+[2026-11-12T01:25:48.961Z] │ libexpat1        │ CVE-2024-45491 │ CRITICAL │ fixed  │ 2.5.0-1           │ 2.5.0-1+deb12u1  │ libexpat: Integer Overflow or Wraparound                   │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ https://avd.aquasec.com/nvd/cve-2024-45491                 │
+[2026-11-12T01:25:48.961Z] │                  ├────────────────┤          │        │                   │                  ├────────────────────────────────────────────────────────────┤
+[2026-11-12T01:25:48.961Z] │                  │ CVE-2024-45492 │          │        │                   │                  │ libexpat: integer overflow                                 │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ https://avd.aquasec.com/nvd/cve-2024-45492                 │
+[2026-11-12T01:25:48.961Z] ├──────────────────┼────────────────┤          │        ├───────────────────┼──────────────────┼────────────────────────────────────────────────────────────┤
+[2026-11-12T01:25:48.961Z] │ libgnutls30      │ CVE-2026-33845 │          │        │ 3.7.9-2           │ 3.7.9-2+deb12u7  │ gnutls: GnuTLS: Denial of Service via DTLS zero-length     │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ fragment                                                   │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ https://avd.aquasec.com/nvd/cve-2026-33845                 │
+[2026-11-12T01:25:48.961Z] │                  ├────────────────┤          │        │                   │                  ├────────────────────────────────────────────────────────────┤
+[2026-11-12T01:25:48.961Z] │                  │ CVE-2026-42010 │          │        │                   │                  │ gnutls: gnutls: Authentication Bypass via NUL Character in │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ Username                                                   │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ https://avd.aquasec.com/nvd/cve-2026-42010                 │
+[2026-11-12T01:25:48.961Z] ├──────────────────┼────────────────┤          │        ├───────────────────┼──────────────────┼────────────────────────────────────────────────────────────┤
+[2026-11-12T01:25:48.961Z] │ libgssapi-krb5-2 │ CVE-2024-37371 │          │        │ 1.20.1-2+deb12u1  │ 1.20.1-2+deb12u2 │ krb5: GSS message token handling                           │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ https://avd.aquasec.com/nvd/cve-2024-37371                 │
+[2026-11-12T01:25:48.961Z] ├──────────────────┤                │          │        │                   │                  │                                                            │
+[2026-11-12T01:25:48.961Z] │ libk5crypto3     │                │          │        │                   │                  │                                                            │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │                                                            │
+[2026-11-12T01:25:48.961Z] ├──────────────────┤                │          │        │                   │                  │                                                            │
+[2026-11-12T01:25:48.961Z] │ libkrb5-3        │                │          │        │                   │                  │                                                            │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │                                                            │
+[2026-11-12T01:25:48.961Z] ├──────────────────┤                │          │        │                   │                  │                                                            │
+[2026-11-12T01:25:48.961Z] │ libkrb5support0  │                │          │        │                   │                  │                                                            │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │                                                            │
+[2026-11-12T01:25:48.961Z] ├──────────────────┼────────────────┤          │        ├───────────────────┼──────────────────┼────────────────────────────────────────────────────────────┤
+[2026-11-12T01:25:48.961Z] │ libssl3          │ CVE-2026-31789 │          │        │ 3.0.11-1~deb12u2  │ 3.0.19-1~deb12u2 │ openssl: OpenSSL: Heap buffer overflow on 32-bit systems   │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ from large X.509 certificate...                            │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ https://avd.aquasec.com/nvd/cve-2026-31789                 │
+[2026-11-12T01:25:48.961Z] ├──────────────────┤                │          │        │                   │                  │                                                            │
+[2026-11-12T01:25:48.961Z] │ openssl          │                │          │        │                   │                  │                                                            │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │                                                            │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │                                                            │
+[2026-11-12T01:25:48.961Z] ├──────────────────┼────────────────┤          │        ├───────────────────┼──────────────────┼────────────────────────────────────────────────────────────┤
+[2026-11-12T01:25:48.961Z] │ perl-base        │ CVE-2026-13221 │          │        │ 5.36.0-7          │ 5.36.0-7+deb12u4 │ perl: Perl: Incorrect regular expression processing via    │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ large regular expressions                                  │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ https://avd.aquasec.com/nvd/cve-2026-13221                 │
+[2026-11-12T01:25:48.961Z] │                  ├────────────────┤          │        │                   │                  ├────────────────────────────────────────────────────────────┤
+[2026-11-12T01:25:48.961Z] │                  │ CVE-2026-42496 │          │        │                   │                  │ perl-archive-tar: perl-archive-tar: Path traversal via     │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ crafted symlinks allows arbitrary file access              │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ https://avd.aquasec.com/nvd/cve-2026-42496                 │
+[2026-11-12T01:25:48.961Z] │                  ├────────────────┤          │        │                   │                  ├────────────────────────────────────────────────────────────┤
+[2026-11-12T01:25:48.961Z] │                  │ CVE-2026-8376  │          │        │                   │                  │ perl: Perl: Heap buffer overflow when compiling regular    │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ expressions on 32-bit builds...                            │
+[2026-11-12T01:25:48.961Z] │                  │                │          │        │                   │                  │ https://avd.aquasec.com/nvd/cve-2026-8376                  │
+[2026-11-12T01:25:48.961Z] └──────────────────┴────────────────┴──────────┴────────┴───────────────────┴──────────────────┴────────────────────────────────────────────────────────────┘
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] cleanWs
+[2026-11-12T01:25:50.558Z] [WS-CLEANUP] Deleting project workspace...
+[2026-11-12T01:25:50.558Z] [WS-CLEANUP] Deferred wipeout is used...
+[2026-11-12T01:25:50.566Z] [WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
+
+# Statut des stages (build #6) :
+  Declarative: Checkout SCM  SUCCESS
+  Qualité du code            SUCCESS
+  Tests unitaires            SUCCESS
+  Lint Python                SUCCESS
+  Lint Dockerfile            SUCCESS
+  Build image                SUCCESS
+  Scan de sécurité           FAILED
+  Declarative: Post Actions  SUCCESS

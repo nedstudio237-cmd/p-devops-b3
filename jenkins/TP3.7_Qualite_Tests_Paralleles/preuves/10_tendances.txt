@@ -1,0 +1,23 @@
+# Historique du job legeni-qualite (tendance) :
+  #1   SUCCESS
+  #2   FAILURE
+  #3   FAILURE
+  #4   FAILURE
+  #5   FAILURE
+  #6   FAILURE
+  #7   SUCCESS
+  #8   SUCCESS
+  #9   FAILURE
+  #10  SUCCESS
+
+# Tendance des tests (JUnit) par build :
+  #1 {"_class":"hudson.tasks.junit.TestResult","failCount":0,"passCount":6}
+  #7 {"_class":"hudson.tasks.junit.TestResult","failCount":0,"passCount":6}
+  #8 {"_class":"hudson.tasks.junit.TestResult","failCount":0,"passCount":6}
+  #10 {"_class":"hudson.tasks.junit.TestResult","failCount":0,"passCount":6}
+
+# Tendance de la couverture (lignes) par build :
+  #1 83.64%
+  #7 83.64%
+  #8 83.64%
+  #10 83.64%

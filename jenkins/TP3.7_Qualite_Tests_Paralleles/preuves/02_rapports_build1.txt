@@ -1,0 +1,31 @@
+# Stages et branches parallèles (wfapi) :
+  Declarative: Checkout SCM SUCCESS  début +3s  durée 3s
+  Qualité du code        SUCCESS  début +6s  durée 0s
+  Tests unitaires        SUCCESS  début +6s  durée 48s
+  Lint Python            SUCCESS  début +6s  durée 32s
+  Lint Dockerfile        SUCCESS  début +6s  durée 7s
+  Build image            SUCCESS  début +54s  durée 3s
+  Scan de sécurité       SUCCESS  début +57s  durée 8s
+  Declarative: Post Actions SUCCESS  début +64s  durée 0s
+
+# Exécution parallèle : début des 3 contrôles (console horodatée)
+[Pipeline] { (Branch: Tests unitaires)
+[Pipeline] { (Branch: Lint Python)
+[Pipeline] { (Branch: Lint Dockerfile)
+[Pipeline] { (Tests unitaires)
+[Pipeline] { (Lint Python)
+[Pipeline] { (Lint Dockerfile)
+
+# Rapport de tests JUnit (Test Result) :
+{"_class":"hudson.tasks.junit.TestResult","failCount":0,"passCount":6,"skipCount":0}
+
+# Couverture (Coverage Report) :
+   {'modifiedLinesStatistics': {}, 'projectStatistics': {'class': '100.00%', 'cyclomatic-complexity': '0', 'file': '100.00%', 'line': '83.64%', 'loc': '55', 'module': '100.00%', 'package': '100.00%'}}
+
+# Flake8 (warnings-ng) :
+{"_class":"io.jenkins.plugins.analysis.core.restapi.AnalysisResultApi","totalSize":0}
+
+# Hadolint et Trivy :
+  + docker run --rm -i hadolint/hadolint:v2.12.0
+  + docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v trivy_cache:/root/.cache aquasec/trivy:0.57.1 image --severity CRITICAL --ignore-unfixed --exit-code 1 legeni-webapp:1.0.1
+  Total: 0 (CRITICAL: 0)
