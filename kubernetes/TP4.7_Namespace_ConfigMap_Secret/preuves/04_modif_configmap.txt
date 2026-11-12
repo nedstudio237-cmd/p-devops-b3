@@ -1,0 +1,28 @@
+# (kubectl edit est interactif : même modification avec kubectl patch)
+$ kubectl patch configmap webapp-config -p '{"data":{"APP_COLOR":"#d1242f"}}'
+configmap/webapp-config patched
+
+$ kubectl exec deploy/webapp -- env | grep APP_COLOR
+APP_COLOR=#1f6feb
+
+$ curl -s http://192.168.49.2:30080/ | grep -o 'header { background: #[0-9a-f]*'
+header { background: #1f6feb
+
+$ kubectl rollout restart deployment webapp
+deployment.apps/webapp restarted
+
+$ kubectl rollout status deployment webapp --timeout=180s
+Waiting for deployment "webapp" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "webapp" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "webapp" rollout to finish: 1 old replicas are pending termination...
+deployment "webapp" successfully rolled out
+
+$ kubectl exec deploy/webapp -- env | grep APP_COLOR
+APP_COLOR=#d1242f
+
+$ curl -s http://192.168.49.2:30080/ | grep -o 'header { background: #[0-9a-f]*'
+header { background: #d1242f
+

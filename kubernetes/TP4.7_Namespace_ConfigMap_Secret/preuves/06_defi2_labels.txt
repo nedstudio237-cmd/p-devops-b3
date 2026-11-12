@@ -1,0 +1,30 @@
+$ kubectl apply -f .
+namespace/legeni-dev unchanged
+configmap/webapp-config configured
+deployment.apps/redis configured
+service/redis configured
+deployment.apps/webapp configured
+service/webapp configured
+
+$ kubectl get all -l env=dev
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/redis-796dcd5445-vwp57    1/1     Running   0          8s
+pod/webapp-674658858f-wgkjk   1/1     Running   0          7s
+pod/webapp-674658858f-z5p9k   1/1     Running   0          8s
+
+NAME             TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/redis    ClusterIP   10.104.190.107   <none>        6379/TCP       67s
+service/webapp   NodePort    10.103.23.79     <none>        80:30080/TCP   67s
+
+NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/redis    1/1     1            1           67s
+deployment.apps/webapp   2/2     2            2           67s
+
+NAME                                DESIRED   CURRENT   READY   AGE
+replicaset.apps/redis-796dcd5445    1         1         1       8s
+replicaset.apps/webapp-674658858f   2         2         2       8s
+
+$ kubectl get configmap -l env=dev
+NAME            DATA   AGE
+webapp-config   4      67s
+

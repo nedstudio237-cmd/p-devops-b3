@@ -1,0 +1,51 @@
+# 8 rechargements : hostname / visites / stockage
+   webapp-6c874db66d-kx4br  visites= 1  stockage= redis
+   webapp-6c874db66d-kx4br  visites= 2  stockage= redis
+   webapp-6c874db66d-vdqjj  visites= 3  stockage= redis
+   webapp-6c874db66d-kx4br  visites= 4  stockage= redis
+   webapp-6c874db66d-kx4br  visites= 5  stockage= redis
+   webapp-6c874db66d-vdqjj  visites= 6  stockage= redis
+   webapp-6c874db66d-kx4br  visites= 7  stockage= redis
+   webapp-6c874db66d-vdqjj  visites= 8  stockage= redis
+
+$ kubectl run dnstest --rm -i --image=busybox:1.36 --restart=Never -- nslookup redis
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+Name:	redis.legeni-dev.svc.cluster.local
+Address: 10.104.190.107
+
+** server can't find redis.svc.cluster.local: NXDOMAIN
+
+** server can't find redis.cluster.local: NXDOMAIN
+
+
+** server can't find redis.svc.cluster.local: NXDOMAIN
+
+** server can't find redis.cluster.local: NXDOMAIN
+
+** server can't find redis.localdomain: NXDOMAIN
+
+** server can't find redis.localdomain: NXDOMAIN
+
+pod "dnstest" deleted from legeni-dev namespace
+pod legeni-dev/dnstest terminated (Error)
+
+$ kubectl run dnstest --rm -i --image=busybox:1.36 --restart=Never -- nslookup redis.legeni-dev.svc.cluster.local
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+
+Name:	redis.legeni-dev.svc.cluster.local
+Address: 10.104.190.107
+
+warning: couldn't attach to pod/dnstest, falling back to streaming logs: Internal error occurred: Internal error occurred: error attaching to container: container is in CONTAINER_EXITED state
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+
+Name:	redis.legeni-dev.svc.cluster.local
+Address: 10.104.190.107
+
+pod "dnstest" deleted from legeni-dev namespace
+
