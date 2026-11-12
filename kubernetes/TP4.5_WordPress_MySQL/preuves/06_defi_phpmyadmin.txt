@@ -1,0 +1,12 @@
+$ kubectl apply -f 40-phpmyadmin.yaml
+deployment.apps/phpmyadmin created
+
+$ kubectl get svc
+NAME                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+mysql               ClusterIP   None            <none>        3306/TCP       14s
+wordpress-service   NodePort    10.97.214.141   <none>        80:32393/TCP   63s
+
+# pas de Service pour phpMyAdmin : accès uniquement par tunnel
+$ kubectl port-forward deploy/phpmyadmin 8085:80  (+ curl localhost:8085)
+<title>phpMyAdmin</title>
+# Connexion root : logout Log out 

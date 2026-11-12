@@ -1,0 +1,10 @@
+$ kubectl config set-context --current --namespace=default
+Context "minikube" modified.
+
+$ kubectl delete namespace wordpress
+namespace "wordpress" deleted
+
+$ kubectl get pv | grep wordpress || echo 'plus aucun PV wordpress : données supprimées'
+No resources found
+plus aucun PV wordpress : données supprimées
+

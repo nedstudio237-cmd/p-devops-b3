@@ -1,0 +1,6 @@
+$ grep -ri password *.yaml
+20-mysql.yaml:            - name: MYSQL_ROOT_PASSWORD
+20-mysql.yaml:                  key: password
+30-wordpress.yaml:            - name: WORDPRESS_DB_PASSWORD
+30-wordpress.yaml:                  key: password
+

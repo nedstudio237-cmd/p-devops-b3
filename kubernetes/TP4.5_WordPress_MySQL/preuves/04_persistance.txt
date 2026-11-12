@@ -1,0 +1,35 @@
+$ kubectl get pods -l app=mysql
+NAME                     READY   STATUS    RESTARTS   AGE
+mysql-59876f9f9b-77wqr   1/1     Running   0          62s
+
+$ kubectl delete pod -l app=mysql
+pod "mysql-59876f9f9b-77wqr" deleted from wordpress namespace
+
+$ kubectl get pods -l app=mysql
+NAME                     READY   STATUS    RESTARTS   AGE
+mysql-59876f9f9b-rj28h   1/1     Running   0          9s
+
+$ curl -s http://192.168.49.2:32393/ | grep -o 'Test de persistance' | head -1
+Test de persistance
+
+# On supprime le Deployment ET le Service MySQL…
+$ kubectl delete -f 20-mysql.yaml
+deployment.apps "mysql" deleted from wordpress namespace
+service "mysql" deleted from wordpress namespace
+
+$ kubectl get pvc
+NAME             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+mysql-pv-claim   Bound    pvc-9842d16e-38b3-4c11-8bee-4e225f198fd4   2Gi        RWO            standard       <unset>                 75s
+
+$ kubectl apply -f 20-mysql.yaml
+deployment.apps/mysql created
+service/mysql created
+
+$ curl -s http://192.168.49.2:32393/ | grep -o 'Test de persistance' | head -1
+Test de persistance
+
+$ kubectl exec deploy/mysql -- sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "SELECT post_title FROM wordpress.wp_posts WHERE post_title=\"Test de persistance\";"' 2>/dev/null
+post_title
+Test de persistance
+Test de persistance
+

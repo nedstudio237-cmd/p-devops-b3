@@ -1,0 +1,14 @@
+# Installation de WordPress (formulaire install.php) et publication de l'article « Test de persistance » (XML-RPC)
+
+$ curl -s http://192.168.49.2:32393/ | grep -oE '<title>[^<]*</title>|Test de persistance' | sort -u
+Test de persistance
+<title>TP DevOps B3</title>
+
+$ kubectl exec deploy/mysql -- sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "SELECT post_title FROM wordpress.wp_posts WHERE post_status=\"publish\";"'
+mysql: [Warning] Using a password on the command line interface can be insecure.
+post_title
+Hello world!
+Sample Page
+Navigation
+Test de persistance
+

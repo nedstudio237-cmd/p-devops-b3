@@ -32,7 +32,7 @@ Ubuntu 24.04 (VM VMware), Docker 29, Minikube (driver Docker), Jenkins et Ansibl
 | 4.2 | [Le Pod](kubernetes/TP4.2_Pod/) | ✅ |
 | 4.3 | [Deployment et Service](kubernetes/TP4.3_Deployment_Service/) | ✅ |
 | 4.4 | [Webapp fil rouge](kubernetes/TP4.4_Webapp_fil_rouge/) | ✅ |
-| 4.5 | WordPress + MySQL | ⏳ |
+| 4.5 | [WordPress + MySQL](kubernetes/TP4.5_WordPress_MySQL/) | ✅ |
 | 4.6 | Jobs, CronJobs, DaemonSet | ⏳ |
 | 4.7 | Namespace, ConfigMap, Secret | ⏳ |
 | 4.8 | Scaling, rolling update, rollback | ⏳ |

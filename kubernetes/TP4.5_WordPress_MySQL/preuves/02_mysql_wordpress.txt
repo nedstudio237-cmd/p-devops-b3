@@ -1,0 +1,26 @@
+$ kubectl apply -f 20-mysql.yaml
+deployment.apps/mysql created
+service/mysql created
+
+$ kubectl logs deploy/mysql | grep 'ready for connections' | tail -1
+2026-11-12T01:56:52.485295Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+
+$ kubectl apply -f 30-wordpress.yaml
+deployment.apps/wordpress created
+service/wordpress-service created
+
+$ kubectl get pods,svc
+NAME                             READY   STATUS    RESTARTS   AGE
+pod/mysql-59876f9f9b-77wqr       1/1     Running   0          23s
+pod/wordpress-67f4f579cc-jwh59   1/1     Running   0          1s
+
+NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/mysql               ClusterIP   None            <none>        3306/TCP       24s
+service/wordpress-service   NodePort    10.97.214.141   <none>        80:32393/TCP   2s
+
+$ minikube service wordpress-service -n wordpress --url
+http://192.168.49.2:32393
+
+$ kubectl exec deploy/wordpress -- getent hosts mysql
+10.244.0.34     mysql.wordpress.svc.cluster.local
+
