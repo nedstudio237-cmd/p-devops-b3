@@ -5,6 +5,17 @@
 **Statut :** ✅ réalisé et vérifié (sauf webhook, voir plus bas) – preuves dans [`preuves/`](preuves/)
 **Dépôt :** [nedstudio237-cmd/legeni-webapp](https://github.com/nedstudio237-cmd/legeni-webapp) – PR [#1](https://github.com/nedstudio237-cmd/legeni-webapp/pull/1) (verte, fusionnée), PR [#2](https://github.com/nedstudio237-cmd/legeni-webapp/pull/2) (rouge, bloquée)
 
+## 🧠 À mémoriser
+
+| Commande | À quoi elle sert |
+|---|---|
+| `Nouvel item → Multibranch Pipeline` | un pipeline par branche et par pull request, créé automatiquement |
+| `when { branch 'main' }` | stage exécuté uniquement sur la branche main (ex. publication) |
+| `env.BRANCH_NAME` | nom de la branche ou de la PR en cours (`main`, `PR-1`…) |
+| `git checkout -b feature/x && git push -u origin feature/x` | crée une branche et la publie |
+| `Scan Repository Now` | force Jenkins à redécouvrir les branches et PR |
+| `Settings → Rules → Require status checks` | interdit la fusion d'une PR dont le build Jenkins est rouge |
+
 ## Fichiers réalisés
 
 | Fichier | Contenu |

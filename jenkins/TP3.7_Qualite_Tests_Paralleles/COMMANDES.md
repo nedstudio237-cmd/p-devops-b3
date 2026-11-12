@@ -5,6 +5,18 @@
 **Statut :** ✅ réalisé et vérifié (défi compris) – preuves dans [`preuves/`](preuves/)
 **Branche utilisée :** [`qualite`](https://github.com/nedstudio237-cmd/legeni-webapp/tree/qualite) du dépôt `legeni-webapp` (la branche `main` est protégée : les essais qui cassent volontairement le build sont faits sur une branche dédiée).
 
+## 🧠 À mémoriser
+
+| Commande | À quoi elle sert |
+|---|---|
+| `parallel { stage('A') {…} stage('B') {…} }` | exécute plusieurs stages en même temps |
+| `agent { docker { image 'python:3.12-slim'; reuseNode true } }` | exécute un stage dans un conteneur jetable |
+| `pytest --junitxml=… --cov=app --cov-fail-under=80` | tests + rapport + échec si couverture < 80 % |
+| `flake8 .` | analyse statique du code Python |
+| `docker run --rm -i hadolint/hadolint < Dockerfile` | analyse le Dockerfile |
+| `junit / recordCoverage / recordIssues` | publie tests, couverture et alertes dans Jenkins |
+| `gitleaks detect --source .` | recherche des secrets commités |
+
 ## Fichiers réalisés
 
 | Fichier | Contenu |

@@ -5,6 +5,18 @@
 **Statut :** ✅ réalisé et vérifié – preuves dans [`preuves/`](preuves/)
 **Dépôt de l'application :** [nedstudio237-cmd/legeni-webapp](https://github.com/nedstudio237-cmd/legeni-webapp) – **image :** [`nedstudio/legeni-webapp`](https://hub.docker.com/r/nedstudio/legeni-webapp)
 
+## 🧠 À mémoriser
+
+| Commande | À quoi elle sert |
+|---|---|
+| `pipeline { agent any; stages { stage('…') { steps { sh '…' } } } }` | squelette d'un pipeline déclaratif |
+| `parameters / environment / options / post` | paramètres, variables, réglages du job, actions finales |
+| `withCredentials([usernamePassword(credentialsId: 'dockerhub', …)])` | utilise un credential Jenkins dans un stage |
+| `when { expression { params.PUSH } }` | exécute un stage seulement si la condition est vraie |
+| `post { always { … } }` | nettoyage exécuté même en cas d'échec |
+| `docker build --target test .` | lance uniquement l'étape de test d'un Dockerfile multi-stage |
+| `git commit -am "…" && git push / git revert --no-edit HEAD` | pousse une modification / l'annule proprement |
+
 ## Fichiers réalisés
 
 | Fichier | Contenu |

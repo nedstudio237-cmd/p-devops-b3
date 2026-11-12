@@ -5,6 +5,18 @@
 **Statut :** ✅ réalisé et vérifié – preuves dans [`preuves/`](preuves/)
 **Image publiée :** [`nedstudio/restaurant`](https://hub.docker.com/r/nedstudio/restaurant) – tags `1.0.2-1a25da7` et `latest`
 
+## 🧠 À mémoriser
+
+| Commande | À quoi elle sert |
+|---|---|
+| `Credentials → Username with password (ID dockerhub)` | stocke identifiant + jeton dans Jenkins, jamais dans le job |
+| `echo "$TOKEN" \| docker login -u "$USER" --password-stdin` | connexion au registre sans mettre le jeton en argument |
+| `docker tag image:1.0.12-abc1234 image:latest` | ajoute un second nom (tag) à une image existante |
+| `docker push compte/image:tag` | publie l'image sur Docker Hub |
+| `docker build --label org.opencontainers.image.revision=$GIT_COMMIT` | inscrit le commit source dans l'image (traçabilité) |
+| `docker inspect image --format '{{index .Config.Labels "…revision"}}'` | retrouve le commit qui a produit l'image |
+| `trivy image --severity CRITICAL --ignore-unfixed --exit-code 1 image` | bloque si vulnérabilité critique corrigeable |
+
 ## Fichiers réalisés
 
 | Fichier | Rôle |

@@ -8,6 +8,18 @@
 Navigateur ──▶ Service wordpress (NodePort) ──▶ Pod WordPress ──▶ Service mysql (headless) ──▶ Pod MySQL ──▶ PVC ──▶ volume
 ```
 
+## 🧠 À mémoriser
+
+| Commande | À quoi elle sert |
+|---|---|
+| `kubectl create namespace <ns>` | crée un espace de noms |
+| `kubectl config set-context --current --namespace=<ns>` | change le namespace par défaut |
+| `kubectl create secret generic <nom> --from-literal=clé=valeur` | crée un Secret hors Git |
+| `kubectl get secret <nom> -o jsonpath='{.data.clé}' \| base64 -d` | lit un Secret (base64 ≠ chiffrement) |
+| `kubectl get pvc,pv` | volumes demandés et volumes créés (`Bound`) |
+| `kubectl exec deploy/<nom> -- <commande>` | lance une commande dans un Pod du Deployment |
+| `kubectl delete namespace <ns>` | supprime tout le namespace, données comprises |
+
 ## Fichiers réalisés (un fichier par ressource, numérotés)
 
 | Fichier | Contenu |

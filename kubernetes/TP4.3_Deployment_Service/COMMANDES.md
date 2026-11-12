@@ -4,6 +4,18 @@
 
 **Statut :** ✅ réalisé et vérifié (défi compris) – preuves dans [`preuves/`](preuves/)
 
+## 🧠 À mémoriser
+
+| Commande | À quoi elle sert |
+|---|---|
+| `kubectl get deploy,rs,pods -l app=myapp` | chaîne Deployment → ReplicaSet → Pods |
+| `kubectl scale deployment <nom> --replicas=5` | change le nombre de réplicas |
+| `kubectl delete pod -l app=myapp` | supprime des Pods : le ReplicaSet les recrée |
+| `kubectl get svc` | liste les Services (type, ClusterIP, ports) |
+| `kubectl get endpointslices -l kubernetes.io/service-name=<svc>` | IP des Pods derrière un Service |
+| `minikube service <svc> --url` | URL d'accès à un Service NodePort |
+| `kubectl run t --rm -i --image=busybox:1.36 --restart=Never -- wget -qO- <svc>` | teste un Service depuis l'intérieur du cluster |
+
 ## Fichiers réalisés
 
 | Fichier | Contenu |

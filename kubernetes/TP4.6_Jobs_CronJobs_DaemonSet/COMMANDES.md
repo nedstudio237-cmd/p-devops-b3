@@ -11,6 +11,18 @@
 | **CronJob** | crée un Job selon un horaire | sauvegarde nocturne |
 | **DaemonSet** | tourne en un exemplaire par nœud | agent de logs, supervision |
 
+## 🧠 À mémoriser
+
+| Commande | À quoi elle sert |
+|---|---|
+| `kubectl get jobs,cronjobs` | liste les tâches ponctuelles et planifiées |
+| `kubectl logs job/<nom>` | résultat d'un Job |
+| `kubectl wait --for=condition=complete job/<nom> --timeout=120s` | attend la réussite d'un Job (pipelines) |
+| `kubectl create job --from=cronjob/<nom> <job>` | lance un CronJob immédiatement |
+| `kubectl patch cronjob <nom> -p '{"spec":{"suspend":true}}'` | met un CronJob en pause |
+| `kubectl get ds -A` | liste les DaemonSets (un Pod par nœud) |
+| `kubectl logs <pod> -c <initContainer>` | logs d'un initContainer bloqué (`Init:0/1`) |
+
 ## Fichiers réalisés
 
 | Fichier | Contenu |

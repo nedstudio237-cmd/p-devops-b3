@@ -5,6 +5,17 @@
 **Statut :** ✅ réalisé et vérifié (défi compris) – preuves dans [`preuves/`](preuves/)
 **Image utilisée :** `nedstudio/legeni-webapp:1.0.2` – publiée sur Docker Hub par le pipeline Jenkins (option A du TP).
 
+## 🧠 À mémoriser
+
+| Commande | À quoi elle sert |
+|---|---|
+| `minikube image load image:tag` | copie une image locale dans le nœud Minikube |
+| `kubectl rollout status deployment/<nom>` | attend la fin d'un déploiement |
+| `curl -s $URL/api/info` | interroge l'application déployée |
+| `kubectl rollout undo deployment/<nom>` | revient à la version précédente |
+| `kubectl get deploy <nom> -o jsonpath='{.spec.template.spec.containers[0].image}'` | affiche l'image déployée |
+| `kubectl describe pod -l app=webapp` | comprend un `ImagePullBackOff` (section Events) |
+
 ## Fichiers réalisés
 
 | Fichier | Contenu |

@@ -4,6 +4,18 @@
 
 **Statut :** ✅ réalisé et vérifié – preuves dans [`preuves/`](preuves/)
 
+## 🧠 À mémoriser
+
+| Commande | À quoi elle sert |
+|---|---|
+| `docker compose up -d --build` | construit l'image Jenkins et démarre les conteneurs en arrière-plan |
+| `docker compose logs -f jenkins` | suit les journaux de Jenkins (attendre « fully up and running ») |
+| `docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword` | mot de passe initial pour débloquer Jenkins |
+| `stat -c %g /var/run/docker.sock` | GID du groupe propriétaire du socket Docker (à mettre dans `.env`) |
+| `docker exec jenkins id` | vérifie que l'utilisateur jenkins est bien dans le groupe Docker |
+| `docker compose down && docker compose up -d` | recrée le conteneur : la configuration survit grâce au volume |
+| `docker volume ls` | liste les volumes (dont `jenkins_home` qui contient tout Jenkins) |
+
 ## Fichiers réalisés
 
 | Fichier | Contenu |

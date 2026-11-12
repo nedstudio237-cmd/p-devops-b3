@@ -4,6 +4,19 @@
 
 **Statut :** ✅ réalisé et vérifié – preuves dans [`preuves/`](preuves/)
 
+## 🧠 À mémoriser
+
+| Commande | À quoi elle sert |
+|---|---|
+| `kubectl apply -f fichier.yaml` | crée ou met à jour ce qui est décrit dans le fichier |
+| `kubectl get pods -o wide` | liste les Pods avec IP et nœud |
+| `kubectl describe pod <nom>` | détail + Events : diagnostic n°1 |
+| `kubectl logs <pod> [-c conteneur]` | sortie du conteneur |
+| `kubectl exec -it <pod> -- sh` | ouvre un shell dans le conteneur |
+| `kubectl port-forward pod/<pod> 8085:80` | tunnel de la machine vers le Pod pour tester |
+| `kubectl get pods -l app=myapp` | sélectionne des Pods par label |
+| `kubectl delete -f fichier.yaml` | supprime ce qui est décrit dans le fichier |
+
 ## Fichiers réalisés
 
 | Fichier | Contenu |

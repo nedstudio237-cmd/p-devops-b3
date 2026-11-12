@@ -4,6 +4,19 @@
 
 **Statut :** ✅ réalisé et vérifié (défis compris) – preuves dans [`preuves/`](preuves/)
 
+## 🧠 À mémoriser
+
+| Commande | À quoi elle sert |
+|---|---|
+| `kubectl apply -f .` | applique tous les manifestes du dossier |
+| `kubectl get all` | vue d'ensemble du namespace |
+| `kubectl create secret generic <nom> --from-literal=CLÉ=valeur` | crée un Secret |
+| `envFrom: configMapRef / secretRef` | injecte toutes les clés d'une ConfigMap / d'un Secret en variables d'environnement |
+| `kubectl exec deploy/<nom> -- env` | variables reçues par le conteneur |
+| `kubectl edit configmap <nom>` | modifie la configuration |
+| `kubectl rollout restart deployment <nom>` | recrée les Pods pour relire la configuration |
+| `kubectl get all -l env=dev` | sélectionne toutes les ressources d'un environnement |
+
 ## Fichiers réalisés
 
 | Fichier | Contenu |

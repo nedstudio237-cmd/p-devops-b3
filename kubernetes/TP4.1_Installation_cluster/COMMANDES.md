@@ -4,6 +4,19 @@
 
 **Statut :** ✅ réalisé et vérifié – preuves dans [`preuves/`](preuves/)
 
+## 🧠 À mémoriser
+
+| Commande | À quoi elle sert |
+|---|---|
+| `minikube start --driver=docker` | démarre le cluster local (jamais avec sudo) |
+| `minikube status` | état du cluster |
+| `kubectl get nodes -o wide` | nœuds, IP et runtime de conteneurs |
+| `kubectl get pods -A` | tous les Pods de tous les namespaces |
+| `kubectl explain <objet>.<champ>` | documentation intégrée d'un champ |
+| `minikube addons enable <module>` | active un module (metrics-server, ingress…) |
+| `kubectl top nodes` | consommation CPU/RAM |
+| `kubectl config current-context` | cluster actuellement piloté par kubectl |
+
 ## Fichiers réalisés
 
 | Fichier | Contenu |

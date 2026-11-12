@@ -4,6 +4,17 @@
 
 **Statut :** ✅ réalisé et vérifié – preuves dans [`preuves/`](preuves/)
 
+## 🧠 À mémoriser
+
+| Commande | À quoi elle sert |
+|---|---|
+| `docker inspect jenkins -f '{{range $k, $v := .NetworkSettings.Networks}}{{$k}}{{end}}'` | trouve le réseau Docker de Jenkins |
+| `docker run -d --name test --network <réseau> image` | lance le conteneur de test sur le même réseau que Jenkins |
+| `curl -sf http://test/` | requête HTTP qui échoue (`-f`) si le code n'est pas 2xx |
+| `curl -s -o /dev/null -w '%{http_code}' URL` | affiche uniquement le code HTTP |
+| `curl -sf URL \| grep -q "texte"` | vérifie que la page contient un texte attendu |
+| `HTTP Request (plugin)` | test d'acceptance sans script : code 200 + contenu attendu |
+
 ## Fichiers réalisés
 
 | Fichier | Étape du job |

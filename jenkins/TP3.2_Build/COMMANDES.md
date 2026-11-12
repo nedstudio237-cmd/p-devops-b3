@@ -4,6 +4,18 @@
 
 **Statut :** ✅ réalisé et vérifié – preuves dans [`preuves/`](preuves/)
 
+## 🧠 À mémoriser
+
+| Commande | À quoi elle sert |
+|---|---|
+| `set -euo pipefail` | arrête le script du job à la première erreur |
+| `${BUILD_NUMBER} ${GIT_COMMIT} ${WORKSPACE} ${JOB_NAME}` | variables fournies par Jenkins dans chaque build |
+| `docker build -t nom:tag -t nom:build-${BUILD_NUMBER} .` | construit une image avec un tag fixe et un tag unique par build |
+| `docker rm -f conteneur 2>/dev/null \|\| true` | supprime le conteneur précédent sans erreur s'il n'existe pas (idempotence) |
+| `docker run -d --name conteneur -p 8092:80 image` | lance le site en arrière-plan sur le port 8092 |
+| `H/2 * * * *` | planning Poll SCM : vérifier le dépôt Git toutes les 2 minutes |
+| `Console Output` | journal du build dans Jenkins : premier réflexe en cas d'échec |
+
 ## Fichiers réalisés
 
 | Fichier | Contenu |
