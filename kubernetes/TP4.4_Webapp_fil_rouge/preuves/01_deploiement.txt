@@ -1,0 +1,25 @@
+$ kubectl apply -f webapp-deployment.yaml -f webapp-service.yaml
+deployment.apps/webapp-deployment created
+service/webapp-service created
+
+$ kubectl rollout status deployment/webapp-deployment --timeout=600s
+Waiting for deployment "webapp-deployment" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "webapp-deployment" rollout to finish: 1 of 2 updated replicas are available...
+deployment "webapp-deployment" successfully rolled out
+
+$ kubectl get pods -l app=webapp -o wide
+NAME                                READY   STATUS    RESTARTS   AGE   IP            NODE       NOMINATED NODE   READINESS GATES
+webapp-deployment-68777895c-fkq2p   1/1     Running   0          20s   10.244.0.29   minikube   <none>           <none>
+webapp-deployment-68777895c-gp86r   1/1     Running   0          20s   10.244.0.28   minikube   <none>           <none>
+
+URL=http://192.168.49.2:30180
+
+$ curl -s http://192.168.49.2:30180/api/info
+{"app":"legeni-webapp","env":"k8s-dev","hostname":"webapp-deployment-68777895c-fkq2p","version":"1.0.2"}
+
+
+$ curl -s http://192.168.49.2:30180/ | grep -E 'background|Environnement' | head -3
+    body { font-family: sans-serif; margin: 0; background: #f4f6f8; }
+    header { background: #2da44e; color: #fff; padding: 2rem; }
+      <tr><td>Environnement</td><td><b>k8s-dev</b></td></tr>
+

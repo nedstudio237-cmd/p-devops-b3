@@ -1,0 +1,13 @@
+$ for i in $(seq 1 10); do curl -s $URL/api/info | python3 -c ... hostname; done | sort | uniq -c
+      4 webapp-deployment-68777895c-fkq2p
+      6 webapp-deployment-68777895c-gp86r
+
+# Compteur de visites sur 8 rechargements de la page d'accueil (hostname -> visites) :
+  webapp-deployment-68777895c-fkq2p  visites=2  stockage=memoire
+  webapp-deployment-68777895c-gp86r  visites=1  stockage=memoire
+  webapp-deployment-68777895c-gp86r  visites=1  stockage=memoire
+  webapp-deployment-68777895c-fkq2p  visites=1  stockage=memoire
+  webapp-deployment-68777895c-fkq2p  visites=2  stockage=memoire
+  webapp-deployment-68777895c-fkq2p  visites=3  stockage=memoire
+  webapp-deployment-68777895c-gp86r  visites=2  stockage=memoire
+  webapp-deployment-68777895c-gp86r  visites=3  stockage=memoire

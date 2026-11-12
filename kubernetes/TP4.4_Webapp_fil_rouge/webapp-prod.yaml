@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-prod
+  labels:
+    app: webapp-prod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webapp-prod
+  template:
+    metadata:
+      labels:
+        app: webapp-prod
+    spec:
+      containers:
+        - name: webapp-container
+          image: nedstudio/legeni-webapp:1.0.2     # image publiée par Jenkins (TP 3.5/3.6)
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000            # gunicorn écoute sur 5000 (voir le Dockerfile)
+          env:
+            - name: APP_ENV
+              value: "prod"
+            - name: APP_COLOR
+              value: "#d1242f"

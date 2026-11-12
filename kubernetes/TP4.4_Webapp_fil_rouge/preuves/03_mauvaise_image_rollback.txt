@@ -1,0 +1,32 @@
+# image nedstudio/legeni-webapp:9.9.9 (tag inexistant)
+$ kubectl apply -f webapp-deployment-9.9.9.yaml
+deployment.apps/webapp-deployment configured
+
+$ kubectl get pods -l app=webapp
+NAME                                 READY   STATUS             RESTARTS   AGE
+webapp-deployment-68777895c-fkq2p    1/1     Running            0          63s
+webapp-deployment-68777895c-gp86r    1/1     Running            0          63s
+webapp-deployment-6984f658cf-m2k5g   0/1     ImagePullBackOff   0          25s
+
+$ curl -s http://192.168.49.2:30180/api/info
+{"app":"legeni-webapp","env":"k8s-dev","hostname":"webapp-deployment-68777895c-gp86r","version":"1.0.2"}
+
+
+$ kubectl describe pod -l app=webapp | grep -A3 Failed | head -8
+
+$ kubectl rollout undo deployment/webapp-deployment
+Warning: resource deployments/webapp-deployment was previously managed with 'kubectl apply'. Rolling back will not update the kubectl.kubernetes.io/last-applied-configuration annotation, which may cause unexpected behavior on future 'kubectl apply' operations. Consider using 'kubectl apply' with your previous configuration file instead.
+deployment.apps/webapp-deployment rolled back
+
+$ kubectl rollout status deployment/webapp-deployment --timeout=180s
+deployment "webapp-deployment" successfully rolled out
+
+$ kubectl get pods -l app=webapp
+NAME                                 READY   STATUS        RESTARTS   AGE
+webapp-deployment-68777895c-fkq2p    1/1     Running       0          63s
+webapp-deployment-68777895c-gp86r    1/1     Running       0          63s
+webapp-deployment-6984f658cf-m2k5g   0/1     Terminating   0          25s
+
+$ kubectl get deploy webapp-deployment -o jsonpath='{.spec.template.spec.containers[0].image}'
+nedstudio/legeni-webapp:1.0.2
+
