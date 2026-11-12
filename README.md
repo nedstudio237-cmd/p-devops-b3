@@ -23,12 +23,12 @@ Ubuntu 24.04 (VM VMware), Docker 29, Minikube (driver Docker), Jenkins et Ansibl
 | 3.5 | [Jenkinsfile](jenkins/TP3.5_Jenkinsfile/) | ✅ |
 | 3.6 | [Multibranch + webhook](jenkins/TP3.6_Multibranch_Webhook/) | ✅ (webhook non fait) |
 | 3.7 | [Qualité, tests parallèles](jenkins/TP3.7_Qualite_Tests_Paralleles/) | ✅ |
-| 3.8 | Déploiement continu | ⏳ |
+| 3.8 | Déploiement continu | ⏸ en attente (fusion sur main + Gmail) |
 
 ### Kubernetes
 | TP | Sujet | Statut |
 |---|---|---|
-| 4.1 | Installation du cluster | ⏳ |
+| 4.1 | [Installation du cluster](kubernetes/TP4.1_Installation_cluster/) | ✅ |
 | 4.2 | [Le Pod](kubernetes/TP4.2_Pod/) | ✅ |
 | 4.3 | Deployment et Service | ⏳ |
 | 4.4 | Webapp fil rouge | ⏳ |

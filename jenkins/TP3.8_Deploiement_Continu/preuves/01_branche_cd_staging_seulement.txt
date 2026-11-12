@@ -1,0 +1,247 @@
+Branch indexing
+Connecting to https://api.github.com using nedstudio237-cmd/****** (GitHub (Personal Access Token))
+Obtained Jenkinsfile from dc6ab5b311be694dd90bb24e25dc301813606b1f
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/legeni-webapp-mb_cd
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git init /var/jenkins_home/workspace/legeni-webapp-mb_cd # timeout=10
+Fetching upstream changes from https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials GitHub (Personal Access Token)
+ > git fetch --no-tags --force --progress -- https://github.com/nedstudio237-cmd/legeni-webapp.git +refs/heads/cd:refs/remotes/origin/cd # timeout=10
+ > git config remote.origin.url https://github.com/nedstudio237-cmd/legeni-webapp.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/cd:refs/remotes/origin/cd # timeout=10
+Avoid second fetch
+Checking out Revision dc6ab5b311be694dd90bb24e25dc301813606b1f (cd)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f dc6ab5b311be694dd90bb24e25dc301813606b1f # timeout=10
+Commit message: "TP 3.8 : Jenkinsfile CI + CD (staging auto, validation, prod, smoke test, rollback)"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-11-12T01:34:27.075Z] Timeout set to expire in 30 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Tests unitaires)
+[Pipeline] sh
+[2026-11-12T01:34:27.478Z] + docker build --target test -t legeni-webapp:test .
+[2026-11-12T01:34:28.040Z] #0 building with "default" instance using docker driver
+[2026-11-12T01:34:28.040Z] 
+[2026-11-12T01:34:28.040Z] #1 [internal] load build definition from Dockerfile
+[2026-11-12T01:34:28.040Z] #1 transferring dockerfile: 1.23kB done
+[2026-11-12T01:34:28.040Z] #1 DONE 0.0s
+[2026-11-12T01:34:28.040Z] 
+[2026-11-12T01:34:28.040Z] #2 [auth] docker/dockerfile:pull token for registry-1.docker.io
+[2026-11-12T01:34:28.040Z] #2 DONE 0.0s
+[2026-11-12T01:34:28.040Z] 
+[2026-11-12T01:34:28.040Z] #3 resolve image config for docker-image://docker.io/docker/dockerfile:1
+[2026-11-12T01:34:29.921Z] #3 DONE 1.9s
+[2026-11-12T01:34:29.921Z] 
+[2026-11-12T01:34:29.921Z] #4 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+[2026-11-12T01:34:29.921Z] #4 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.1s done
+[2026-11-12T01:34:29.921Z] #4 CACHED
+[2026-11-12T01:34:30.176Z] 
+[2026-11-12T01:34:30.177Z] #5 [internal] load metadata for docker.io/library/python:3.12-slim
+[2026-11-12T01:34:30.434Z] #5 ...
+[2026-11-12T01:34:30.434Z] 
+[2026-11-12T01:34:30.434Z] #6 [auth] library/python:pull token for registry-1.docker.io
+[2026-11-12T01:34:30.434Z] #6 DONE 0.0s
+[2026-11-12T01:34:30.434Z] 
+[2026-11-12T01:34:30.434Z] #5 [internal] load metadata for docker.io/library/python:3.12-slim
+[2026-11-12T01:34:31.358Z] #5 DONE 1.3s
+[2026-11-12T01:34:31.614Z] 
+[2026-11-12T01:34:31.615Z] #7 [internal] load .dockerignore
+[2026-11-12T01:34:31.615Z] #7 transferring context: 143B done
+[2026-11-12T01:34:31.615Z] #7 DONE 0.0s
+[2026-11-12T01:34:31.615Z] 
+[2026-11-12T01:34:31.615Z] #8 [base 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+[2026-11-12T01:34:31.615Z] #8 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.1s done
+[2026-11-12T01:34:31.615Z] #8 DONE 0.1s
+[2026-11-12T01:34:31.615Z] 
+[2026-11-12T01:34:31.615Z] #9 [internal] load build context
+[2026-11-12T01:34:31.615Z] #9 transferring context: 9.06kB done
+[2026-11-12T01:34:31.615Z] #9 DONE 0.0s
+[2026-11-12T01:34:31.615Z] 
+[2026-11-12T01:34:31.615Z] #10 [base 2/4] WORKDIR /app
+[2026-11-12T01:34:31.615Z] #10 CACHED
+[2026-11-12T01:34:31.615Z] 
+[2026-11-12T01:34:31.615Z] #11 [base 3/4] COPY requirements.txt .
+[2026-11-12T01:34:31.615Z] #11 CACHED
+[2026-11-12T01:34:31.615Z] 
+[2026-11-12T01:34:31.615Z] #12 [base 4/4] RUN pip install --no-cache-dir -r requirements.txt
+[2026-11-12T01:34:31.615Z] #12 CACHED
+[2026-11-12T01:34:31.615Z] 
+[2026-11-12T01:34:31.615Z] #13 [test 1/4] COPY requirements-dev.txt .
+[2026-11-12T01:34:31.615Z] #13 CACHED
+[2026-11-12T01:34:31.615Z] 
+[2026-11-12T01:34:31.615Z] #14 [test 2/4] RUN pip install --no-cache-dir -r requirements-dev.txt
+[2026-11-12T01:34:31.615Z] #14 CACHED
+[2026-11-12T01:34:31.615Z] 
+[2026-11-12T01:34:31.615Z] #15 [test 3/4] COPY . .
+[2026-11-12T01:34:31.615Z] #15 CACHED
+[2026-11-12T01:34:31.615Z] 
+[2026-11-12T01:34:31.615Z] #16 [test 4/4] RUN flake8 . && pytest -q
+[2026-11-12T01:34:31.615Z] #16 CACHED
+[2026-11-12T01:34:31.615Z] 
+[2026-11-12T01:34:31.615Z] #17 exporting to image
+[2026-11-12T01:34:31.615Z] #17 exporting layers done
+[2026-11-12T01:34:31.615Z] #17 exporting manifest sha256:e69bf92bdb71a2f41263fcb236f9c4f9edfdff4e93ec4b4f1f36fd08b5321b4f
+[2026-11-12T01:34:31.869Z] #17 exporting manifest sha256:e69bf92bdb71a2f41263fcb236f9c4f9edfdff4e93ec4b4f1f36fd08b5321b4f done
+[2026-11-12T01:34:31.869Z] #17 exporting config sha256:a73dfd1220b3cfd3fc970e3ee6aa2e09595747fc1931516e50b8c9cd3d283e81 done
+[2026-11-12T01:34:31.869Z] #17 exporting attestation manifest sha256:3c7eb1eabbf3457abd2d1f206162dce623310995fbe145f1d43c203ae185e886 0.0s done
+[2026-11-12T01:34:31.869Z] #17 exporting manifest list sha256:e9a617e12ca731b363ab61bd471d50b2001fb8785e62c889dc3e1166e4dbe999 0.0s done
+[2026-11-12T01:34:31.869Z] #17 naming to docker.io/library/legeni-webapp:test done
+[2026-11-12T01:34:31.869Z] #17 unpacking to docker.io/library/legeni-webapp:test 0.1s done
+[2026-11-12T01:34:32.124Z] #17 DONE 0.2s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build image)
+[Pipeline] sh
+[2026-11-12T01:34:32.551Z] + docker build --build-arg APP_VERSION=1.0.1 -t legeni-webapp:1.0.1 .
+[2026-11-12T01:34:33.110Z] #0 building with "default" instance using docker driver
+[2026-11-12T01:34:33.110Z] 
+[2026-11-12T01:34:33.110Z] #1 [internal] load build definition from Dockerfile
+[2026-11-12T01:34:33.110Z] #1 transferring dockerfile: 1.23kB done
+[2026-11-12T01:34:33.110Z] #1 DONE 0.0s
+[2026-11-12T01:34:33.110Z] 
+[2026-11-12T01:34:33.110Z] #2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+[2026-11-12T01:34:33.369Z] #2 DONE 0.4s
+[2026-11-12T01:34:33.369Z] 
+[2026-11-12T01:34:33.369Z] #3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+[2026-11-12T01:34:33.369Z] #3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.1s done
+[2026-11-12T01:34:33.369Z] #3 CACHED
+[2026-11-12T01:34:33.625Z] 
+[2026-11-12T01:34:33.625Z] #4 [internal] load metadata for docker.io/library/python:3.12-slim
+[2026-11-12T01:34:33.881Z] #4 DONE 0.4s
+[2026-11-12T01:34:34.135Z] 
+[2026-11-12T01:34:34.136Z] #5 [internal] load .dockerignore
+[2026-11-12T01:34:34.136Z] #5 transferring context: 143B done
+[2026-11-12T01:34:34.136Z] #5 DONE 0.0s
+[2026-11-12T01:34:34.136Z] 
+[2026-11-12T01:34:34.136Z] #6 [internal] load build context
+[2026-11-12T01:34:34.136Z] #6 transferring context: 63B done
+[2026-11-12T01:34:34.136Z] #6 DONE 0.0s
+[2026-11-12T01:34:34.136Z] 
+[2026-11-12T01:34:34.136Z] #7 [base 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+[2026-11-12T01:34:34.136Z] #7 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.1s done
+[2026-11-12T01:34:34.136Z] #7 DONE 0.1s
+[2026-11-12T01:34:34.136Z] 
+[2026-11-12T01:34:34.136Z] #8 [base 2/4] WORKDIR /app
+[2026-11-12T01:34:34.136Z] #8 CACHED
+[2026-11-12T01:34:34.136Z] 
+[2026-11-12T01:34:34.136Z] #9 [base 3/4] COPY requirements.txt .
+[2026-11-12T01:34:34.136Z] #9 CACHED
+[2026-11-12T01:34:34.136Z] 
+[2026-11-12T01:34:34.136Z] #10 [base 4/4] RUN pip install --no-cache-dir -r requirements.txt
+[2026-11-12T01:34:34.136Z] #10 CACHED
+[2026-11-12T01:34:34.136Z] 
+[2026-11-12T01:34:34.136Z] #11 [runtime 1/2] RUN useradd --create-home --uid 10001 appuser
+[2026-11-12T01:34:34.136Z] #11 CACHED
+[2026-11-12T01:34:34.136Z] 
+[2026-11-12T01:34:34.136Z] #12 [runtime 2/2] COPY app.py .
+[2026-11-12T01:34:34.136Z] #12 CACHED
+[2026-11-12T01:34:34.136Z] 
+[2026-11-12T01:34:34.136Z] #13 exporting to image
+[2026-11-12T01:34:34.136Z] #13 exporting layers 0.0s done
+[2026-11-12T01:34:34.136Z] #13 exporting manifest sha256:7f8ee9189129e93d63d5ca37fc736d0d924777613a4a305ee0509dc5d0c033dd done
+[2026-11-12T01:34:34.136Z] #13 exporting config sha256:4ab0160b774bf1ef8922a32f950f67a0671f08b3a8d25c2ca3d6142ea3bde8c9 done
+[2026-11-12T01:34:34.389Z] #13 exporting attestation manifest sha256:31bf3f6ab011f510ecf279d5c6c7996911b60df78f20f5b1b6bfeac2219e116c 0.0s done
+[2026-11-12T01:34:34.389Z] #13 exporting manifest list sha256:7ce08c3900e2f32f175fc4507445edeaadb445490367db33f10c07d4b72e9d0c 0.0s done
+[2026-11-12T01:34:34.389Z] #13 naming to docker.io/library/legeni-webapp:1.0.1 done
+[2026-11-12T01:34:34.389Z] #13 unpacking to docker.io/library/legeni-webapp:1.0.1 0.0s done
+[2026-11-12T01:34:34.389Z] #13 DONE 0.2s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Déploiement staging)
+[Pipeline] withCredentials
+[2026-11-12T01:34:34.870Z] Masking supported pattern matches of $REDIS_PASSWORD
+[Pipeline] {
+[Pipeline] sh
+[2026-11-12T01:34:35.184Z] + IMAGE_REF=legeni-webapp:1.0.1 APP_ENV=staging APP_COLOR=#bf8700 PORT=8081 docker compose -f deploy/docker-compose.deploy.yml -p legeni-staging up -d --wait
+[2026-11-12T01:34:36.113Z]  Network legeni-staging_default Creating 
+[2026-11-12T01:34:36.113Z]  Network legeni-staging_default Creating 
+[2026-11-12T01:34:36.113Z]  Volume legeni-staging_redis_data Creating 
+[2026-11-12T01:34:36.113Z]  Volume legeni-staging_redis_data Creating 
+[2026-11-12T01:34:36.113Z]  Volume legeni-staging_redis_data Created 
+[2026-11-12T01:34:36.113Z]  Volume legeni-staging_redis_data Created 
+[2026-11-12T01:34:36.367Z]  Network legeni-staging_default Created 
+[2026-11-12T01:34:36.367Z]  Network legeni-staging_default Created 
+[2026-11-12T01:34:36.367Z]  Container legeni-staging-redis-1 Creating 
+[2026-11-12T01:34:36.623Z]  Container legeni-staging-redis-1 Created 
+[2026-11-12T01:34:36.624Z]  Container legeni-staging-web-1 Creating 
+[2026-11-12T01:34:36.624Z]  Container legeni-staging-web-1 Created 
+[2026-11-12T01:34:36.624Z]  Container legeni-staging-redis-1 Starting 
+[2026-11-12T01:34:37.189Z]  Container legeni-staging-redis-1 Started 
+[2026-11-12T01:34:37.189Z]  Container legeni-staging-redis-1 Waiting 
+[2026-11-12T01:34:43.719Z]  Container legeni-staging-redis-1 Healthy 
+[2026-11-12T01:34:43.719Z]  Container legeni-staging-web-1 Starting 
+[2026-11-12T01:34:43.719Z]  Container legeni-staging-web-1 Started 
+[2026-11-12T01:34:43.719Z]  Container legeni-staging-web-1 Waiting 
+[2026-11-12T01:34:43.719Z]  Container legeni-staging-redis-1 Waiting 
+[2026-11-12T01:34:44.276Z]  Container legeni-staging-redis-1 Healthy 
+[2026-11-12T01:34:49.512Z]  Container legeni-staging-web-1 Healthy 
+[Pipeline] sh
+[2026-11-12T01:34:49.809Z] + ./deploy/smoke-test.sh legeni-staging 1.0.1
+[2026-11-12T01:34:52.335Z] ✅ legeni-staging répond en version 1.0.1
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Validation production)
+Stage "Validation production" skipped due to when conditional
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Déploiement production)
+Stage "Déploiement production" skipped due to when conditional
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+[2026-11-12T01:34:52.940Z] ✅ legeni-webapp-mb/cd #1 : version 1.0.1 déployée
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+
+# Statut des stages (branche cd, build #1) :
+  Declarative: Checkout SCM    SUCCESS
+  Tests unitaires              SUCCESS
+  Build image                  SUCCESS
+  Déploiement staging          SUCCESS
+  Validation production        NOT_EXECUTED
+  Déploiement production       NOT_EXECUTED
+  Declarative: Post Actions    SUCCESS

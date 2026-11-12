@@ -1,0 +1,31 @@
+$ kubectl create deployment hello --image=nginx:1.27-alpine
+deployment.apps/hello created
+
+$ kubectl expose deployment hello --port=80 --type=NodePort
+service/hello exposed
+
+$ kubectl get deploy,rs,pods,svc -l app=hello
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/hello   1/1     1            1           3s
+
+NAME                               DESIRED   CURRENT   READY   AGE
+replicaset.apps/hello-8697d5cd68   1         1         1       3s
+
+NAME                         READY   STATUS    RESTARTS   AGE
+pod/hello-8697d5cd68-ll6jm   1/1     Running   0          3s
+
+NAME            TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/hello   NodePort   10.101.223.174   <none>        80:30480/TCP   3s
+
+$ minikube service hello --url
+http://192.168.49.2:30480
+
+$ curl -s $URL | grep title
+<title>Welcome to nginx!</title>
+
+$ kubectl delete deployment,service hello
+deployment.apps "hello" deleted from default namespace
+service "hello" deleted from default namespace
+
+$ kubectl create deployment hello --image=nginx:1.27-alpine --dry-run=client -o yaml > hello.yaml
+

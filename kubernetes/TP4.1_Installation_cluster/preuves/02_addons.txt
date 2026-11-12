@@ -1,0 +1,29 @@
+$ minikube addons list | grep -E 'enabled|NAME'
+│         ADDON NAME          │ PROFILE  │   STATUS   │               MAINTAINER               │
+│ dashboard                   │ minikube │ enabled ✅ │ Kubernetes                             │
+│ default-storageclass        │ minikube │ enabled ✅ │ Kubernetes                             │
+│ ingress                     │ minikube │ enabled ✅ │ Kubernetes                             │
+│ metrics-server              │ minikube │ enabled ✅ │ Kubernetes                             │
+│ storage-provisioner         │ minikube │ enabled ✅ │ minikube                               │
+
+$ kubectl -n ingress-nginx get pods
+NAME                                       READY   STATUS      RESTARTS   AGE
+ingress-nginx-admission-create-jvspx       0/1     Completed   0          2m12s
+ingress-nginx-admission-patch-h74jq        0/1     Completed   0          2m12s
+ingress-nginx-controller-d7cd8c989-2spg4   1/1     Running     0          2m12s
+
+$ kubectl top nodes
+NAME       CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+minikube   766m         19%      751Mi           9%          
+
+$ kubectl top pods -A | head -12
+NAMESPACE     NAME                               CPU(cores)   MEMORY(bytes)   
+kube-system   coredns-559f6c778d-tvxcz           4m           11Mi            
+kube-system   etcd-minikube                      43m          72Mi            
+kube-system   kindnet-pljrl                      51m          23Mi            
+kube-system   kube-apiserver-minikube            83m          199Mi           
+kube-system   kube-controller-manager-minikube   28m          57Mi            
+kube-system   kube-proxy-55s5m                   3m           14Mi            
+kube-system   kube-scheduler-minikube            13m          18Mi            
+kube-system   metrics-server-768f9f6999-qjhz9    18m          21Mi            
+
