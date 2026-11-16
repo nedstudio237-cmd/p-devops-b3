@@ -1,0 +1,5 @@
+$ ansible-playbook wordpress.yml --vault-password-file .vault_pass -e mysql_password=court 2>&1 | grep -E 'Mots de passe|assert|: ok='
+    assertion: mysql_password | length >= 12
+    msg: Mots de passe absents ou trop courts (12 caractères minimum)
+db1                        : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+

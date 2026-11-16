@@ -1,0 +1,89 @@
+### Déploiement n°1
+TASK [Dump de la base] *********************************************************
+ok: [db1]
+
+TASK [Écrire la sauvegarde] ****************************************************
+changed: [db1]
+
+TASK [Ne garder que les 5 plus récentes] ***************************************
+skipping: [db1]
+
+### Déploiement n°2
+TASK [Dump de la base] *********************************************************
+ok: [db1]
+
+TASK [Écrire la sauvegarde] ****************************************************
+changed: [db1]
+
+TASK [Ne garder que les 5 plus récentes] ***************************************
+skipping: [db1]
+
+### Déploiement n°3
+TASK [Dump de la base] *********************************************************
+ok: [db1]
+
+TASK [Écrire la sauvegarde] ****************************************************
+changed: [db1]
+
+TASK [Ne garder que les 5 plus récentes] ***************************************
+skipping: [db1]
+
+### Déploiement n°4
+TASK [Dump de la base] *********************************************************
+ok: [db1]
+
+TASK [Écrire la sauvegarde] ****************************************************
+changed: [db1]
+
+TASK [Ne garder que les 5 plus récentes] ***************************************
+skipping: [db1]
+
+### Déploiement n°5
+TASK [Dump de la base] *********************************************************
+ok: [db1]
+
+TASK [Écrire la sauvegarde] ****************************************************
+changed: [db1]
+
+TASK [Ne garder que les 5 plus récentes] ***************************************
+skipping: [db1]
+
+### Déploiement n°6
+TASK [Dump de la base] *********************************************************
+ok: [db1]
+
+TASK [Écrire la sauvegarde] ****************************************************
+changed: [db1]
+
+TASK [Ne garder que les 5 plus récentes] ***************************************
+changed: [db1] => (item=wordpress_20261116T030534.sql)
+
+$ ansible db1 -b -m shell -a "ls -l /opt/wordpress/backups; head -c 300 $(ls -t /opt/wordpress/backups/*.sql | head -1)"
+db1 | FAILED | rc=1 >>
+total 20
+-rw------- 1 root root 1355 Nov 16 03:06 wordpress_20261116T030616.sql
+-rw------- 1 root root 1355 Nov 16 03:07 wordpress_20261116T030651.sql
+-rw------- 1 root root 1355 Nov 16 03:07 wordpress_20261116T030725.sql
+-rw------- 1 root root 1355 Nov 16 03:08 wordpress_20261116T030759.sql
+-rw------- 1 root root 1355 Nov 16 03:08 wordpress_20261116T030834.sql
+
+/*M!999999\- enable the sandbox mode */ 
+-- MariaDB dump 10.19-11.4.13-MariaDB, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: wordpress_db
+-- ------------------------------------------------------
+0non-zero return code
+
+### Après installation de WordPress (assistant complété) : nouveau déploiement
+ok: [db1] => (item=ansible)
+changed: [db1] => (item=wordpress_20261116T030616.sql)
+db1                        : ok=18   changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+$ ansible db1 -b -m shell -a "ls -l /opt/wordpress/backups; grep -c \"CREATE TABLE\" <dernière sauvegarde>"
+db1 | CHANGED | rc=0 >>
+total 48
+-rw------- 1 root root  1355 Nov 16 03:07 wordpress_20261116T030651.sql
+-rw------- 1 root root  1355 Nov 16 03:07 wordpress_20261116T030725.sql
+-rw------- 1 root root  1355 Nov 16 03:08 wordpress_20261116T030759.sql
+-rw------- 1 root root  1355 Nov 16 03:08 wordpress_20261116T030834.sql
+-rw------- 1 root root 32747 Nov 16 03:09 wordpress_20261116T030926.sql
+/opt/wordpress/backups/wordpress_20261116T030926.sql : 12 tables, 32747 octets

@@ -1,0 +1,54 @@
+$ ansible-playbook wordpress.yml --vault-password-file .vault_pass   (essai 1)
+
+PLAY [Déployer WordPress] ******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [db1]
+
+TASK [Vérifier que les secrets sont définis] ***********************************
+ok: [db1] => 
+    changed: false
+    msg: All assertions passed
+
+TASK [docker : Installer les prérequis] ****************************************
+changed: [db1]
+
+TASK [docker : Créer le dossier des clés APT] **********************************
+ok: [db1]
+
+TASK [docker : Télécharger la clé GPG de Docker] *******************************
+[WARNING]: Module remote_tmp /root/.ansible/tmp did not exist and was created
+with a mode of 0700, this may cause issues when running as another user. To
+avoid this, create the remote_tmp dir with the correct permissions manually
+changed: [db1]
+
+TASK [docker : Ajouter le dépôt Docker] ****************************************
+changed: [db1]
+
+TASK [docker : Installer Docker] ***********************************************
+changed: [db1]
+
+TASK [docker : Démarrer Docker] ************************************************
+changed: [db1]
+
+TASK [docker : Autoriser les utilisateurs à utiliser Docker] *******************
+changed: [db1] => (item=ansible)
+
+TASK [Créer le dossier de l'application] ***************************************
+changed: [db1]
+
+TASK [Générer le docker-compose.yml] *******************************************
+changed: [db1]
+
+TASK [Démarrer la stack WordPress] *********************************************
+changed: [db1]
+
+TASK [Vérifier que WordPress répond] *******************************************
+ok: [db1]
+
+RUNNING HANDLER [docker : Redémarrer docker] ***********************************
+changed: [db1]
+
+PLAY RECAP *********************************************************************
+db1                        : ok=14   changed=10   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

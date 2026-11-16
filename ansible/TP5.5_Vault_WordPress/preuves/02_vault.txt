@@ -1,0 +1,29 @@
+$ cat vars/wordpress.yml
+---
+wordpress_dir: /opt/wordpress
+wordpress_port: 8080
+mysql_database: wordpress_db
+mysql_user: wp_admin
+
+$ ansible-vault encrypt vars/wordpress_secrets.yml --vault-password-file .vault_pass
+
+$ head -3 vars/wordpress_secrets.yml
+$ANSIBLE_VAULT;1.1;AES256
+63313134396632636464393938383464303266316534373063303233353332313831643161313430
+6439313438306237323465646337353435376663616330650a343933636461363837323062373533
+
+$ ansible-vault view vars/wordpress_secrets.yml --vault-password-file .vault_pass | sed -E 's/(password: ).*/\1<masqué dans ce compte-rendu>/'
+---
+# Secrets WordPress (fichier chiffré avec ansible-vault)
+mysql_password: <masqué dans ce compte-rendu>
+mysql_root_password: <masqué dans ce compte-rendu>
+
+$ ansible-vault encrypt_string 'MonSecret' --name 'api_token' --vault-password-file .vault_pass
+api_token: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          32626333396537653264646439373435636565313439306639336437653965346432373934633738
+          3536393264346334376163653462386239653063343333610a326636613064623633643562656163
+          65306164316539383263336338663230643161383665393864346465616439303162343765633465
+          3539303335396665630a653130626131313436633832633637663830333761613466306234636563
+          3136
+

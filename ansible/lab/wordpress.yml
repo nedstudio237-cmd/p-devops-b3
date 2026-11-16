@@ -32,6 +32,45 @@
         dest: "{{ wordpress_dir }}/docker-compose.yml"
         mode: "0600"            # contient des mots de passe
 
+    # --- Défi TP 5.5 : sauvegarde de la base avant chaque redéploiement (5 dernières conservées) ---
+    - name: Créer le dossier des sauvegardes
+      ansible.builtin.file:
+        path: "{{ wordpress_dir }}/backups"
+        state: directory
+        mode: "0700"
+
+    - name: Dump de la base
+      community.docker.docker_container_exec:
+        container: wordpress-db-1
+        command: >-
+          sh -c 'mariadb-dump -u root -p"$MARIADB_ROOT_PASSWORD" {{ mysql_database }}'
+      register: dump
+      no_log: true                # la commande utilise le mot de passe root
+      failed_when: false          # au tout premier déploiement, la base n'existe pas encore
+      changed_when: false
+
+    - name: Écrire la sauvegarde
+      ansible.builtin.copy:
+        content: "{{ dump.stdout }}"
+        dest: "{{ wordpress_dir }}/backups/wordpress_{{ ansible_date_time.iso8601_basic_short }}.sql"
+        mode: "0600"
+      when: dump.rc | default(1) == 0
+      no_log: true                # le contenu de la base ne doit pas apparaître dans les logs
+
+    - name: Lister les sauvegardes
+      ansible.builtin.find:
+        paths: "{{ wordpress_dir }}/backups"
+        patterns: "*.sql"
+      register: backups
+
+    - name: Ne garder que les 5 plus récentes
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: absent
+      loop: "{{ (backups.files | sort(attribute='mtime', reverse=true))[5:] }}"
+      loop_control:
+        label: "{{ item.path | basename }}"
+
     - name: Démarrer la stack WordPress
       community.docker.docker_compose_v2:
         project_src: "{{ wordpress_dir }}"

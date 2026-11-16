@@ -1,0 +1,21 @@
+$ ansible db1 -b -m shell -a "{% raw %}docker inspect wordpress-db-1 --format '{{.Created}}'{% endraw %}"
+db1 | CHANGED | rc=0 >>
+2026-11-16T03:02:07.054220816Z
+
+$ ansible-playbook wordpress.yml --vault-password-file .vault_pass | grep -E "changed:|: ok="
+ok: [db1] => 
+    changed: false
+TASK [Démarrer la stack WordPress] *********************************************
+changed: [db1]
+PLAY RECAP *********************************************************************
+db1                        : ok=13   changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+$ ansible db1 -b -m shell -a "{% raw %}docker inspect wordpress-db-1 --format '{{.Created}}'{% endraw %}"   # même date : rien n'a été recréé
+db1 | CHANGED | rc=0 >>
+2026-11-16T03:02:07.054220816Z
+
+$ ansible db1 -b -m command -a "docker compose -f /opt/wordpress/docker-compose.yml ps"
+db1 | CHANGED | rc=0 >>
+NAME                    IMAGE                COMMAND                  SERVICE     CREATED         STATUS                   PORTS
+wordpress-db-1          mariadb:11.4         "docker-entrypoint.s…"   db          2 minutes ago   Up 2 minutes (healthy)   3306/tcp
+wordpress-wordpress-1   wordpress:6-apache   "docker-entrypoint.s…"   wordpress   2 minutes ago   Up 2 minutes             0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
