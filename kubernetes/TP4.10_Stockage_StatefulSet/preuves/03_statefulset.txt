@@ -1,0 +1,17 @@
+$ kubectl delete deployment redis
+deployment.apps "redis" deleted from legeni-dev namespace
+
+$ kubectl apply -f 20-redis-statefulset.yaml
+statefulset.apps/redis created
+
+$ kubectl get sts,pods,pvc -l app=redis
+NAME          READY   STATUS    RESTARTS   AGE
+pod/redis-0   1/1     Running   0          1s
+
+NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data-redis-0   Bound    pvc-361603ea-875f-4a99-8555-b2376f08cdcd   1Gi        RWO            standard       <unset>                 1s
+
+$ kubectl get pvc
+NAME           STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+data-redis-0   Bound    pvc-361603ea-875f-4a99-8555-b2376f08cdcd   1Gi        RWO            standard       <unset>                 1s
+

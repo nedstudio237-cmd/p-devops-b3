@@ -1,0 +1,10 @@
+$ kubectl exec deploy/redis -- sh -c 'redis-cli -a "$REDIS_PASSWORD" --no-auth-warning get visits'
+5
+
+$ kubectl delete pod -l app=redis
+pod "redis-5648974499-68qx4" deleted from legeni-dev namespace
+
+$ kubectl exec deploy/redis -- sh -c 'redis-cli -a "$REDIS_PASSWORD" --no-auth-warning get visits'
+
+
+# (vide = (nil) : les données de Redis étaient dans le conteneur, perdues avec le Pod)

@@ -1,0 +1,14 @@
+$ kubectl delete namespace wordpress
+namespace "wordpress" deleted
+
+$ kubectl -n legeni-dev delete pvc data-redis-1 data-redis-2
+persistentvolumeclaim "data-redis-1" deleted from legeni-dev namespace
+persistentvolumeclaim "data-redis-2" deleted from legeni-dev namespace
+
+$ kubectl -n legeni-dev get pvc
+NAME           STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+data-redis-0   Bound    pvc-361603ea-875f-4a99-8555-b2376f08cdcd   1Gi        RWO            standard       <unset>                 2m40s
+
+$ curl -s -o /dev/null -w '%{http_code}\n' http://192.168.49.2:30080/ready
+200
+

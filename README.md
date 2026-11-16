@@ -37,7 +37,7 @@ Ubuntu 24.04 (VM VMware), Docker 29, Minikube (driver Docker), Jenkins et Ansibl
 | 4.7 | [Namespace, ConfigMap, Secret](kubernetes/TP4.7_Namespace_ConfigMap_Secret/) | ✅ |
 | 4.8 | [Scaling, rolling update, rollback](kubernetes/TP4.8_Scaling_RollingUpdate_Rollback/) | ✅ |
 | 4.9 | [Probes et ressources](kubernetes/TP4.9_Probes_Ressources/) | ✅ |
-| 4.10 | Stockage, StatefulSet | ⏳ |
+| 4.10 | [Stockage, StatefulSet](kubernetes/TP4.10_Stockage_StatefulSet/) | ✅ |
 | 4.11 | Ingress | ⏳ |
 | 4.12 | Kustomize | ⏳ |
 | 4.13 | Dépannage | ⏳ |

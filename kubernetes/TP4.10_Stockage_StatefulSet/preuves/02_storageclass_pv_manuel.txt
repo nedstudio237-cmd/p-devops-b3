@@ -1,0 +1,27 @@
+$ kubectl get storageclass
+NAME                 PROVISIONER                RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+standard (default)   k8s.io/minikube-hostpath   Delete          Immediate           false                  10d
+
+$ kubectl apply -f pv-manuel.yaml
+persistentvolume/pv-manuel created
+persistentvolumeclaim/pvc-manuel created
+
+$ kubectl get pv pv-manuel
+NAME        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                   STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+pv-manuel   1Gi        RWO            Retain           Bound    legeni-dev/pvc-manuel   manuel         <unset>                          0s
+
+$ kubectl get pvc pvc-manuel
+NAME         STATUS   VOLUME      CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+pvc-manuel   Bound    pv-manuel   1Gi        RWO            manuel         <unset>                 0s
+
+# Suppression du PVC seul : avec Retain, le PV est conservé (Released) avec ses données
+$ kubectl delete pvc pvc-manuel
+persistentvolumeclaim "pvc-manuel" deleted from legeni-dev namespace
+
+$ kubectl get pv pv-manuel
+NAME        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS     CLAIM                   STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+pv-manuel   1Gi        RWO            Retain           Released   legeni-dev/pvc-manuel   manuel         <unset>                          4s
+
+$ kubectl delete pv pv-manuel
+persistentvolume "pv-manuel" deleted
+

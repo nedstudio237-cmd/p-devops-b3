@@ -1,0 +1,39 @@
+# Installation d'un thème (Astra) directement dans wp-content/themes (stocké sur le PVC wordpress-html)
+$ kubectl -n wordpress exec deploy/wordpress -- sh -c 'cd /tmp && curl -sfLo astra.zip https://downloads.wordpress.org/theme/astra.zip && php -r "\$z=new ZipArchive; \$z->open(\"astra.zip\"); \$z->extractTo(\"/var/www/html/wp-content/themes/\"); echo \"extrait\n\";" && chown -R www-data: /var/www/html/wp-content/themes/astra'
+extrait
+
+$ kubectl -n wordpress exec deploy/wordpress -- ls /var/www/html/wp-content/themes
+astra
+index.php
+twentytwentyfive
+twentytwentyfour
+twentytwentythree
+
+$ kubectl -n wordpress exec deploy/wordpress -- grep -m1 'Version:' /var/www/html/wp-content/themes/astra/style.css
+Version: 4.14.3
+
+$ kubectl -n wordpress delete pod/wordpress-5f5f69f6d8-fpn95
+pod "wordpress-5f5f69f6d8-fpn95" deleted from wordpress namespace
+
+$ kubectl -n wordpress get pods -l app=wordpress
+NAME                         READY   STATUS    RESTARTS   AGE
+wordpress-5f5f69f6d8-xg257   1/1     Running   0          4s
+
+$ kubectl -n wordpress exec deploy/wordpress -- ls /var/www/html/wp-content/themes   # le thème astra est toujours là
+astra
+index.php
+twentytwentyfive
+twentytwentyfour
+twentytwentythree
+
+$ kubectl -n wordpress delete pod mysql-0
+pod "mysql-0" deleted from wordpress namespace
+
+$ kubectl -n wordpress get pods; kubectl -n wordpress get pvc
+NAME                         READY   STATUS    RESTARTS   AGE
+mysql-0                      1/1     Running   0          1s
+wordpress-5f5f69f6d8-xg257   1/1     Running   0          9s
+NAME             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+data-mysql-0     Bound    pvc-efa5a638-6185-4a13-b569-b2497c359d77   2Gi        RWO            standard       <unset>                 40s
+wordpress-html   Bound    pvc-afcb6136-c65d-4ebb-bc30-96c95ebaf9c9   1Gi        RWO            standard       <unset>                 40s
+

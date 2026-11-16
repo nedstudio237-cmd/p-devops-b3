@@ -1,0 +1,32 @@
+$ kubectl apply -f 00-namespace.yaml
+namespace/wordpress created
+
+$ kubectl create secret generic mysql-pass -n wordpress --from-literal=password="$(openssl rand -base64 12)"
+secret/mysql-pass created
+
+$ kubectl apply -n wordpress -f 20-mysql-statefulset.yaml -f 30-wordpress.yaml
+service/mysql created
+statefulset.apps/mysql created
+persistentvolumeclaim/wordpress-html created
+deployment.apps/wordpress created
+service/wordpress-service created
+
+$ kubectl -n wordpress get sts,deploy,pods,pvc,svc
+NAME                     READY   AGE
+statefulset.apps/mysql   1/1     3s
+
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/wordpress   1/1     1            1           3s
+
+NAME                             READY   STATUS    RESTARTS   AGE
+pod/mysql-0                      1/1     Running   0          3s
+pod/wordpress-5f5f69f6d8-fpn95   1/1     Running   0          3s
+
+NAME                                   STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data-mysql-0     Bound    pvc-efa5a638-6185-4a13-b569-b2497c359d77   2Gi        RWO            standard       <unset>                 3s
+persistentvolumeclaim/wordpress-html   Bound    pvc-afcb6136-c65d-4ebb-bc30-96c95ebaf9c9   1Gi        RWO            standard       <unset>                 3s
+
+NAME                        TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+service/mysql               ClusterIP   None           <none>        3306/TCP       3s
+service/wordpress-service   NodePort    10.100.50.80   <none>        80:31230/TCP   3s
+

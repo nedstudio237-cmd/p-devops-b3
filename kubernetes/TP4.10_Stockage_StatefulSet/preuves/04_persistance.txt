@@ -1,0 +1,14 @@
+$ for i in $(seq 5); do curl -s http://192.168.49.2:30080 >/dev/null; done
+
+$ kubectl exec redis-0 -- sh -c 'redis-cli -a "$REDIS_PASSWORD" --no-auth-warning get visits'
+9
+
+$ kubectl delete pod redis-0
+pod "redis-0" deleted from legeni-dev namespace
+
+$ kubectl wait --for=condition=Ready pod/redis-0 --timeout=120s
+pod/redis-0 condition met
+
+$ kubectl exec redis-0 -- sh -c 'redis-cli -a "$REDIS_PASSWORD" --no-auth-warning get visits'
+9
+
