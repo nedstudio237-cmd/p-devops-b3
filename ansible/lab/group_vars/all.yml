@@ -1,3 +1,10 @@
 ---
 webapp_image: "legeni07/legeni-webapp"   # remplacer par <votre_id_dockerhub>/legeni-webapp
 webapp_version: "1.0.0"
+
+# Défi TP 5.3 : comptes gérés par utilisateurs.yml (etat: present / absent, cle: clé SSH publique optionnelle)
+comptes:
+  - {nom: ana,   groupe: developpeurs, etat: present, cle: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAB7ICwx72OH/yUhWuOsKqnj1mvg7dfoTS4wwsBc8aj0 ana@legeni"}
+  - {nom: ben,   groupe: developpeurs, etat: present}
+  - {nom: chloe, groupe: operations,   etat: present}
+  - {nom: stagiaire2, groupe: developpeurs, etat: absent}

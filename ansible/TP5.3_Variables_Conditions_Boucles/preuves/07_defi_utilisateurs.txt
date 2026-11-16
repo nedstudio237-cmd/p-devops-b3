@@ -1,0 +1,128 @@
+# stagiaire2 est d'abord créé à la main pour vérifier sa suppression
+$ ansible lab -b -m user -a "name=stagiaire2"
+web2 | CHANGED => 
+    changed: true
+    comment: ''
+    create_home: true
+    group: 1007
+    home: /home/stagiaire2
+    name: stagiaire2
+    shell: /bin/sh
+    state: present
+    system: false
+    uid: 1005
+web1 | CHANGED => 
+    changed: true
+    comment: ''
+    create_home: true
+    group: 1007
+    home: /home/stagiaire2
+    name: stagiaire2
+    shell: /bin/sh
+    state: present
+    system: false
+    uid: 1005
+db1 | CHANGED => 
+    changed: true
+    comment: ''
+    create_home: true
+    group: 1007
+    home: /home/stagiaire2
+    name: stagiaire2
+    shell: /bin/sh
+    state: present
+    system: false
+    uid: 1005
+
+$ ansible-playbook utilisateurs.yml
+
+PLAY [Gestion des comptes] *****************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [web2]
+ok: [db1]
+ok: [web1]
+
+TASK [Créer les groupes] *******************************************************
+ok: [web2] => (item=developpeurs)
+ok: [web1] => (item=developpeurs)
+ok: [db1] => (item=developpeurs)
+ok: [web2] => (item=operations)
+ok: [web1] => (item=operations)
+ok: [db1] => (item=operations)
+
+TASK [Créer / supprimer les comptes] *******************************************
+changed: [web2] => (item=ana (present))
+changed: [db1] => (item=ana (present))
+changed: [web1] => (item=ana (present))
+changed: [db1] => (item=ben (present))
+changed: [web2] => (item=ben (present))
+changed: [web1] => (item=ben (present))
+changed: [db1] => (item=chloe (present))
+changed: [web1] => (item=chloe (present))
+changed: [web2] => (item=chloe (present))
+changed: [db1] => (item=stagiaire2 (absent))
+changed: [web1] => (item=stagiaire2 (absent))
+changed: [web2] => (item=stagiaire2 (absent))
+
+TASK [Installer les clés SSH] **************************************************
+changed: [web2] => (item=ana)
+changed: [db1] => (item=ana)
+changed: [web1] => (item=ana)
+
+TASK [Droits sudo pour les ops, uniquement sur les serveurs db] ****************
+skipping: [web1] => (item=chloe) 
+skipping: [web1]
+skipping: [web2] => (item=chloe) 
+skipping: [web2]
+changed: [db1] => (item=chloe)
+
+PLAY RECAP *********************************************************************
+db1                        : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+web1                       : ok=4    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+web2                       : ok=4    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
+
+$ ansible-playbook utilisateurs.yml | tail -5   # 2e passage : idempotent
+PLAY RECAP *********************************************************************
+db1                        : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+web1                       : ok=4    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+web2                       : ok=4    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
+
+$ ansible lab -m command -a "id ana"
+web1 | CHANGED | rc=0 >>
+uid=1006(ana) gid=1008(ana) groups=1008(ana),1002(developpeurs)
+db1 | CHANGED | rc=0 >>
+uid=1006(ana) gid=1008(ana) groups=1008(ana),1002(developpeurs)
+web2 | CHANGED | rc=0 >>
+uid=1006(ana) gid=1008(ana) groups=1008(ana),1002(developpeurs)
+
+$ ansible lab -m command -a "id stagiaire2"
+web2 | FAILED | rc=1 >>
+id: ‘stagiaire2’: no such usernon-zero return code
+db1 | FAILED | rc=1 >>
+id: ‘stagiaire2’: no such usernon-zero return code
+web1 | FAILED | rc=1 >>
+id: ‘stagiaire2’: no such usernon-zero return code
+
+$ ansible lab -b -m command -a "ls /etc/sudoers.d"
+web2 | CHANGED | rc=0 >>
+README
+ansible
+web1 | CHANGED | rc=0 >>
+README
+ansible
+db1 | CHANGED | rc=0 >>
+README
+ansible
+chloe
+
+$ ssh -o StrictHostKeyChecking=no -i /tmp/claude-1000/k/ana -p 2223 ana@127.0.0.1 'whoami; hostname'   # connexion avec la clé installée
+ana
+db1
+
+$ ssh -o StrictHostKeyChecking=no -i /tmp/claude-1000/k/ana -p 2223 ana@127.0.0.1 'sudo -n true && echo sudo-OK || echo sudo-refusé'
+sudo: a password is required
+sudo-refusé
+

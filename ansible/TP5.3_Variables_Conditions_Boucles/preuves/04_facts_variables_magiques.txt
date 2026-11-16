@@ -1,0 +1,33 @@
+$ ansible web1 -m setup | grep -cE '^        ansible_'   # nombre de facts de premier niveau
+104
+
+$ ansible web1 -m debug -a "var=group_names"
+web1 | SUCCESS => 
+    group_names:
+    - lab
+    - web
+
+$ ansible web1 -m debug -a "var=groups"
+web1 | SUCCESS => 
+    groups:
+        all:
+        - db1
+        - web1
+        - web2
+        db:
+        - db1
+        lab:
+        - web1
+        - web2
+        - db1
+        ungrouped: []
+        web:
+        - web1
+        - web2
+        wordpress_servers:
+        - db1
+
+$ ansible web1 -m debug -a "var=hostvars['db1']['ansible_port']"
+web1 | SUCCESS => 
+    hostvars['db1']['ansible_port']: '2223'
+

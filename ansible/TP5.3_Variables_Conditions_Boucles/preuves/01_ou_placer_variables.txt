@@ -1,0 +1,24 @@
+$ cat group_vars/web.yml host_vars/web2.yml
+---
+page_title: "Legeni – serveurs web"
+paquets_communs:
+  - curl
+  - git
+  - htop
+equipe:
+  - {nom: Alice, role: Dev}
+  - {nom: Bob, role: Ops}
+---
+# Une variable d'hôte est prioritaire sur la variable de groupe
+page_title: "Legeni – web2 (canari)"
+
+$ ansible-inventory --host web1 | grep -A2 page_title
+    "page_title": "Legeni – serveurs web",
+    "paquets_communs": [
+        "curl",
+
+$ ansible-inventory --host web2 | grep -A2 page_title
+    "page_title": "Legeni – web2 (canari)",
+    "paquets_communs": [
+        "curl",
+

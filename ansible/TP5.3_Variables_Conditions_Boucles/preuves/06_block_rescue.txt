@@ -1,0 +1,133 @@
+$ ansible-playbook variables.yml
+
+PLAY [Variables, boucles et conditions] ****************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [web1]
+ok: [web2]
+ok: [db1]
+
+TASK [Afficher quelques facts] *************************************************
+ok: [web1] => 
+    msg: 'web1 : Ubuntu 24.04, 7889 Mo'
+ok: [web2] => 
+    msg: 'web2 : Ubuntu 24.04, 7889 Mo'
+ok: [db1] => 
+    msg: 'db1 : Ubuntu 24.04, 7889 Mo'
+
+TASK [Installer les paquets communs (liste issue de group_vars)] ***************
+ok: [db1]
+ok: [web1]
+ok: [web2]
+
+TASK [Créer les groupes] *******************************************************
+ok: [web2] => (item=developpeurs)
+ok: [web1] => (item=developpeurs)
+ok: [db1] => (item=developpeurs)
+ok: [web2] => (item=operations)
+ok: [db1] => (item=operations)
+ok: [web1] => (item=operations)
+
+TASK [Créer les utilisateurs] **************************************************
+ok: [db1] => (item=dev1)
+ok: [web1] => (item=dev1)
+ok: [web2] => (item=dev1)
+ok: [db1] => (item=dev2)
+ok: [web1] => (item=dev2)
+ok: [web2] => (item=dev2)
+ok: [db1] => (item=ops1)
+ok: [web2] => (item=ops1)
+ok: [web1] => (item=ops1)
+
+TASK [Installer nginx uniquement sur Ubuntu et dans le groupe web] *************
+skipping: [db1]
+ok: [web1]
+ok: [web2]
+
+TASK [Mesurer l'espace disque libre] *******************************************
+ok: [web1]
+ok: [db1]
+ok: [web2]
+
+TASK [Afficher le résultat enregistré] *****************************************
+ok: [web1] => 
+    disque.stdout_lines:
+    - Filesystem      Size  Used Avail Use% Mounted on
+    - overlay          59G   36G   21G  63% /
+ok: [web2] => 
+    disque.stdout_lines:
+    - Filesystem      Size  Used Avail Use% Mounted on
+    - overlay          59G   36G   21G  63% /
+ok: [db1] => 
+    disque.stdout_lines:
+    - Filesystem      Size  Used Avail Use% Mounted on
+    - overlay          59G   36G   21G  63% /
+
+TASK [Publier la page (titre différent selon groupe_vars / host_vars)] *********
+skipping: [db1]
+ok: [web1]
+ok: [web2]
+
+TASK [Commande qui échoue] *****************************************************
+fatal: [web2]: FAILED! => 
+    changed: true
+    cmd:
+    - /bin/false
+    delta: '0:00:00.013087'
+    end: '2026-11-16 02:27:02.324316'
+    msg: non-zero return code
+    rc: 1
+    start: '2026-11-16 02:27:02.311229'
+    stderr: ''
+    stderr_lines: <omitted>
+    stdout: ''
+    stdout_lines: <omitted>
+fatal: [web1]: FAILED! => 
+    changed: true
+    cmd:
+    - /bin/false
+    delta: '0:00:00.025167'
+    end: '2026-11-16 02:27:02.367689'
+    msg: non-zero return code
+    rc: 1
+    start: '2026-11-16 02:27:02.342522'
+    stderr: ''
+    stderr_lines: <omitted>
+    stdout: ''
+    stdout_lines: <omitted>
+fatal: [db1]: FAILED! => 
+    changed: true
+    cmd:
+    - /bin/false
+    delta: '0:00:00.013219'
+    end: '2026-11-16 02:27:02.407677'
+    msg: non-zero return code
+    rc: 1
+    start: '2026-11-16 02:27:02.394458'
+    stderr: ''
+    stderr_lines: <omitted>
+    stdout: ''
+    stdout_lines: <omitted>
+
+TASK [Réagir à l'échec] ********************************************************
+ok: [web1] => 
+    msg: Échec intercepté sur web1, on continue proprement
+ok: [web2] => 
+    msg: Échec intercepté sur web2, on continue proprement
+ok: [db1] => 
+    msg: Échec intercepté sur db1, on continue proprement
+
+TASK [Toujours exécuté] ********************************************************
+ok: [web1] => 
+    msg: Fin du bloc
+ok: [web2] => 
+    msg: Fin du bloc
+ok: [db1] => 
+    msg: Fin du bloc
+
+PLAY RECAP *********************************************************************
+db1                        : ok=9    changed=0    unreachable=0    failed=0    skipped=2    rescued=1    ignored=0   
+web1                       : ok=11   changed=0    unreachable=0    failed=0    skipped=0    rescued=1    ignored=0   
+web2                       : ok=11   changed=0    unreachable=0    failed=0    skipped=0    rescued=1    ignored=0   
+
+

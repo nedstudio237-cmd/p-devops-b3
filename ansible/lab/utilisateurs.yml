@@ -1,0 +1,40 @@
+---
+# Défi TP 5.3 : gestion des comptes à partir de group_vars/all.yml (variable "comptes")
+- name: Gestion des comptes
+  hosts: lab
+  become: true
+  tasks:
+    - name: Créer les groupes
+      ansible.builtin.group:
+        name: "{{ item }}"
+      loop: "{{ comptes | map(attribute='groupe') | unique }}"
+
+    - name: Créer / supprimer les comptes
+      ansible.builtin.user:
+        name: "{{ item.nom }}"
+        groups: "{{ item.groupe }}"
+        shell: /bin/bash
+        state: "{{ item.etat | default('present') }}"
+        remove: "{{ (item.etat | default('present')) == 'absent' }}"
+      loop: "{{ comptes }}"
+      loop_control:
+        label: "{{ item.nom }} ({{ item.etat | default('present') }})"
+
+    - name: Installer les clés SSH
+      ansible.posix.authorized_key:
+        user: "{{ item.nom }}"
+        key: "{{ item.cle }}"
+      loop: "{{ comptes | selectattr('cle', 'defined') | rejectattr('etat', 'eq', 'absent') }}"
+      loop_control:
+        label: "{{ item.nom }}"
+
+    - name: Droits sudo pour les ops, uniquement sur les serveurs db
+      ansible.builtin.copy:
+        dest: "/etc/sudoers.d/{{ item.nom }}"
+        content: "{{ item.nom }} ALL=(ALL) NOPASSWD: ALL\n"
+        mode: "0440"
+        validate: visudo -cf %s
+      loop: "{{ comptes | selectattr('groupe', 'eq', 'operations') | rejectattr('etat', 'eq', 'absent') }}"
+      loop_control:
+        label: "{{ item.nom }}"
+      when: "'db' in group_names"

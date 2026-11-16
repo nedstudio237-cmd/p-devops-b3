@@ -26,6 +26,7 @@
       ansible.builtin.group:
         name: "{{ item }}"
       loop: "{{ utilisateurs | map(attribute='groupe') | unique }}"
+      tags: [utilisateurs]
 
     - name: Créer les utilisateurs
       ansible.builtin.user:
@@ -35,6 +36,7 @@
       loop: "{{ utilisateurs }}"
       loop_control:
         label: "{{ item.nom }}"
+      tags: [utilisateurs]
 
     - name: Installer nginx uniquement sur Ubuntu et dans le groupe web
       ansible.builtin.apt:
@@ -59,3 +61,17 @@
         dest: /var/www/html/index.html
         mode: "0644"
       when: "'web' in group_names"
+
+    # TP 5.3 étape 6 : gestion d'erreurs (base du rollback automatique du TP 5.6)
+    - name: Tenter une opération risquée
+      block:
+        - name: Commande qui échoue
+          ansible.builtin.command: /bin/false
+      rescue:
+        - name: Réagir à l'échec
+          ansible.builtin.debug:
+            msg: "Échec intercepté sur {{ inventory_hostname }}, on continue proprement"
+      always:
+        - name: Toujours exécuté
+          ansible.builtin.debug:
+            msg: "Fin du bloc"
