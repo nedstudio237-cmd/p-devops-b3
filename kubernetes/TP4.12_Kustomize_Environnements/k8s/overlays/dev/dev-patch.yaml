@@ -1,0 +1,12 @@
+# Défi TP 4.12 : 1 seul réplica, image locale (jamais téléchargée si déjà présente)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: webapp
+          imagePullPolicy: IfNotPresent
