@@ -1,0 +1,63 @@
+# Défi : même mise à jour de version avec 3 stratégies (boucle de requêtes toutes les 0,5 s, 4 réplicas)
+
+## surge1_unavail0 : RollingUpdate maxSurge 1 / maxUnavailable 0, 1.0.0 -> 2.0.0
+  réponses : 59 v1.0.0, 47 v2.0.0, 2 erreur(s)
+  succession :
+        29 v1.0.0
+         1 ❌
+         4 v1.0.0
+         1 v2.0.0
+         3 v1.0.0
+         2 v2.0.0
+         3 v1.0.0
+         1 v2.0.0
+         3 v1.0.0
+         1 v2.0.0
+         5 v1.0.0
+         3 v2.0.0
+         1 v1.0.0
+         5 v2.0.0
+         4 v1.0.0
+         3 v2.0.0
+         2 v1.0.0
+         2 v2.0.0
+         1 v1.0.0
+         3 v2.0.0
+         2 v1.0.0
+        13 v2.0.0
+         1 v1.0.0
+         2 v2.0.0
+         1 v1.0.0
+         2 v2.0.0
+         1 ❌
+         9 v2.0.0
+
+## surge0_unavail1 : RollingUpdate maxSurge 0 / maxUnavailable 1, 2.0.0 -> 1.0.0
+  réponses : 54 v1.0.0, 54 v2.0.0, 1 erreur(s)
+  succession :
+        32 v2.0.0
+         1 v1.0.0
+        11 v2.0.0
+         1 v1.0.0
+         3 v2.0.0
+         1 v1.0.0
+         3 v2.0.0
+         1 v1.0.0
+         1 v2.0.0
+         7 v1.0.0
+         1 v2.0.0
+         5 v1.0.0
+         2 v2.0.0
+         1 v1.0.0
+         1 v2.0.0
+         5 v1.0.0
+         1 ❌
+        32 v1.0.0
+
+## recreate : Recreate, 1.0.0 -> 2.0.0
+  réponses : 7 v1.0.0, 14 v2.0.0, 21 erreur(s)
+  succession :
+         7 v1.0.0
+        21 ❌
+        14 v2.0.0
+

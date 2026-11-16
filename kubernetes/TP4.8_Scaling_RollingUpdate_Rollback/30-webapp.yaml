@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  namespace: legeni-dev
+  labels: {app: webapp, env: dev}
+spec:
+  replicas: 4
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1          # au plus 1 pod en plus pendant la mise à jour
+      maxUnavailable: 0    # jamais moins de pods disponibles que "replicas"
+  selector:
+    matchLabels: {app: webapp}
+  template:
+    metadata:
+      labels: {app: webapp, env: dev}
+    spec:
+      containers:
+        - name: webapp
+          image: nedstudio/legeni-webapp:1.0.0
+          imagePullPolicy: IfNotPresent   # images construites localement et chargées dans Minikube
+          ports:
+            - containerPort: 5000
+          # Ajout (voir TP 4.9) : sans readiness probe, un Pod reçoit du trafic dès que le conteneur démarre,
+          # avant que gunicorn n'écoute -> erreurs pendant le rolling update.
+          readinessProbe:
+            httpGet: {path: /ready, port: 5000}
+            periodSeconds: 2
+            failureThreshold: 2
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits:   {cpu: 200m, memory: 128Mi}
+          envFrom:
+            - configMapRef:
+                name: webapp-config        # toutes les clés deviennent des variables d'env
+            - secretRef:
+                name: redis-secret         # REDIS_PASSWORD, lu par l'application
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+  namespace: legeni-dev
+  labels: {env: dev}
+spec:
+  type: NodePort
+  selector: {app: webapp}
+  ports:
+    - port: 80
+      targetPort: 5000
+      nodePort: 30080

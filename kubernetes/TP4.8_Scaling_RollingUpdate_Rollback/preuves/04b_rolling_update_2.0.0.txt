@@ -1,0 +1,65 @@
+$ kubectl set image deployment/webapp webapp=nedstudio/legeni-webapp:2.0.0
+deployment.apps/webapp image updated
+
+$ kubectl annotate deployment/webapp kubernetes.io/change-cause="passage en 2.0.0" --overwrite
+deployment.apps/webapp annotated
+
+$ kubectl rollout status deployment/webapp
+Waiting for deployment "webapp" rollout to finish: 1 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 1 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 1 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 2 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 2 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 2 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 2 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 3 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 3 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 3 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 3 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "webapp" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "webapp" rollout to finish: 1 old replicas are pending termination...
+deployment "webapp" successfully rolled out
+
+$ kubectl get rs -l app=webapp
+NAME                DESIRED   CURRENT   READY   AGE
+webapp-559b6fb477   0         0         0       2m21s
+webapp-597b45dd89   0         0         0       110s
+webapp-5c5d5ff4ff   0         0         0       7m10s
+webapp-674658858f   0         0         0       6m41s
+webapp-67b567b96    0         0         0       4m39s
+webapp-855786c5cb   4         4         4       48s
+
+# Boucle (2 requêtes/s) avant, pendant et après le rolling update : 51 réponses v1.0.0, 45 réponses v2.0.0, 1 erreur(s)
+# Succession des versions vues par la boucle :
+       29 v1.0.0
+        1 v2.0.0
+        2 v1.0.0
+        1 v2.0.0
+        1 v1.0.0
+        2 v2.0.0
+        3 v1.0.0
+        1 v2.0.0
+        1 v1.0.0
+        1 v2.0.0
+        1 v1.0.0
+        1 v2.0.0
+        1 ❌
+        3 v1.0.0
+        3 v2.0.0
+        1 v1.0.0
+        1 v2.0.0
+        2 v1.0.0
+        1 v2.0.0
+        2 v1.0.0
+        1 v2.0.0
+        2 v1.0.0
+        4 v2.0.0
+        1 v1.0.0
+        4 v2.0.0
+        1 v1.0.0
+        4 v2.0.0
+        1 v1.0.0
+        1 v2.0.0
+        1 v1.0.0
+       19 v2.0.0

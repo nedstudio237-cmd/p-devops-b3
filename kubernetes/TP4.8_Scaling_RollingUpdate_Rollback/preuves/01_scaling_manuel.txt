@@ -1,0 +1,21 @@
+$ kubectl scale deployment webapp --replicas=5
+deployment.apps/webapp scaled
+
+$ kubectl get pods -l app=webapp -o wide
+NAME                     READY   STATUS    RESTARTS   AGE   IP            NODE       NOMINATED NODE   READINESS GATES
+webapp-67b567b96-6mjcw   1/1     Running   0          1s    10.244.0.89   minikube   <none>           <none>
+webapp-67b567b96-hrgkg   1/1     Running   0          1s    10.244.0.90   minikube   <none>           <none>
+webapp-67b567b96-j8npm   1/1     Running   0          54s   10.244.0.86   minikube   <none>           <none>
+webapp-67b567b96-sgwvg   1/1     Running   0          54s   10.244.0.87   minikube   <none>           <none>
+webapp-67b567b96-tp7gv   1/1     Running   0          1s    10.244.0.88   minikube   <none>           <none>
+
+# hostnames distincts vus par la boucle avec 5 réplicas : 5
+
+$ kubectl scale deployment webapp --replicas=2
+deployment.apps/webapp scaled
+
+$ kubectl get pods -l app=webapp
+NAME                     READY   STATUS    RESTARTS   AGE
+webapp-67b567b96-j8npm   1/1     Running   0          72s
+webapp-67b567b96-sgwvg   1/1     Running   0          72s
+

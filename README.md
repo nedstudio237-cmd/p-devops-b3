@@ -35,7 +35,7 @@ Ubuntu 24.04 (VM VMware), Docker 29, Minikube (driver Docker), Jenkins et Ansibl
 | 4.5 | [WordPress + MySQL](kubernetes/TP4.5_WordPress_MySQL/) | ✅ |
 | 4.6 | [Jobs, CronJobs, DaemonSet](kubernetes/TP4.6_Jobs_CronJobs_DaemonSet/) | ✅ |
 | 4.7 | [Namespace, ConfigMap, Secret](kubernetes/TP4.7_Namespace_ConfigMap_Secret/) | ✅ |
-| 4.8 | Scaling, rolling update, rollback | ⏳ |
+| 4.8 | [Scaling, rolling update, rollback](kubernetes/TP4.8_Scaling_RollingUpdate_Rollback/) | ✅ |
 | 4.9 | Probes et ressources | ⏳ |
 | 4.10 | Stockage, StatefulSet | ⏳ |
 | 4.11 | Ingress | ⏳ |

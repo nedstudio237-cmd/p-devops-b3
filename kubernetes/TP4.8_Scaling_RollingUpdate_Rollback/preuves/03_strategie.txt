@@ -1,0 +1,15 @@
+# Stratégie (maxSurge 1, maxUnavailable 0) et replicas: 4 appliqués depuis 30-webapp.yaml
+$ kubectl apply -f 30-webapp.yaml
+deployment.apps/webapp configured
+service/webapp unchanged
+
+$ kubectl get deploy webapp -o jsonpath='{.spec.strategy}'
+{"rollingUpdate":{"maxSurge":1,"maxUnavailable":0},"type":"RollingUpdate"}
+
+$ kubectl get pods -l app=webapp
+NAME                     READY   STATUS    RESTARTS   AGE
+webapp-67b567b96-52x9p   1/1     Running   0          1s
+webapp-67b567b96-5gtpv   1/1     Running   0          1s
+webapp-67b567b96-dfnzk   1/1     Running   0          33s
+webapp-67b567b96-t6l2r   1/1     Running   0          33s
+

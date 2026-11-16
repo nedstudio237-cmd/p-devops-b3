@@ -1,0 +1,11 @@
+$ kubectl rollout history deployment/webapp
+deployment.apps/webapp 
+REVISION  CHANGE-CAUSE
+6         <none>
+7         <none>
+8         <none>
+11        passage en 2.0.0
+13        version 9.9.9 (erreur)
+14        passage en 2.0.0
+
+

@@ -1,0 +1,28 @@
+$ kubectl delete pod -l app=webapp --wait=false
+pod "webapp-67b567b96-j8npm" deleted from legeni-dev namespace
+pod "webapp-67b567b96-sgwvg" deleted from legeni-dev namespace
+
+$ kubectl get pods -l app=webapp
+NAME                     READY   STATUS      RESTARTS   AGE
+webapp-67b567b96-dfnzk   1/1     Running     0          2s
+webapp-67b567b96-j8npm   0/1     Completed   0          74s
+webapp-67b567b96-sgwvg   0/1     Completed   0          74s
+webapp-67b567b96-t6l2r   1/1     Running     0          2s
+
+$ kubectl get pods -l app=webapp
+NAME                     READY   STATUS    RESTARTS   AGE
+webapp-67b567b96-dfnzk   1/1     Running   0          5s
+webapp-67b567b96-t6l2r   1/1     Running   0          5s
+
+$ kubectl get rs -l app=webapp
+NAME                DESIRED   CURRENT   READY   AGE
+webapp-5c5d5ff4ff   0         0         0       4m7s
+webapp-674658858f   0         0         0       3m38s
+webapp-67b567b96    2         2         2       96s
+webapp-6c874db66d   0         0         0       4m37s
+webapp-7c6d6cc44c   0         0         0       4m5s
+webapp-8496d4848c   0         0         0       4m11s
+
+$ kubectl describe rs -l app=webapp | grep -A6 Events | tail -4
+
+# erreurs vues par la boucle pendant la suppression de TOUS les Pods : 8
