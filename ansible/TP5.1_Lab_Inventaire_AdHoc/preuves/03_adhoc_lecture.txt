@@ -1,0 +1,67 @@
+$ ansible all -m ping
+web2 | SUCCESS => 
+    changed: false
+    ping: pong
+web1 | SUCCESS => 
+    changed: false
+    ping: pong
+db1 | SUCCESS => 
+    changed: false
+    ping: pong
+
+$ ansible web -m command -a "uptime"
+web1 | CHANGED | rc=0 >>
+ 02:15:16 up  1:21,  0 user,  load average: 4.90, 4.96, 4.63
+web2 | CHANGED | rc=0 >>
+ 02:15:17 up  1:21,  0 user,  load average: 4.90, 4.96, 4.63
+
+$ ansible db1 -m shell -a "df -h / | tail -1"
+db1 | CHANGED | rc=0 >>
+overlay          59G   35G   22G  63% /
+
+$ ansible all -m setup -a "filter=ansible_distribution*"
+web2 | SUCCESS => 
+    ansible_facts:
+        ansible_distribution: Ubuntu
+        ansible_distribution_file_parsed: true
+        ansible_distribution_file_path: /etc/os-release
+        ansible_distribution_file_variety: Debian
+        ansible_distribution_major_version: '24'
+        ansible_distribution_release: noble
+        ansible_distribution_version: '24.04'
+    changed: false
+db1 | SUCCESS => 
+    ansible_facts:
+        ansible_distribution: Ubuntu
+        ansible_distribution_file_parsed: true
+        ansible_distribution_file_path: /etc/os-release
+        ansible_distribution_file_variety: Debian
+        ansible_distribution_major_version: '24'
+        ansible_distribution_release: noble
+        ansible_distribution_version: '24.04'
+    changed: false
+web1 | SUCCESS => 
+    ansible_facts:
+        ansible_distribution: Ubuntu
+        ansible_distribution_file_parsed: true
+        ansible_distribution_file_path: /etc/os-release
+        ansible_distribution_file_variety: Debian
+        ansible_distribution_major_version: '24'
+        ansible_distribution_release: noble
+        ansible_distribution_version: '24.04'
+    changed: false
+
+$ ansible all -m setup -a "filter=ansible_memtotal_mb"
+db1 | SUCCESS => 
+    ansible_facts:
+        ansible_memtotal_mb: 7889
+    changed: false
+web2 | SUCCESS => 
+    ansible_facts:
+        ansible_memtotal_mb: 7889
+    changed: false
+web1 | SUCCESS => 
+    ansible_facts:
+        ansible_memtotal_mb: 7889
+    changed: false
+

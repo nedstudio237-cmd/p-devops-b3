@@ -1,0 +1,150 @@
+$ ansible web -b -m apt -a "name=tree state=present update_cache=yes"
+web2 | CHANGED => 
+    cache_update_time: 1794795442
+    cache_updated: true
+    changed: true
+    stderr: |-
+        debconf: delaying package configuration, since apt-utils is not installed
+    stderr_lines: <omitted>
+    stdout: |-
+        Reading package lists...
+        Building dependency tree...
+        Reading state information...
+        The following NEW packages will be installed:
+          tree
+        0 upgraded, 1 newly installed, 0 to remove and 3 not upgraded.
+        Need to get 47.4 kB of archives.
+        After this operation, 111 kB of additional disk space will be used.
+        Get:1 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 tree amd64 2.1.1-2ubuntu3.24.04.2 [47.4 kB]
+        Fetched 47.4 kB in 1s (44.2 kB/s)
+        Selecting previously unselected package tree.
+        (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 7892 files and directories currently installed.)
+        Preparing to unpack .../tree_2.1.1-2ubuntu3.24.04.2_amd64.deb ...
+        Unpacking tree (2.1.1-2ubuntu3.24.04.2) ...
+        Setting up tree (2.1.1-2ubuntu3.24.04.2) ...
+    stdout_lines: <omitted>
+web1 | CHANGED => 
+    cache_update_time: 1794795455
+    cache_updated: true
+    changed: true
+    stderr: |-
+        debconf: delaying package configuration, since apt-utils is not installed
+    stderr_lines: <omitted>
+    stdout: |-
+        Reading package lists...
+        Building dependency tree...
+        Reading state information...
+        The following NEW packages will be installed:
+          tree
+        0 upgraded, 1 newly installed, 0 to remove and 3 not upgraded.
+        Need to get 47.4 kB of archives.
+        After this operation, 111 kB of additional disk space will be used.
+        Get:1 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 tree amd64 2.1.1-2ubuntu3.24.04.2 [47.4 kB]
+        Fetched 47.4 kB in 1s (46.7 kB/s)
+        Selecting previously unselected package tree.
+        (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 7892 files and directories currently installed.)
+        Preparing to unpack .../tree_2.1.1-2ubuntu3.24.04.2_amd64.deb ...
+        Unpacking tree (2.1.1-2ubuntu3.24.04.2) ...
+        Setting up tree (2.1.1-2ubuntu3.24.04.2) ...
+    stdout_lines: <omitted>
+
+$ ansible web -m command -a "tree -L 1 /etc/nginx"
+web2 | FAILED | rc=2 >>
+/etc/nginx  [error opening dir]
+
+0 directories, 0 filesnon-zero return code
+web1 | FAILED | rc=2 >>
+/etc/nginx  [error opening dir]
+
+0 directories, 0 filesnon-zero return code
+
+→ normal, nginx n'est pas encore installé
+
+$ ansible all -b -m user -a "name=stagiaire shell=/bin/bash"
+web1 | CHANGED => 
+    changed: true
+    comment: ''
+    create_home: true
+    group: 1002
+    home: /home/stagiaire
+    name: stagiaire
+    shell: /bin/bash
+    state: present
+    system: false
+    uid: 1002
+web2 | CHANGED => 
+    changed: true
+    comment: ''
+    create_home: true
+    group: 1002
+    home: /home/stagiaire
+    name: stagiaire
+    shell: /bin/bash
+    state: present
+    system: false
+    uid: 1002
+db1 | CHANGED => 
+    changed: true
+    comment: ''
+    create_home: true
+    group: 1002
+    home: /home/stagiaire
+    name: stagiaire
+    shell: /bin/bash
+    state: present
+    system: false
+    uid: 1002
+
+$ ansible all -m command -a "id stagiaire"
+db1 | CHANGED | rc=0 >>
+uid=1002(stagiaire) gid=1002(stagiaire) groups=1002(stagiaire)
+web2 | CHANGED | rc=0 >>
+uid=1002(stagiaire) gid=1002(stagiaire) groups=1002(stagiaire)
+web1 | CHANGED | rc=0 >>
+uid=1002(stagiaire) gid=1002(stagiaire) groups=1002(stagiaire)
+
+$ ansible all -b -m copy -a "content='Serveur géré par Ansible\n' dest=/etc/motd mode=0644"
+web1 | CHANGED => 
+    changed: true
+    checksum: 227f68144b729dcf7f71e87c30750212d7a0b6f6
+    dest: /etc/motd
+    gid: 0
+    group: root
+    md5sum: 8377e7ce193819213d298b0dc9581e63
+    mode: '0644'
+    owner: root
+    size: 27
+    src: /home/ansible/.ansible/tmp/ansible-tmp-1794795472.9886084-98142-166717796342122/source
+    state: file
+    uid: 0
+web2 | CHANGED => 
+    changed: true
+    checksum: 227f68144b729dcf7f71e87c30750212d7a0b6f6
+    dest: /etc/motd
+    gid: 0
+    group: root
+    md5sum: 8377e7ce193819213d298b0dc9581e63
+    mode: '0644'
+    owner: root
+    size: 27
+    src: /home/ansible/.ansible/tmp/ansible-tmp-1794795472.9878047-98143-175742932715532/source
+    state: file
+    uid: 0
+db1 | CHANGED => 
+    changed: true
+    checksum: 227f68144b729dcf7f71e87c30750212d7a0b6f6
+    dest: /etc/motd
+    gid: 0
+    group: root
+    md5sum: 8377e7ce193819213d298b0dc9581e63
+    mode: '0644'
+    owner: root
+    size: 27
+    src: /home/ansible/.ansible/tmp/ansible-tmp-1794795473.011404-98141-101258304632018/source
+    state: file
+    uid: 0
+
+$ ansible web1 -m command -a "cat /etc/motd"
+web1 | CHANGED | rc=0 >>
+Serveur géré par Ansible
+

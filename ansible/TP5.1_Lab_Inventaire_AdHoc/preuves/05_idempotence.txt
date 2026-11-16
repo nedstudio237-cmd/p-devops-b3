@@ -1,0 +1,59 @@
+# 2e exécution des mêmes commandes : rien n'est refait
+$ ansible web -b -m apt -a "name=tree state=present update_cache=yes"
+web1 | SUCCESS => 
+    cache_update_time: 1794795455
+    cache_updated: false
+    changed: false
+web2 | SUCCESS => 
+    cache_update_time: 1794795442
+    cache_updated: false
+    changed: false
+
+$ ansible all -b -m user -a "name=stagiaire shell=/bin/bash"
+db1 | SUCCESS => 
+    append: false
+    changed: false
+    comment: ''
+    group: 1002
+    home: /home/stagiaire
+    move_home: false
+    name: stagiaire
+    shell: /bin/bash
+    state: present
+    uid: 1002
+web1 | SUCCESS => 
+    append: false
+    changed: false
+    comment: ''
+    group: 1002
+    home: /home/stagiaire
+    move_home: false
+    name: stagiaire
+    shell: /bin/bash
+    state: present
+    uid: 1002
+web2 | SUCCESS => 
+    append: false
+    changed: false
+    comment: ''
+    group: 1002
+    home: /home/stagiaire
+    move_home: false
+    name: stagiaire
+    shell: /bin/bash
+    state: present
+    uid: 1002
+
+# Module shell : toujours CHANGED, et le résultat change à chaque fois
+$ ansible web1 -m shell -a "echo ligne >> /tmp/fichier.txt"
+web1 | CHANGED | rc=0 >>
+
+
+$ ansible web1 -m shell -a "echo ligne >> /tmp/fichier.txt"
+web1 | CHANGED | rc=0 >>
+
+
+$ ansible web1 -m shell -a "wc -l /tmp/fichier.txt"
+web1 | CHANGED | rc=0 >>
+2 /tmp/fichier.txt
+

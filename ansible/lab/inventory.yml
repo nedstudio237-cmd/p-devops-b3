@@ -1,0 +1,17 @@
+# TP 5.1 : même inventaire qu'inventory.ini, au format YAML
+lab:
+  vars:
+    ansible_user: ansible
+    ansible_ssh_private_key_file: keys/id_ansible
+    ansible_python_interpreter: /usr/bin/python3
+  children:
+    web:
+      hosts:
+        web1: {ansible_host: 127.0.0.1, ansible_port: 2221}
+        web2: {ansible_host: 127.0.0.1, ansible_port: 2222}
+    db:
+      hosts:
+        db1: {ansible_host: 127.0.0.1, ansible_port: 2223}
+wordpress_servers:
+  hosts:
+    db1:

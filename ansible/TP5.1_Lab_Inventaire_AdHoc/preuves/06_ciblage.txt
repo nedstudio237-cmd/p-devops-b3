@@ -1,0 +1,30 @@
+$ ansible 'web:!web2' -m ping
+web1 | SUCCESS => 
+    changed: false
+    ping: pong
+
+$ ansible 'lab:&web' -m ping
+web2 | SUCCESS => 
+    changed: false
+    ping: pong
+web1 | SUCCESS => 
+    changed: false
+    ping: pong
+
+$ ansible all -m ping --limit db1
+db1 | SUCCESS => 
+    changed: false
+    ping: pong
+
+$ ansible all -m ping -f 1 -v
+Using /home/romaric/tp-devops-b3/ansible/lab/ansible.cfg as config file
+db1 | SUCCESS => 
+    changed: false
+    ping: pong
+web1 | SUCCESS => 
+    changed: false
+    ping: pong
+web2 | SUCCESS => 
+    changed: false
+    ping: pong
+

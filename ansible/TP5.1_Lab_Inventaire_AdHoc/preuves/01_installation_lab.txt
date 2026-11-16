@@ -1,0 +1,19 @@
+$ ansible --version | head -3
+ansible [core 2.16.3]
+  config file = /home/romaric/tp-devops-b3/ansible/lab/ansible.cfg
+  configured module search path = ['/home/romaric/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+
+$ ansible-galaxy collection list 2>/dev/null | grep -E 'community.docker|kubernetes.core'
+community.docker                         3.7.0  
+kubernetes.core                          2.4.0  
+
+$ docker compose ps --format 'table {{.Name}}\t{{.Status}}'
+NAME         STATUS
+lab-db1-1    Up 22 seconds
+lab-web1-1   Up 19 seconds
+lab-web2-1   Up 23 seconds
+
+$ ssh -o StrictHostKeyChecking=no -i keys/id_ansible -p 2221 ansible@127.0.0.1 hostname
+Warning: Permanently added '[127.0.0.1]:2221' (ED25519) to the list of known hosts.
+web1
+

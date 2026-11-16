@@ -1,0 +1,79 @@
+$ ansible all -m setup -a "filter=ansible_kernel"
+web2 | SUCCESS => 
+    ansible_facts:
+        ansible_kernel: 7.0.0-42-generic
+    changed: false
+db1 | SUCCESS => 
+    ansible_facts:
+        ansible_kernel: 7.0.0-42-generic
+    changed: false
+web1 | SUCCESS => 
+    ansible_facts:
+        ansible_kernel: 7.0.0-42-generic
+    changed: false
+
+$ ansible all -b -m user -a "name=stagiaire state=absent remove=yes"
+web1 | CHANGED => 
+    changed: true
+    force: false
+    name: stagiaire
+    remove: true
+    state: absent
+    stderr: |-
+        userdel: stagiaire mail spool (/var/mail/stagiaire) not found
+    stderr_lines: <omitted>
+web2 | CHANGED => 
+    changed: true
+    force: false
+    name: stagiaire
+    remove: true
+    state: absent
+    stderr: |-
+        userdel: stagiaire mail spool (/var/mail/stagiaire) not found
+    stderr_lines: <omitted>
+db1 | CHANGED => 
+    changed: true
+    force: false
+    name: stagiaire
+    remove: true
+    state: absent
+    stderr: |-
+        userdel: stagiaire mail spool (/var/mail/stagiaire) not found
+    stderr_lines: <omitted>
+
+$ ansible all -m lineinfile -a "path=/home/ansible/.bashrc line=\"alias ll='ls -alF'\""
+web2 | SUCCESS => 
+    backup: ''
+    changed: false
+    msg: ''
+web1 | SUCCESS => 
+    backup: ''
+    changed: false
+    msg: ''
+db1 | SUCCESS => 
+    backup: ''
+    changed: false
+    msg: ''
+
+$ ansible all -m lineinfile -a "path=/home/ansible/.bashrc line=\"alias ll='ls -alF'\""   # 2e fois : idempotent
+web2 | SUCCESS => 
+    backup: ''
+    changed: false
+    msg: ''
+db1 | SUCCESS => 
+    backup: ''
+    changed: false
+    msg: ''
+web1 | SUCCESS => 
+    backup: ''
+    changed: false
+    msg: ''
+
+$ ansible all -m command -a "grep -c \"alias ll=\" /home/ansible/.bashrc"
+db1 | CHANGED | rc=0 >>
+1
+web2 | CHANGED | rc=0 >>
+1
+web1 | CHANGED | rc=0 >>
+1
+

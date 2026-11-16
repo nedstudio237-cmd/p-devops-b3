@@ -45,7 +45,7 @@ Ubuntu 24.04 (VM VMware), Docker 29, Minikube (driver Docker), Jenkins et Ansibl
 ### Ansible
 | TP | Sujet | Statut |
 |---|---|---|
-| 5.1 | Lab, inventaire, ad-hoc | ⏳ |
+| 5.1 | [Lab, inventaire, ad-hoc](ansible/TP5.1_Lab_Inventaire_AdHoc/) | ✅ |
 | 5.2 | Premier playbook | ⏳ |
 | 5.3 | Variables, conditions, boucles | ⏳ |
 | 5.4 | Rôles Docker + webapp | ⏳ |

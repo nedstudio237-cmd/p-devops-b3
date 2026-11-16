@@ -1,0 +1,84 @@
+$ cat ansible.cfg inventory.ini
+[defaults]
+inventory = inventory.ini
+roles_path = roles
+host_key_checking = False
+interpreter_python = auto_silent
+callback_result_format = yaml
+retry_files_enabled = False
+
+[ssh_connection]
+pipelining = True
+# Inventaire du lab : les 3 nœuds sont joignables via les ports SSH publiés sur la machine locale
+[web]
+web1 ansible_host=127.0.0.1 ansible_port=2221
+web2 ansible_host=127.0.0.1 ansible_port=2222
+
+[db]
+db1 ansible_host=127.0.0.1 ansible_port=2223
+
+[wordpress_servers]
+db1
+
+[lab:children]
+web
+db
+
+[lab:vars]
+ansible_user=ansible
+ansible_ssh_private_key_file=keys/id_ansible
+ansible_python_interpreter=/usr/bin/python3
+
+$ ansible-inventory --graph
+@all:
+  |--@ungrouped:
+  |--@wordpress_servers:
+  |  |--db1
+  |--@lab:
+  |  |--@web:
+  |  |  |--web1
+  |  |  |--web2
+  |  |--@db:
+  |  |  |--db1
+
+$ ansible-inventory --host web1
+{
+    "ansible_host": "127.0.0.1",
+    "ansible_port": 2221,
+    "ansible_python_interpreter": "/usr/bin/python3",
+    "ansible_ssh_private_key_file": "keys/id_ansible",
+    "ansible_user": "ansible",
+    "equipe": [
+        {
+            "nom": "Alice",
+            "role": "Dev"
+        },
+        {
+            "nom": "Bob",
+            "role": "Ops"
+        }
+    ],
+    "page_title": "Legeni – serveurs web",
+    "paquets_communs": [
+        "curl",
+        "git",
+        "htop"
+    ],
+    "webapp_image": "legeni07/legeni-webapp",
+    "webapp_version": "1.0.0"
+}
+
+$ ansible-inventory -i inventory.yml --graph
+@all:
+  |--@ungrouped:
+  |--@lab:
+  |  |--@web:
+  |  |  |--web1
+  |  |  |--web2
+  |  |--@db:
+  |  |  |--db1
+  |--@wordpress_servers:
+  |  |--db1
+
+$ diff <(ansible-inventory -i inventory.ini --list | python3 -m json.tool --sort-keys) <(ansible-inventory -i inventory.yml --list | python3 -m json.tool --sort-keys)
+→ inventaires identiques (seul l'ordre d'affichage des groupes 'lab' et 'wordpress_servers' diffère)
