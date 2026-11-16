@@ -1,0 +1,108 @@
+$ ansible-playbook site.yml -e webapp_version=2.0.0 --limit web1
+
+PLAY [Déployer l'application fil rouge sur les serveurs web] *******************
+
+TASK [Gathering Facts] *********************************************************
+ok: [web1]
+
+TASK [docker : Installer les prérequis] ****************************************
+ok: [web1]
+
+TASK [docker : Créer le dossier des clés APT] **********************************
+ok: [web1]
+
+TASK [docker : Télécharger la clé GPG de Docker] *******************************
+ok: [web1]
+
+TASK [docker : Ajouter le dépôt Docker] ****************************************
+ok: [web1]
+
+TASK [docker : Installer Docker] ***********************************************
+ok: [web1]
+
+TASK [docker : Démarrer Docker] ************************************************
+ok: [web1]
+
+TASK [docker : Autoriser les utilisateurs à utiliser Docker] *******************
+ok: [web1] => (item=ansible)
+
+TASK [webapp : Créer le réseau Docker de l'application] ************************
+ok: [web1]
+
+TASK [webapp : Démarrer Redis] *************************************************
+ok: [web1]
+
+TASK [webapp : Démarrer l'application] *****************************************
+changed: [web1]
+
+TASK [webapp : Attendre que l'application soit prête] **************************
+ok: [web1]
+
+TASK [webapp : Vérifier la version déployée] ***********************************
+ok: [web1]
+
+PLAY RECAP *********************************************************************
+web1                       : ok=13   changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+$ curl -s localhost:8101/api/info
+{"app":"legeni-webapp","env":"dev","hostname":"df85ac72c48d","version":"2.0.0"}
+
+
+# Version inexistante (9.9.9) : boucle de requêtes 1/s pendant le déploiement
+$ ansible-playbook site.yml -e webapp_version=9.9.9 --limit web1
+
+PLAY [Déployer l'application fil rouge sur les serveurs web] *******************
+
+TASK [Gathering Facts] *********************************************************
+ok: [web1]
+
+TASK [docker : Installer les prérequis] ****************************************
+ok: [web1]
+
+TASK [docker : Créer le dossier des clés APT] **********************************
+ok: [web1]
+
+TASK [docker : Télécharger la clé GPG de Docker] *******************************
+ok: [web1]
+
+TASK [docker : Ajouter le dépôt Docker] ****************************************
+ok: [web1]
+
+TASK [docker : Installer Docker] ***********************************************
+ok: [web1]
+
+TASK [docker : Démarrer Docker] ************************************************
+ok: [web1]
+
+TASK [docker : Autoriser les utilisateurs à utiliser Docker] *******************
+ok: [web1] => (item=ansible)
+
+TASK [webapp : Créer le réseau Docker de l'application] ************************
+ok: [web1]
+
+TASK [webapp : Démarrer Redis] *************************************************
+ok: [web1]
+
+TASK [webapp : Démarrer l'application] *****************************************
+fatal: [web1]: FAILED! => 
+    censored: 'the output has been hidden due to the fact that ''no_log: true'' was specified
+        for this result'
+    changed: false
+
+PLAY RECAP *********************************************************************
+web1                       : ok=10   changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
+
+# codes HTTP vus par la boucle :
+     45 200
+
+$ curl -s localhost:8101/api/info
+{"app":"legeni-webapp","env":"dev","hostname":"df85ac72c48d","version":"2.0.0"}
+
+
+$ ansible web1 -b -m shell -a 'docker ps -a --format "{{ "{{" }}.Names}} {{ "{{" }}.Image}} {{ "{{" }}.Status}}"'
+web1 | CHANGED | rc=0 >>
+webapp nedstudio/legeni-webapp:2.0.0 Up 51 seconds (healthy)
+redis redis:7.4-alpine Up 8 minutes
+

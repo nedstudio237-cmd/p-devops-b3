@@ -1,0 +1,54 @@
+$ cat requirements.yml
+# TP 5.4 étape 7 : dépendances Galaxy du projet
+roles:
+  - name: geerlingguy.docker
+    version: 7.4.1
+collections:
+  - name: community.docker
+  - name: kubernetes.core
+
+$ ansible-galaxy install -r requirements.yml
+Starting galaxy role install process
+- downloading role 'docker', owned by geerlingguy
+- downloading role from https://github.com/geerlingguy/ansible-role-docker/archive/7.4.1.tar.gz
+- extracting geerlingguy.docker to /home/romaric/tp-devops-b3/ansible/lab/roles/geerlingguy.docker
+- geerlingguy.docker (7.4.1) was installed successfully
+Starting galaxy collection install process
+Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+
+$ ansible-galaxy role list 2>/dev/null
+# /home/romaric/tp-devops-b3/ansible/lab/roles
+- geerlingguy.docker, 7.4.1
+- webapp, (unknown version)
+- docker, (unknown version)
+
+$ grep -cE '^[a-z_]+:' /home/romaric/tp-devops-b3/ansible/lab/roles/geerlingguy.docker/defaults/main.yml   # variables par défaut de geerlingguy.docker
+32
+
+$ grep -cE '^[a-z_]+:' roles/docker/defaults/main.yml   # variables de notre rôle docker
+2
+
+$ sed -n '/platforms:/,/galaxy_tags/p' /home/romaric/tp-devops-b3/ansible/lab/roles/geerlingguy.docker/meta/main.yml
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+        - bookworm
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+        - jammy
+        - noble
+    - name: Alpine
+      version:
+        - all
+    - name: ArchLinux
+      versions:
+        - all
+  galaxy_tags:
+

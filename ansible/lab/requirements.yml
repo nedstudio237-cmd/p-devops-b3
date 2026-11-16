@@ -1,0 +1,7 @@
+# TP 5.4 étape 7 : dépendances Galaxy du projet
+roles:
+  - name: geerlingguy.docker
+    version: 7.4.1
+collections:
+  - name: community.docker
+  - name: kubernetes.core

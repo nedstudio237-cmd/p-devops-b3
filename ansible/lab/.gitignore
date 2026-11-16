@@ -1,3 +1,4 @@
 keys/id_ansible
 keys/id_ansible.pub
 .vault_pass
+roles/geerlingguy.*

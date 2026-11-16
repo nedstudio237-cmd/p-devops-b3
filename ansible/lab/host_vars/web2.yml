@@ -1,3 +1,7 @@
 ---
 # Une variable d'hôte est prioritaire sur la variable de groupe
 page_title: "Legeni – web2 (canari)"
+# TP 5.4 étape 5 : web2 = environnement de préproduction
+webapp_env: "preprod"
+webapp_color: "#bf8700"
+webapp_version: "2.0.0"

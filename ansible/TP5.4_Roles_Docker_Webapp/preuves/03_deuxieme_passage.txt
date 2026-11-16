@@ -1,0 +1,61 @@
+$ ansible-playbook site.yml
+
+PLAY [Déployer l'application fil rouge sur les serveurs web] *******************
+
+TASK [Gathering Facts] *********************************************************
+ok: [web1]
+ok: [web2]
+
+TASK [docker : Installer les prérequis] ****************************************
+ok: [web1]
+ok: [web2]
+
+TASK [docker : Créer le dossier des clés APT] **********************************
+ok: [web2]
+ok: [web1]
+
+TASK [docker : Télécharger la clé GPG de Docker] *******************************
+ok: [web2]
+ok: [web1]
+
+TASK [docker : Ajouter le dépôt Docker] ****************************************
+ok: [web2]
+ok: [web1]
+
+TASK [docker : Installer Docker] ***********************************************
+ok: [web1]
+ok: [web2]
+
+TASK [docker : Démarrer Docker] ************************************************
+ok: [web2]
+ok: [web1]
+
+TASK [docker : Autoriser les utilisateurs à utiliser Docker] *******************
+ok: [web2] => (item=ansible)
+ok: [web1] => (item=ansible)
+
+TASK [webapp : Créer le réseau Docker de l'application] ************************
+ok: [web2]
+ok: [web1]
+
+TASK [webapp : Démarrer Redis] *************************************************
+ok: [web1]
+ok: [web2]
+
+TASK [webapp : Démarrer l'application] *****************************************
+ok: [web1]
+ok: [web2]
+
+TASK [webapp : Attendre que l'application soit prête] **************************
+ok: [web2]
+ok: [web1]
+
+TASK [webapp : Vérifier la version déployée] ***********************************
+ok: [web1]
+ok: [web2]
+
+PLAY RECAP *********************************************************************
+web1                       : ok=13   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+web2                       : ok=13   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+

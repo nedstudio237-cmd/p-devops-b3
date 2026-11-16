@@ -9,3 +9,4 @@ webapp_replicas: 1
 webapp_network: "legeni_net"
 webapp_redis_volume: "legeni_redis"
 webapp_redis_password: "changeme"   # à surcharger avec une variable chiffrée (Ansible Vault)
+webapp_state: "present"       # défi TP 5.4 : "absent" désinstalle l'application (le volume Redis est conservé)

@@ -1,0 +1,200 @@
+$ ansible-playbook site.yml   # rôle modifié (block present/absent) : web1 revient en 1.0.0, web2 en 2.0.0
+
+PLAY [Déployer l'application fil rouge sur les serveurs web] *******************
+
+TASK [Gathering Facts] *********************************************************
+ok: [web1]
+ok: [web2]
+
+TASK [docker : Installer les prérequis] ****************************************
+ok: [web1]
+ok: [web2]
+
+TASK [docker : Créer le dossier des clés APT] **********************************
+ok: [web1]
+ok: [web2]
+
+TASK [docker : Télécharger la clé GPG de Docker] *******************************
+ok: [web2]
+ok: [web1]
+
+TASK [docker : Ajouter le dépôt Docker] ****************************************
+ok: [web2]
+ok: [web1]
+
+TASK [docker : Installer Docker] ***********************************************
+ok: [web1]
+ok: [web2]
+
+TASK [docker : Démarrer Docker] ************************************************
+ok: [web1]
+ok: [web2]
+
+TASK [docker : Autoriser les utilisateurs à utiliser Docker] *******************
+ok: [web2] => (item=ansible)
+ok: [web1] => (item=ansible)
+
+TASK [webapp : Créer le réseau Docker de l'application] ************************
+ok: [web2]
+ok: [web1]
+
+TASK [webapp : Démarrer Redis] *************************************************
+ok: [web1]
+ok: [web2]
+
+TASK [webapp : Démarrer l'application] *****************************************
+ok: [web2]
+changed: [web1]
+
+TASK [webapp : Attendre que l'application soit prête] **************************
+ok: [web2]
+ok: [web1]
+
+TASK [webapp : Vérifier la version déployée] ***********************************
+ok: [web1]
+ok: [web2]
+
+TASK [webapp : Supprimer les conteneurs] ***************************************
+skipping: [web1] => (item=webapp) 
+skipping: [web1] => (item=redis) 
+skipping: [web1]
+skipping: [web2] => (item=webapp) 
+skipping: [web2] => (item=redis) 
+skipping: [web2]
+
+TASK [webapp : Supprimer le réseau] ********************************************
+skipping: [web1]
+skipping: [web2]
+
+PLAY RECAP *********************************************************************
+web1                       : ok=13   changed=1    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+web2                       : ok=13   changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+
+
+$ ansible-playbook tests/test_webapp.yml
+
+PLAY [Tester le rôle webapp] ***************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [web2]
+ok: [web1]
+
+TASK [docker : Installer les prérequis] ****************************************
+ok: [web1]
+ok: [web2]
+
+TASK [docker : Créer le dossier des clés APT] **********************************
+ok: [web1]
+ok: [web2]
+
+TASK [docker : Télécharger la clé GPG de Docker] *******************************
+fatal: [web2]: FAILED! => 
+    changed: false
+    dest: /etc/apt/keyrings/docker.asc
+    elapsed: 10
+    gid: 0
+    group: root
+    mode: '0644'
+    msg: 'Request failed: <urlopen error [Errno -3] Temporary failure in name resolution>'
+    owner: root
+    size: 3817
+    state: file
+    uid: 0
+    url: https://download.docker.com/linux/ubuntu/gpg
+fatal: [web1]: FAILED! => 
+    changed: false
+    dest: /etc/apt/keyrings/docker.asc
+    elapsed: 10
+    gid: 0
+    group: root
+    mode: '0644'
+    msg: 'Request failed: <urlopen error [Errno -3] Temporary failure in name resolution>'
+    owner: root
+    size: 3817
+    state: file
+    uid: 0
+    url: https://download.docker.com/linux/ubuntu/gpg
+
+PLAY RECAP *********************************************************************
+web1                       : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+web2                       : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
+
+$ ansible-playbook site.yml -e webapp_state=absent --limit web1
+
+PLAY [Déployer l'application fil rouge sur les serveurs web] *******************
+
+TASK [Gathering Facts] *********************************************************
+ok: [web1]
+
+TASK [docker : Installer les prérequis] ****************************************
+ok: [web1]
+
+TASK [docker : Créer le dossier des clés APT] **********************************
+ok: [web1]
+
+TASK [docker : Télécharger la clé GPG de Docker] *******************************
+ok: [web1]
+
+TASK [docker : Ajouter le dépôt Docker] ****************************************
+ok: [web1]
+
+TASK [docker : Installer Docker] ***********************************************
+ok: [web1]
+
+TASK [docker : Démarrer Docker] ************************************************
+ok: [web1]
+
+TASK [docker : Autoriser les utilisateurs à utiliser Docker] *******************
+ok: [web1] => (item=ansible)
+
+TASK [webapp : Créer le réseau Docker de l'application] ************************
+skipping: [web1]
+
+TASK [webapp : Démarrer Redis] *************************************************
+skipping: [web1]
+
+TASK [webapp : Démarrer l'application] *****************************************
+skipping: [web1]
+
+TASK [webapp : Attendre que l'application soit prête] **************************
+skipping: [web1]
+
+TASK [webapp : Vérifier la version déployée] ***********************************
+skipping: [web1]
+
+TASK [webapp : Supprimer les conteneurs] ***************************************
+changed: [web1] => (item=webapp)
+changed: [web1] => (item=redis)
+
+TASK [webapp : Supprimer le réseau] ********************************************
+changed: [web1]
+
+PLAY RECAP *********************************************************************
+web1                       : ok=10   changed=2    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
+
+
+$ ansible web1 -b -m shell -a 'docker ps -a --format "{{ "{{" }}.Names}}"; echo ---; docker network ls --format "{{ "{{" }}.Name}}" | grep legeni || echo pas de réseau legeni; docker volume ls --format "{{ "{{" }}.Name}}"'
+web1 | CHANGED | rc=0 >>
+---
+pas de réseau legeni
+legeni_redis
+
+$ curl -s -m3 localhost:8101/api/info || echo '→ application désinstallée'
+→ application désinstallée
+
+$ ansible-playbook site.yml --limit web1 | tail -3
+PLAY RECAP *********************************************************************
+web1                       : ok=13   changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+
+
+$ curl -s localhost:8101/api/info
+{"app":"legeni-webapp","env":"dev","hostname":"35490a93defb","version":"1.0.0"}
+
+
+$ ansible-playbook site.yml | tail -4   # idempotent
+PLAY RECAP *********************************************************************
+web1                       : ok=13   changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+web2                       : ok=13   changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+
+

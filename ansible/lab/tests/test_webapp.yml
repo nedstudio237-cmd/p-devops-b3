@@ -1,0 +1,28 @@
+---
+# Défi TP 5.4 : test du rôle webapp (appliquer le rôle, puis vérifier le résultat)
+#   ansible-playbook tests/test_webapp.yml --limit web1
+- name: Tester le rôle webapp
+  hosts: web
+  become: true
+  roles:
+    - webapp
+  post_tasks:
+    - name: Lire /api/info
+      ansible.builtin.uri:
+        url: "http://127.0.0.1:{{ webapp_port }}/api/info"
+        return_content: true
+      register: info
+
+    - name: Inspecter le conteneur redis
+      community.docker.docker_container_info:
+        name: redis
+      register: redis_info
+
+    - name: Vérifier la version et l'absence de port publié pour Redis
+      ansible.builtin.assert:
+        that:
+          - info.json.version == webapp_version
+          - info.json.env == webapp_env
+          - redis_info.container.HostConfig.PortBindings | default({}, true) | length == 0
+        success_msg: "OK : version {{ info.json.version }}, Redis non exposé"
+        fail_msg: "Le déploiement ne correspond pas à l'attendu"

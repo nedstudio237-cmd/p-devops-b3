@@ -1,5 +1,5 @@
 ---
-webapp_image: "legeni07/legeni-webapp"   # remplacer par <votre_id_dockerhub>/legeni-webapp
+webapp_image: "nedstudio/legeni-webapp"   # image Docker Hub de EVINA ZE ROMARIC
 webapp_version: "1.0.0"
 
 # Défi TP 5.3 : comptes gérés par utilisateurs.yml (etat: present / absent, cle: clé SSH publique optionnelle)

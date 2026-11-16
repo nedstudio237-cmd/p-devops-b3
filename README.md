@@ -48,6 +48,6 @@ Ubuntu 24.04 (VM VMware), Docker 29, Minikube (driver Docker), Jenkins et Ansibl
 | 5.1 | [Lab, inventaire, ad-hoc](ansible/TP5.1_Lab_Inventaire_AdHoc/) | ✅ |
 | 5.2 | [Premier playbook](ansible/TP5.2_Premier_Playbook/) | ✅ |
 | 5.3 | [Variables, conditions, boucles](ansible/TP5.3_Variables_Conditions_Boucles/) | ✅ |
-| 5.4 | Rôles Docker + webapp | ⏳ |
+| 5.4 | [Rôles Docker + webapp](ansible/TP5.4_Roles_Docker_Webapp/) | ✅ |
 | 5.5 | Vault + WordPress | ⏳ |
 | 5.6 | Ansible + Kubernetes | ⏳ |

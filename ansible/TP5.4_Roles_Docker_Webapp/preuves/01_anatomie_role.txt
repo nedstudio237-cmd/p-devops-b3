@@ -1,0 +1,6 @@
+$ ansible-galaxy role init --init-path /tmp/claude-1000 demo >/dev/null && tree /tmp/claude-1000/demo
+environment: ligne 8: tree : commande introuvable
+
+$ tree roles/
+environment: ligne 8: tree : commande introuvable
+
