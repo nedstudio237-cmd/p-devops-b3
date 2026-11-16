@@ -25,6 +25,36 @@
         state: started
         enabled: true
 
+    # --- Défi TP 5.2 : page de statut, validation, vérification ---
+    - name: Configurer la page de statut (port 8090)
+      ansible.builtin.copy:
+        dest: /etc/nginx/conf.d/status.conf
+        mode: "0644"
+        content: |
+          server {
+            listen 8090;
+            location /nginx_status { stub_status; }
+          }
+      notify: Recharger nginx
+
+    - name: Vérifier la configuration nginx
+      ansible.builtin.command: nginx -t
+      changed_when: false
+
+    - name: Appliquer les handlers maintenant
+      ansible.builtin.meta: flush_handlers
+
+    - name: Vérifier la page de statut
+      ansible.builtin.uri:
+        url: http://127.0.0.1:8090/nginx_status
+        status_code: 200
+        return_content: true
+      register: statut
+
+    - name: Afficher le statut
+      ansible.builtin.debug:
+        msg: "{{ statut.content.splitlines() | first }}"
+
   handlers:
     - name: Recharger nginx
       ansible.builtin.service:

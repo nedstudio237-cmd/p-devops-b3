@@ -1,0 +1,23 @@
+$ curl -s localhost:8001
+<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><title>Legeni – serveurs web</title></head>
+<body style="font-family: sans-serif">
+  <h1>Legeni – serveurs web</h1>
+  <p>Serveur : <b>web1</b> (Ubuntu 24.04)</p>
+  <p>Adresse IP : 172.19.0.4</p>
+  <p>Mémoire : 7889 Mo – CPU : 4</p>
+  <h2>Équipe</h2>
+  <ul>
+    <li>Alice – Dev</li>
+    <li>Bob – Ops</li>
+  </ul>
+  <p><small>Page générée par Ansible – ne pas modifier à la main</small></p>
+</body>
+</html>
+
+$ curl -s localhost:8002 | grep -E '<h1>|Serveur|Mémoire'
+  <h1>Legeni – web2 (canari)</h1>
+  <p>Serveur : <b>web2</b> (Ubuntu 24.04)</p>
+  <p>Mémoire : 7889 Mo – CPU : 4</p>
+

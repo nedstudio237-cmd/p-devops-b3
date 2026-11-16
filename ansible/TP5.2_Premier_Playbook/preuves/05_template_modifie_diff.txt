@@ -1,0 +1,55 @@
+# Modification du pied de page du template
+$ grep small templates/index.html.j2
+  <p><small>Page générée par Ansible (TP 5.2 – EVINA ZE ROMARIC) – ne pas modifier à la main</small></p>
+
+$ ansible-playbook nginx.yml --diff
+
+PLAY [Installer et configurer nginx] *******************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [web1]
+ok: [web2]
+
+TASK [Installer nginx] *********************************************************
+ok: [web1]
+ok: [web2]
+
+TASK [Publier la page d'accueil] ***********************************************
+--- before: /var/www/html/index.html
++++ after: /home/romaric/.ansible/tmp/ansible-local-1015252ivttyy2/tmpcd9d75gs/index.html.j2
+@@ -11,6 +11,6 @@
+     <li>Alice – Dev</li>
+     <li>Bob – Ops</li>
+   </ul>
+-  <p><small>Page générée par Ansible – ne pas modifier à la main</small></p>
++  <p><small>Page générée par Ansible (TP 5.2 – EVINA ZE ROMARIC) – ne pas modifier à la main</small></p>
+ </body>
+ </html>
+
+changed: [web1]
+--- before: /var/www/html/index.html
++++ after: /home/romaric/.ansible/tmp/ansible-local-1015252ivttyy2/tmpef3xojju/index.html.j2
+@@ -11,6 +11,6 @@
+     <li>Alice – Dev</li>
+     <li>Bob – Ops</li>
+   </ul>
+-  <p><small>Page générée par Ansible – ne pas modifier à la main</small></p>
++  <p><small>Page générée par Ansible (TP 5.2 – EVINA ZE ROMARIC) – ne pas modifier à la main</small></p>
+ </body>
+ </html>
+
+changed: [web2]
+
+TASK [Démarrer nginx et l'activer au démarrage] ********************************
+ok: [web1]
+ok: [web2]
+
+RUNNING HANDLER [Recharger nginx] **********************************************
+changed: [web1]
+changed: [web2]
+
+PLAY RECAP *********************************************************************
+web1                       : ok=5    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+web2                       : ok=5    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+

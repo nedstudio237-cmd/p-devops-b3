@@ -1,0 +1,29 @@
+$ ansible-playbook nginx.yml
+
+PLAY [Installer et configurer nginx] *******************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [web1]
+ok: [web2]
+
+TASK [Installer nginx] *********************************************************
+changed: [web2]
+changed: [web1]
+
+TASK [Publier la page d'accueil] ***********************************************
+changed: [web1]
+changed: [web2]
+
+TASK [Démarrer nginx et l'activer au démarrage] ********************************
+changed: [web1]
+changed: [web2]
+
+RUNNING HANDLER [Recharger nginx] **********************************************
+changed: [web2]
+changed: [web1]
+
+PLAY RECAP *********************************************************************
+web1                       : ok=5    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+web2                       : ok=5    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+

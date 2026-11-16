@@ -1,0 +1,20 @@
+$ ansible-playbook nginx.yml --check --diff --limit web1
+
+PLAY [Installer et configurer nginx] *******************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [web1]
+
+TASK [Installer nginx] *********************************************************
+ok: [web1]
+
+TASK [Publier la page d'accueil] ***********************************************
+ok: [web1]
+
+TASK [Démarrer nginx et l'activer au démarrage] ********************************
+ok: [web1]
+
+PLAY RECAP *********************************************************************
+web1                       : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
