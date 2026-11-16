@@ -1,0 +1,19 @@
+### Panne 2
+$ kubectl get pods -l app=api
+NAME                   READY   STATUS   RESTARTS      AGE
+api-568b7dc6b8-gfzgl   0/1     Error    3 (34s ago)   54s
+
+$ kubectl logs deploy/api --previous | tail -4
+unable to retrieve container logs for containerd://0ebae7d40bf120c0bad36b3c354697a2d1c5571336ecda891faf9ec1d18d74f0
+$ kubectl describe pod -l app=api | grep -E 'Last State|Reason|Exit Code' | head -4
+      Reason:       Error
+      Exit Code:    1
+    Last State:     Terminated
+      Reason:       Error
+
+
+# (complément) logs du conteneur qui plante
+$ kubectl logs deploy/api --previous
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'flask'

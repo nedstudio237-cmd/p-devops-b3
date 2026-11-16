@@ -1,0 +1,45 @@
+$ kubectl apply -f panne1-corrige.yaml -f panne2-corrige.yaml -f panne3-corrige.yaml -f panne4-corrige.yaml -f panne5-corrige.yaml
+deployment.apps/front configured
+deployment.apps/api configured
+deployment.apps/web unchanged
+service/web configured
+service/app configured
+deployment.apps/app unchanged
+configmap/config-app created
+deployment.apps/conf unchanged
+
+# Panne 6 : un PVC est immuable (storageClassName ne se modifie pas) -> supprimer puis recréer
+$ kubectl delete pod db; kubectl delete pvc data
+pod "db" deleted from depannage namespace
+persistentvolumeclaim "data" deleted from depannage namespace
+
+$ kubectl apply -f panne6-corrige.yaml
+persistentvolumeclaim/data created
+pod/db created
+
+$ kubectl get pods,pvc
+NAME                         READY   STATUS    RESTARTS   AGE
+pod/api-7749b75fd6-c7nbt     1/1     Running   0          10s
+pod/app-555b946fb7-hcs4s     1/1     Running   0          2m8s
+pod/conf-7488cd94b7-lzc8j    1/1     Running   0          2m8s
+pod/db                       1/1     Running   0          7s
+pod/front-654ddc6db7-2bvx2   1/1     Running   0          10s
+pod/front-654ddc6db7-jbjtd   1/1     Running   0          6s
+pod/web-bd858dc99-scj6d      1/1     Running   0          2m8s
+pod/web-bd858dc99-zm5gv      1/1     Running   0          2m8s
+
+NAME                         STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data   Bound    pvc-fadee8c3-f637-47f1-899c-9cf85f13f4b2   1Gi        RWO            standard       <unset>                 8s
+
+$ kubectl run t --image=busybox:1.36 -i --rm --restart=Never -- sh -c 'wget -qO- -T3 http://web | grep -o "<title>.*</title>"; wget -qO- -T3 http://app | grep -o "<title>.*</title>"'
+<title>Welcome to nginx!</title>
+<title>Welcome to nginx!</title>
+pod "t" deleted from depannage namespace
+
+$ kubectl exec deploy/conf -- env | grep APP_ENV
+APP_ENV=depannage
+
+$ kubectl exec deploy/api -- python -c "import flask; print('flask', flask.__version__)"
+<string>:1: DeprecationWarning: The '__version__' attribute is deprecated and will be removed in Flask 3.1. Use feature detection or 'importlib.metadata.version("flask")' instead.
+flask 3.1.0
+

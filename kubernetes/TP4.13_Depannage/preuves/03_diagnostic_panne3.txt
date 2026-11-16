@@ -1,0 +1,15 @@
+### Panne 3
+$ kubectl run t --image=busybox:1.36 -i --rm --restart=Never -- wget -qO- -T3 http://web 2>&1 | grep -vE 'All commands|If you don' | head -3
+wget: can't connect to remote host (10.107.230.140): Connection refused
+pod "t" deleted from depannage namespace
+pod depannage/t terminated (Error)
+
+$ kubectl describe svc web | grep -E 'Selector|Endpoints'
+Selector:                 app=website
+Endpoints:                
+
+$ kubectl get pods -l app=web --show-labels
+NAME                  READY   STATUS    RESTARTS   AGE   LABELS
+web-bd858dc99-scj6d   1/1     Running   0          58s   app=web,pod-template-hash=bd858dc99,tier=front
+web-bd858dc99-zm5gv   1/1     Running   0          58s   app=web,pod-template-hash=bd858dc99,tier=front
+

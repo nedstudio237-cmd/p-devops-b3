@@ -1,0 +1,13 @@
+### Panne 5
+$ kubectl get pods -l app=conf
+NAME                    READY   STATUS                       RESTARTS   AGE
+conf-7488cd94b7-lzc8j   0/1     CreateContainerConfigError   0          62s
+
+$ kubectl describe pod -l app=conf | grep -E 'Warning|Error' | tail -2
+      Reason:       CreateContainerConfigError
+  Warning  Failed     13s (x6 over 61s)  kubelet            spec.containers{nginx}: Error: configmap "config-app" not found
+
+$ kubectl get configmap
+NAME               DATA   AGE
+kube-root-ca.crt   1      64s
+

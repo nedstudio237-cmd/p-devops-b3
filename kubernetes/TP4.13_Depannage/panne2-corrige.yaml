@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: api}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: api}}
+  template:
+    metadata: {labels: {app: api}}
+    spec:
+      containers:
+        - name: api
+          # corrigé : python:3.12-slim ne contient pas Flask (ModuleNotFoundError) et le script se terminait
+          # aussitôt -> on utilise l'image de l'application, qui contient Flask et lance un serveur durable
+          image: nedstudio/legeni-webapp:2.0.0
+          ports: [{containerPort: 5000}]

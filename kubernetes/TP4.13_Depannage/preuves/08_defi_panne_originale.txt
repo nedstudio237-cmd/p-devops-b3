@@ -1,0 +1,32 @@
+# Défi : panne originale (sonde de readiness sur le mauvais port). Chronomètre lancé au premier diagnostic.
+
+$ kubectl run t --image=busybox:1.36 -i --rm --restart=Never -- wget -qO- -T3 http://vitrine 2>&1 | head -1
+
+$ kubectl get pods -l app=vitrine
+NAME                       READY   STATUS    RESTARTS   AGE
+vitrine-796c498b4b-l9ngk   0/1     Running   0          28s
+vitrine-796c498b4b-tsc8q   0/1     Running   0          28s
+
+$ kubectl describe svc vitrine | grep Endpoints
+Endpoints:                
+
+$ kubectl get events --field-selector reason=Unhealthy | grep vitrine | tail -1
+2s          Warning   Unhealthy   pod/vitrine-796c498b4b-tsc8q   Readiness probe failed: Get "http://10.244.0.114:8080/": dial tcp 10.244.0.114:8080: connect: connection refused
+
+$ kubectl apply -f panne7-corrige.yaml
+deployment.apps/vitrine configured
+service/vitrine unchanged
+
+$ kubectl get pods -l app=vitrine
+NAME                       READY   STATUS        RESTARTS   AGE
+vitrine-796c498b4b-l9ngk   0/1     Terminating   0          33s
+vitrine-c65644674-k9btr    1/1     Running       0          4s
+vitrine-c65644674-msdbc    1/1     Running       0          2s
+
+$ kubectl run t --image=busybox:1.36 -i --rm --restart=Never -- wget -qO- -T3 http://vitrine | grep -o '<title>.*</title>'
+Error from server (AlreadyExists): pods "t" already exists
+(le Pod de test du 1er essai n'était pas encore supprimé ; même test avec un autre nom :)
+$ kubectl run t2 --image=busybox:1.36 -i --rm --restart=Never -- wget -qO- -T3 http://vitrine | grep -o '<title>.*</title>'
+<title>Welcome to nginx!</title>
+
+# Temps de résolution : 8 s (4 commandes de diagnostic)

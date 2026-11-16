@@ -1,0 +1,14 @@
+### Panne 1
+$ kubectl get pods -l app=front
+NAME                     READY   STATUS         RESTARTS   AGE
+front-696fb8fcb9-bzx26   0/1     ErrImagePull   0          54s
+front-696fb8fcb9-cptph   0/1     ErrImagePull   0          54s
+
+$ kubectl describe pod -l app=front | grep -E 'Failed|Image:' | sort -u | head -4
+    Image:          nginx:1.27-alpnie
+
+
+# (complément) message exact de l'échec
+$ kubectl get events --field-selector reason=Failed | grep front | grep -oE 'Failed to pull image.*' | sort -u | head -1 | cut -c1-300
+Failed to pull image "nginx:1.27-alpnie": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/nginx:1.27-alpnie": failed to resolve reference "docker.io/library/nginx:1.27-alpnie": docker.io/library/nginx:1.27-alpnie: not found
+

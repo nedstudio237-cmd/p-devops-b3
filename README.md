@@ -40,7 +40,7 @@ Ubuntu 24.04 (VM VMware), Docker 29, Minikube (driver Docker), Jenkins et Ansibl
 | 4.10 | [Stockage, StatefulSet](kubernetes/TP4.10_Stockage_StatefulSet/) | ✅ |
 | 4.11 | [Ingress](kubernetes/TP4.11_Ingress/) | ✅ |
 | 4.12 | [Kustomize](kubernetes/TP4.12_Kustomize_Environnements/) | ✅ |
-| 4.13 | Dépannage | ⏳ |
+| 4.13 | [Dépannage](kubernetes/TP4.13_Depannage/) | ✅ |
 
 ### Ansible
 | TP | Sujet | Statut |

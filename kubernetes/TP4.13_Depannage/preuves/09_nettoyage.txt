@@ -1,0 +1,6 @@
+$ kubectl delete namespace depannage
+namespace "depannage" deleted
+
+$ kubectl config set-context --current --namespace=default
+Context "minikube" modified.
+

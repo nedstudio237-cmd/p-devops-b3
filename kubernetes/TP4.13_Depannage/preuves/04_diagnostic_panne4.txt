@@ -1,0 +1,14 @@
+### Panne 4
+$ kubectl run t --image=busybox:1.36 -i --rm --restart=Never -- wget -qO- -T3 http://app 2>&1 | grep -vE 'All commands|If you don' | head -3
+wget: can't connect to remote host (10.98.97.130): Connection refused
+pod "t" deleted from depannage namespace
+pod depannage/t terminated (Error)
+
+$ kubectl describe svc app | grep -E 'TargetPort|Endpoints'
+TargetPort:               8080/TCP
+Endpoints:                10.244.0.105:8080
+
+$ kubectl exec deploy/app -- netstat -tln | grep LISTEN
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      
+tcp        0      0 :::80                   :::*                    LISTEN      
+

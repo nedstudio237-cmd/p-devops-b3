@@ -1,0 +1,21 @@
+# corrigé : la ConfigMap référencée n'existait pas -> on la crée (on aurait aussi pu mettre optional: true)
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: config-app}
+data:
+  APP_ENV: "depannage"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: conf}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: conf}}
+  template:
+    metadata: {labels: {app: conf}}
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27-alpine
+          envFrom:
+            - configMapRef: {name: config-app}

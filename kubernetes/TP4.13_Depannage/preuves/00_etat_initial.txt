@@ -1,0 +1,19 @@
+# Vue d'ensemble
+$ kubectl get pods,svc,pvc
+NAME                         READY   STATUS                       RESTARTS      AGE
+pod/api-568b7dc6b8-gfzgl     0/1     Error                        3 (33s ago)   53s
+pod/app-555b946fb7-hcs4s     1/1     Running                      0             52s
+pod/conf-7488cd94b7-lzc8j    0/1     CreateContainerConfigError   0             52s
+pod/db                       0/1     Pending                      0             52s
+pod/front-696fb8fcb9-bzx26   0/1     ErrImagePull                 0             53s
+pod/front-696fb8fcb9-cptph   0/1     ErrImagePull                 0             53s
+pod/web-bd858dc99-scj6d      1/1     Running                      0             52s
+pod/web-bd858dc99-zm5gv      1/1     Running                      0             52s
+
+NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+service/app   ClusterIP   10.98.97.130     <none>        80/TCP    52s
+service/web   ClusterIP   10.107.230.140   <none>        80/TCP    52s
+
+NAME                         STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data   Pending                                      rapide         <unset>                 52s
+

@@ -1,0 +1,30 @@
+### Panne 6
+$ kubectl get pod db; kubectl get pvc data
+NAME   READY   STATUS    RESTARTS   AGE
+db     0/1     Pending   0          63s
+NAME   STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+data   Pending                                      rapide         <unset>                 63s
+
+$ kubectl describe pod db | tail -2
+  ----     ------            ----  ----               -------
+  Warning  FailedScheduling  63s   default-scheduler  0/1 nodes are available: pod has unbound immediate PersistentVolumeClaims. not found
+
+$ kubectl describe pvc data | tail -3
+  Type     Reason              Age               From                         Message
+  ----     ------              ----              ----                         -------
+  Warning  ProvisioningFailed  1s (x6 over 63s)  persistentvolume-controller  storageclass.storage.k8s.io "rapide" not found
+
+$ kubectl get storageclass
+NAME                 PROVISIONER                RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+standard (default)   k8s.io/minikube-hostpath   Delete          Immediate           false                  10d
+
+
+# (complément) événements du Pod et du PVC
+$ kubectl get events --field-selector involvedObject.name=db | tail -2
+LAST SEEN   TYPE      REASON             OBJECT   MESSAGE
+100s        Warning   FailedScheduling   pod/db   0/1 nodes are available: pod has unbound immediate PersistentVolumeClaims. not found
+
+$ kubectl get events --field-selector involvedObject.name=data | tail -2
+LAST SEEN   TYPE      REASON               OBJECT                       MESSAGE
+8s          Warning   ProvisioningFailed   persistentvolumeclaim/data   storageclass.storage.k8s.io "rapide" not found
+
