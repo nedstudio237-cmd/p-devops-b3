@@ -1,0 +1,35 @@
+---
+# TP 5.6 étape 7 : le TP 4.6 (ancien) revisité – WordPress sur Kubernetes par Ansible
+#   ansible-playbook wordpress_k8s.yml --vault-password-file .vault_pass
+- name: WordPress sur Kubernetes
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files:
+    - vars/wordpress_secrets.yml        # chiffré avec Ansible Vault (TP 5.5)
+  vars:
+    namespace: blog
+  tasks:
+    - name: Namespace
+      kubernetes.core.k8s:
+        definition: {apiVersion: v1, kind: Namespace, metadata: {name: "{{ namespace }}"}}
+
+    - name: Secret MySQL (à partir de la variable chiffrée)
+      kubernetes.core.k8s:
+        definition:
+          apiVersion: v1
+          kind: Secret
+          metadata: {name: mysql-pass, namespace: "{{ namespace }}"}
+          stringData: {password: "{{ mysql_root_password }}"}
+      no_log: true
+
+    - name: Manifests du TP 4.5 (PVC, MySQL, WordPress) et attente des Deployments
+      kubernetes.core.k8s:
+        src: "{{ item }}"
+        namespace: "{{ namespace }}"
+        wait: true
+        wait_timeout: 300
+      loop:
+        - k8s-wordpress/10-mysql-pvc.yaml
+        - k8s-wordpress/20-mysql.yaml
+        - k8s-wordpress/30-wordpress.yaml

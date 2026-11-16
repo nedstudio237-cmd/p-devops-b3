@@ -54,7 +54,14 @@
         - name: Smoke test depuis le cluster
           kubernetes.core.k8s_exec:
             namespace: "{{ k8s_namespace }}"
-            pod: "{{ lookup('kubernetes.core.k8s', kind='Pod', namespace=k8s_namespace, label_selector='app=webapp')[0].metadata.name }}"
+            # Correction : [0] pouvait désigner un ANCIEN Pod en cours de suppression juste après le rolling update
+            # ("pods ... not found" -> rollback à tort). On vise un Pod Running, non supprimé, de la NOUVELLE image.
+            pod: >-
+              {{ (lookup('kubernetes.core.k8s', kind='Pod', namespace=k8s_namespace,
+                         label_selector='app=webapp', field_selector='status.phase=Running', wantlist=True)
+                  | rejectattr('metadata.deletionTimestamp', 'defined')
+                  | selectattr('spec.containers.0.image', 'equalto', app_image ~ ':' ~ app_version)
+                  | first).metadata.name }}
             command: >-
               python -c "import json,urllib.request;
               d=json.load(urllib.request.urlopen('http://webapp/api/info'));

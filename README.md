@@ -50,4 +50,4 @@ Ubuntu 24.04 (VM VMware), Docker 29, Minikube (driver Docker), Jenkins et Ansibl
 | 5.3 | [Variables, conditions, boucles](ansible/TP5.3_Variables_Conditions_Boucles/) | ✅ |
 | 5.4 | [Rôles Docker + webapp](ansible/TP5.4_Roles_Docker_Webapp/) | ✅ |
 | 5.5 | [Vault + WordPress](ansible/TP5.5_Vault_WordPress/) | ✅ |
-| 5.6 | Ansible + Kubernetes | ⏳ |
+| 5.6 | [Ansible + Kubernetes](ansible/TP5.6_Ansible_Kubernetes/) | ✅ |

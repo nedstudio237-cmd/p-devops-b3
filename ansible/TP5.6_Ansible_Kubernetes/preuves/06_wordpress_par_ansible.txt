@@ -1,0 +1,51 @@
+$ ansible-playbook wordpress_k8s.yml --vault-password-file .vault_pass
+[WARNING]: Found variable using reserved name: namespace
+
+PLAY [WordPress sur Kubernetes] ************************************************
+
+TASK [Namespace] ***************************************************************
+changed: [localhost]
+
+TASK [Secret MySQL (à partir de la variable chiffrée)] *************************
+changed: [localhost]
+
+TASK [Manifests du TP 4.5 (PVC, MySQL, WordPress) et attente des Deployments] ***
+changed: [localhost] => (item=k8s-wordpress/10-mysql-pvc.yaml)
+changed: [localhost] => (item=k8s-wordpress/20-mysql.yaml)
+changed: [localhost] => (item=k8s-wordpress/30-wordpress.yaml)
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=3    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+$ kubectl get deploy,pods,pvc,svc -n blog
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/mysql       1/1     1            1           13s
+deployment.apps/wordpress   1/1     1            1           6s
+
+NAME                             READY   STATUS    RESTARTS   AGE
+pod/mysql-59876f9f9b-rh5l4       1/1     Running   0          13s
+pod/wordpress-67f4f579cc-8sfsq   1/1     Running   0          6s
+
+NAME                                   STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/mysql-pv-claim   Bound    pvc-427cb52d-0743-4dd5-b716-29be6f91581e   2Gi        RWO            standard       <unset>                 15s
+
+NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/mysql               ClusterIP   None            <none>        3306/TCP       8s
+service/wordpress-service   NodePort    10.108.108.66   <none>        80:31538/TCP   1s
+
+$ curl -sL $(minikube service wordpress-service -n blog --url) | grep -o '<title>[^<]*</title>'
+(vide, puis <title>Database Error</title> : MySQL initialisait encore la base, et la VM était saturée (load average 35)
+ après suppression de l'environnement staging et retour à une charge normale :)
+<title>WordPress &rsaquo; Installation</title>
+
+
+$ ansible-playbook wordpress_k8s.yml --vault-password-file .vault_pass | tail -3   # 2e passage
+[WARNING]: Found variable using reserved name: namespace
+PLAY RECAP *********************************************************************
+localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+$ kubectl get secret mysql-pass -n blog -o jsonpath='{.data.password}' | base64 -d | wc -c   # longueur du mot de passe venant de Vault
+24
+

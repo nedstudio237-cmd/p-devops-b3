@@ -1,0 +1,58 @@
+$ export REDIS_PASSWORD=$(openssl rand -hex 16)
+
+$ ansible-playbook k8s_deploy.yml -e target_env=staging -e webapp_image=nedstudio/legeni-webapp -e app_version=1.0.0
+
+PLAY [Déploiement Kubernetes de l'application fil rouge] ***********************
+
+TASK [Charger les variables de l'environnement cible] **************************
+ok: [localhost]
+
+TASK [Créer le namespace] ******************************************************
+changed: [localhost]
+
+TASK [Créer le secret Redis] ***************************************************
+changed: [localhost]
+
+TASK [Appliquer les manifests et attendre la fin du rolling update] ************
+changed: [localhost]
+
+TASK [Smoke test depuis le cluster] ********************************************
+[DEPRECATION WARNING]: The 'return_code' return key is being renamed to 'rc'. 
+Both keys are being returned for now to allow users to migrate their 
+automation. This feature will be removed from kubernetes.core in version 4.0.0.
+ Deprecation warnings can be disabled by setting deprecation_warnings=False in 
+ansible.cfg.
+ok: [localhost]
+
+TASK [Résultat] ****************************************************************
+ok: [localhost] => 
+    msg: 'staging OK : {''app'': ''legeni-webapp'', ''env'': ''staging'', ''hostname'':
+        ''webapp-778b59d5b6-tr5hl'', ''version'': ''1.0.0''}'
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=6    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+$ kubectl get all -n legeni-staging
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/redis-0                   1/1     Running   0          31s
+pod/webapp-778b59d5b6-6rcln   1/1     Running   0          26s
+pod/webapp-778b59d5b6-tr5hl   1/1     Running   0          26s
+
+NAME             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/redis    ClusterIP   10.104.99.3     <none>        6379/TCP       26s
+service/webapp   NodePort    10.110.192.81   <none>        80:30081/TCP   6s
+
+NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/webapp   2/2     2            2           26s
+
+NAME                                DESIRED   CURRENT   READY   AGE
+replicaset.apps/webapp-778b59d5b6   2         2         2       26s
+
+NAME                     READY   AGE
+statefulset.apps/redis   1/1     31s
+
+$ curl -s $(minikube service webapp -n legeni-staging --url)/api/info
+{"app":"legeni-webapp","env":"staging","hostname":"webapp-778b59d5b6-6rcln","version":"1.0.0"}
+
+

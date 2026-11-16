@@ -1,0 +1,24 @@
+$ python3 -c "import kubernetes; print('kubernetes', kubernetes.__version__)"
+kubernetes 22.6.0
+
+$ ansible-galaxy collection list 2>/dev/null | grep kubernetes.core
+kubernetes.core                          2.4.0  
+
+$ kubectl get nodes
+NAME       STATUS   ROLES           AGE   VERSION
+minikube   Ready    control-plane   10d   v1.37.0
+
+$ cat vars/k8s_staging.yml vars/k8s_prod.yml
+---
+k8s_namespace: legeni-staging
+app_env: staging
+app_color: "#bf8700"
+app_replicas: 2
+app_node_port: 30081
+---
+k8s_namespace: legeni-prod
+app_env: prod
+app_color: "#2da44e"
+app_replicas: 3
+app_node_port: 30082
+

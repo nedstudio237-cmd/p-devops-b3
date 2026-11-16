@@ -1,0 +1,47 @@
+# Après correction du smoke test (prod actuellement en 1.0.0 après le rollback à tort)
+$ ansible-playbook k8s_deploy.yml -e target_env=prod -e webapp_image=nedstudio/legeni-webapp -e app_version=2.0.0
+
+PLAY [Déploiement Kubernetes de l'application fil rouge] ***********************
+
+TASK [Charger les variables de l'environnement cible] **************************
+ok: [localhost]
+
+TASK [Créer le namespace] ******************************************************
+ok: [localhost]
+
+TASK [Créer le secret Redis] ***************************************************
+ok: [localhost]
+
+TASK [Appliquer les manifests et attendre la fin du rolling update] ************
+changed: [localhost]
+
+TASK [Smoke test depuis le cluster] ********************************************
+[DEPRECATION WARNING]: The 'return_code' return key is being renamed to 'rc'. 
+Both keys are being returned for now to allow users to migrate their 
+automation. This feature will be removed from kubernetes.core in version 4.0.0.
+ Deprecation warnings can be disabled by setting deprecation_warnings=False in 
+ansible.cfg.
+ok: [localhost]
+
+TASK [Résultat] ****************************************************************
+ok: [localhost] => 
+    msg: 'prod OK : {''app'': ''legeni-webapp'', ''env'': ''prod'', ''hostname'': ''webapp-86897478bf-svmhd'',
+        ''version'': ''2.0.0''}'
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=6    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+# Boucle de requêtes pendant la mise à jour : 75 v1.0.0, 41 v2.0.0, 0 erreur(s)
+
+$ kubectl rollout history deployment/webapp -n legeni-prod
+deployment.apps/webapp 
+REVISION  CHANGE-CAUSE
+3         <none>
+4         <none>
+
+
+$ kubectl get deploy webapp -n legeni-prod -o wide
+NAME     READY   UP-TO-DATE   AVAILABLE   AGE    CONTAINERS   IMAGES                          SELECTOR
+webapp   3/3     3            3           3m1s   webapp       nedstudio/legeni-webapp:2.0.0   app=webapp
+

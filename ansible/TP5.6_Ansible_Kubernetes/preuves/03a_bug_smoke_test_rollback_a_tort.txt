@@ -1,0 +1,83 @@
+$ export REDIS_PASSWORD=$(cat ~/.secrets/redis_k8s_prod)   # même mot de passe à chaque exécution
+
+$ ansible-playbook k8s_deploy.yml -e target_env=prod -e webapp_image=nedstudio/legeni-webapp -e app_version=1.0.0
+
+PLAY [Déploiement Kubernetes de l'application fil rouge] ***********************
+
+TASK [Charger les variables de l'environnement cible] **************************
+ok: [localhost]
+
+TASK [Créer le namespace] ******************************************************
+changed: [localhost]
+
+TASK [Créer le secret Redis] ***************************************************
+changed: [localhost]
+
+TASK [Appliquer les manifests et attendre la fin du rolling update] ************
+changed: [localhost]
+
+TASK [Smoke test depuis le cluster] ********************************************
+[DEPRECATION WARNING]: The 'return_code' return key is being renamed to 'rc'. 
+Both keys are being returned for now to allow users to migrate their 
+automation. This feature will be removed from kubernetes.core in version 4.0.0.
+ Deprecation warnings can be disabled by setting deprecation_warnings=False in 
+ansible.cfg.
+ok: [localhost]
+
+TASK [Résultat] ****************************************************************
+ok: [localhost] => 
+    msg: 'prod OK : {''app'': ''legeni-webapp'', ''env'': ''prod'', ''hostname'': ''webapp-5458bd4c6-jf452'',
+        ''version'': ''1.0.0''}'
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=6    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+$ ansible-playbook k8s_deploy.yml -e target_env=prod -e webapp_image=nedstudio/legeni-webapp -e app_version=2.0.0
+
+PLAY [Déploiement Kubernetes de l'application fil rouge] ***********************
+
+TASK [Charger les variables de l'environnement cible] **************************
+ok: [localhost]
+
+TASK [Créer le namespace] ******************************************************
+ok: [localhost]
+
+TASK [Créer le secret Redis] ***************************************************
+ok: [localhost]
+
+TASK [Appliquer les manifests et attendre la fin du rolling update] ************
+changed: [localhost]
+
+TASK [Smoke test depuis le cluster] ********************************************
+fatal: [localhost]: FAILED! => 
+    changed: false
+    msg: |-
+        Failed to execute on pod webapp-5458bd4c6-jf452 due to : (0)
+        Reason: Handshake status 404 Not Found -+-+- {'audit-id': '5fb41ba6-7379-4af3-be92-08f1cf96546b', 'cache-control': 'no-cache, private', 'content-type': 'application/json', 'date': 'Mon, 16 Nov 2026 03:13:18 GMT', 'content-length': '212'} -+-+- b'{"kind":"Status","apiVersion":"v1","metadata":{},"status":"Failure","message":"pods \\"webapp-5458bd4c6-jf452\\" not found","reason":"NotFound","details":{"name":"webapp-5458bd4c6-jf452","kind":"pods"},"code":404}\n'
+
+TASK [Retour à la version précédente] ******************************************
+changed: [localhost]
+
+TASK [Échouer explicitement (le pipeline doit passer au rouge)] ****************
+fatal: [localhost]: FAILED! => 
+    changed: false
+    msg: 'Déploiement de 2.0.0 en prod échoué : rollback effectué'
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=5    changed=2    unreachable=0    failed=1    skipped=0    rescued=1    ignored=0   
+
+
+# Boucle de requêtes pendant la mise à jour : 61 v1.0.0, 41 v2.0.0, 2 erreur(s)
+
+$ kubectl rollout history deployment/webapp -n legeni-prod
+deployment.apps/webapp 
+REVISION  CHANGE-CAUSE
+2         <none>
+3         <none>
+
+
+$ kubectl get deploy webapp -n legeni-prod -o wide
+NAME     READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                          SELECTOR
+webapp   3/3     1            3           80s   webapp       nedstudio/legeni-webapp:1.0.0   app=webapp
+

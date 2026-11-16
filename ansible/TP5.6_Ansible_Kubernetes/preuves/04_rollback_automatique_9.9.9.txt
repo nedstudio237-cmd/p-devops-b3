@@ -1,0 +1,277 @@
+$ ansible-playbook k8s_deploy.yml -e target_env=prod -e webapp_image=nedstudio/legeni-webapp -e app_version=9.9.9
+
+PLAY [Déploiement Kubernetes de l'application fil rouge] ***********************
+
+TASK [Charger les variables de l'environnement cible] **************************
+ok: [localhost]
+
+TASK [Créer le namespace] ******************************************************
+ok: [localhost]
+
+TASK [Créer le secret Redis] ***************************************************
+ok: [localhost]
+
+TASK [Appliquer les manifests et attendre la fin du rolling update] ************
+fatal: [localhost]: FAILED! => 
+    changed: true
+    duration: 180
+    method: update
+    msg: '"Deployment" "webapp": Timed out waiting on resource'
+    result:
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+            annotations:
+                deployment.kubernetes.io/revision: '5'
+            creationTimestamp: '2026-11-16T03:12:03Z'
+            generation: 5
+            labels:
+                app: webapp
+                env: prod
+            managedFields:
+            -   apiVersion: apps/v1
+                fieldsType: FieldsV1
+                fieldsV1:
+                    f:metadata:
+                        f:labels:
+                            .: {}
+                            f:app: {}
+                            f:env: {}
+                    f:spec:
+                        f:progressDeadlineSeconds: {}
+                        f:replicas: {}
+                        f:revisionHistoryLimit: {}
+                        f:selector: {}
+                        f:strategy:
+                            f:rollingUpdate:
+                                .: {}
+                                f:maxSurge: {}
+                                f:maxUnavailable: {}
+                            f:type: {}
+                        f:template:
+                            f:metadata:
+                                f:annotations:
+                                    .: {}
+                                    f:checksum/config: {}
+                                f:labels:
+                                    .: {}
+                                    f:app: {}
+                                    f:env: {}
+                            f:spec:
+                                f:containers:
+                                    k:{"name":"webapp"}:
+                                        .: {}
+                                        f:envFrom: {}
+                                        f:image: {}
+                                        f:imagePullPolicy: {}
+                                        f:livenessProbe:
+                                            .: {}
+                                            f:failureThreshold: {}
+                                            f:httpGet:
+                                                .: {}
+                                                f:path: {}
+                                                f:port: {}
+                                                f:scheme: {}
+                                            f:initialDelaySeconds: {}
+                                            f:periodSeconds: {}
+                                            f:successThreshold: {}
+                                            f:timeoutSeconds: {}
+                                        f:name: {}
+                                        f:ports:
+                                            .: {}
+                                            k:{"containerPort":5000,"protocol":"TCP"}:
+                                                .: {}
+                                                f:containerPort: {}
+                                                f:protocol: {}
+                                        f:readinessProbe:
+                                            .: {}
+                                            f:failureThreshold: {}
+                                            f:httpGet:
+                                                .: {}
+                                                f:path: {}
+                                                f:port: {}
+                                                f:scheme: {}
+                                            f:periodSeconds: {}
+                                            f:successThreshold: {}
+                                            f:timeoutSeconds: {}
+                                        f:resources:
+                                            .: {}
+                                            f:limits:
+                                                .: {}
+                                                f:cpu: {}
+                                                f:memory: {}
+                                            f:requests:
+                                                .: {}
+                                                f:cpu: {}
+                                                f:memory: {}
+                                        f:terminationMessagePath: {}
+                                        f:terminationMessagePolicy: {}
+                                f:dnsPolicy: {}
+                                f:restartPolicy: {}
+                                f:schedulerName: {}
+                                f:securityContext: {}
+                                f:terminationGracePeriodSeconds: {}
+                manager: OpenAPI-Generator
+                operation: Update
+                time: '2026-11-16T03:15:25Z'
+            -   apiVersion: apps/v1
+                fieldsType: FieldsV1
+                fieldsV1:
+                    f:metadata:
+                        f:annotations:
+                            .: {}
+                            f:deployment.kubernetes.io/revision: {}
+                    f:status:
+                        f:availableReplicas: {}
+                        f:conditions:
+                            .: {}
+                            k:{"type":"Available"}:
+                                .: {}
+                                f:lastTransitionTime: {}
+                                f:lastUpdateTime: {}
+                                f:message: {}
+                                f:reason: {}
+                                f:status: {}
+                                f:type: {}
+                            k:{"type":"Progressing"}:
+                                .: {}
+                                f:lastTransitionTime: {}
+                                f:lastUpdateTime: {}
+                                f:message: {}
+                                f:reason: {}
+                                f:status: {}
+                                f:type: {}
+                        f:observedGeneration: {}
+                        f:readyReplicas: {}
+                        f:replicas: {}
+                        f:terminatingReplicas: {}
+                        f:unavailableReplicas: {}
+                        f:updatedReplicas: {}
+                manager: kube-controller-manager
+                operation: Update
+                subresource: status
+                time: '2026-11-16T03:15:25Z'
+            name: webapp
+            namespace: legeni-prod
+            resourceVersion: '114017'
+            uid: c5b77344-b755-4700-b844-202cf5b88c77
+        spec:
+            progressDeadlineSeconds: 600
+            replicas: 3
+            revisionHistoryLimit: 5
+            selector:
+                matchLabels:
+                    app: webapp
+            strategy:
+                rollingUpdate:
+                    maxSurge: 1
+                    maxUnavailable: 0
+                type: RollingUpdate
+            template:
+                metadata:
+                    annotations:
+                        checksum/config: 15be42ea1f9aa24966f18aa5e2ebc48fcefb772d
+                    labels:
+                        app: webapp
+                        env: prod
+                spec:
+                    containers:
+                    -   envFrom:
+                        -   configMapRef:
+                                name: webapp-config
+                        -   secretRef:
+                                name: redis-secret
+                        image: nedstudio/legeni-webapp:9.9.9
+                        imagePullPolicy: IfNotPresent
+                        livenessProbe:
+                            failureThreshold: 3
+                            httpGet:
+                                path: /health
+                                port: 5000
+                                scheme: HTTP
+                            initialDelaySeconds: 5
+                            periodSeconds: 10
+                            successThreshold: 1
+                            timeoutSeconds: 1
+                        name: webapp
+                        ports:
+                        -   containerPort: 5000
+                            protocol: TCP
+                        readinessProbe:
+                            failureThreshold: 2
+                            httpGet:
+                                path: /ready
+                                port: 5000
+                                scheme: HTTP
+                            periodSeconds: 5
+                            successThreshold: 1
+                            timeoutSeconds: 1
+                        resources:
+                            limits:
+                                cpu: 200m
+                                memory: 128Mi
+                            requests:
+                                cpu: 50m
+                                memory: 64Mi
+                        terminationMessagePath: /dev/termination-log
+                        terminationMessagePolicy: File
+                    dnsPolicy: ClusterFirst
+                    restartPolicy: Always
+                    schedulerName: default-scheduler
+                    securityContext: {}
+                    terminationGracePeriodSeconds: 30
+        status:
+            availableReplicas: 3
+            conditions:
+            -   lastTransitionTime: '2026-11-16T03:12:17Z'
+                lastUpdateTime: '2026-11-16T03:12:17Z'
+                message: Deployment has minimum availability.
+                reason: MinimumReplicasAvailable
+                status: 'True'
+                type: Available
+            -   lastTransitionTime: '2026-11-16T03:12:03Z'
+                lastUpdateTime: '2026-11-16T03:15:25Z'
+                message: ReplicaSet "webapp-7f658bbfdd" is progressing.
+                reason: ReplicaSetUpdated
+                status: 'True'
+                type: Progressing
+            observedGeneration: 5
+            readyReplicas: 3
+            replicas: 4
+            terminatingReplicas: 0
+            unavailableReplicas: 1
+            updatedReplicas: 1
+
+TASK [Retour à la version précédente] ******************************************
+changed: [localhost]
+
+TASK [Échouer explicitement (le pipeline doit passer au rouge)] ****************
+fatal: [localhost]: FAILED! => 
+    changed: false
+    msg: 'Déploiement de 9.9.9 en prod échoué : rollback effectué'
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=4    changed=1    unreachable=0    failed=1    skipped=0    rescued=1    ignored=0   
+
+
+# durée : 188 s
+# Boucle de requêtes pendant le déploiement raté : 356 v2.0.0, 0 v9.9.9, 0 erreur(s)
+
+$ kubectl get deploy webapp -n legeni-prod -o wide
+NAME     READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS   IMAGES                          SELECTOR
+webapp   3/3     3            3           6m28s   webapp       nedstudio/legeni-webapp:2.0.0   app=webapp
+
+$ kubectl get pods -n legeni-prod -l app=webapp
+NAME                      READY   STATUS    RESTARTS   AGE
+webapp-86897478bf-9rsl2   1/1     Running   0          3m52s
+webapp-86897478bf-fxlxm   1/1     Running   0          4m9s
+webapp-86897478bf-svmhd   1/1     Running   0          4m22s
+
+$ kubectl rollout history deployment/webapp -n legeni-prod
+deployment.apps/webapp 
+REVISION  CHANGE-CAUSE
+3         <none>
+5         <none>
+6         <none>
+
+

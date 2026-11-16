@@ -1,0 +1,33 @@
+$ ansible-playbook k8s_deploy.yml -e target_env=prod -e webapp_image=nedstudio/legeni-webapp -e app_version=2.0.0
+
+PLAY [Déploiement Kubernetes de l'application fil rouge] ***********************
+
+TASK [Charger les variables de l'environnement cible] **************************
+ok: [localhost]
+
+TASK [Créer le namespace] ******************************************************
+ok: [localhost]
+
+TASK [Créer le secret Redis] ***************************************************
+ok: [localhost]
+
+TASK [Appliquer les manifests et attendre la fin du rolling update] ************
+ok: [localhost]
+
+TASK [Smoke test depuis le cluster] ********************************************
+[DEPRECATION WARNING]: The 'return_code' return key is being renamed to 'rc'. 
+Both keys are being returned for now to allow users to migrate their 
+automation. This feature will be removed from kubernetes.core in version 4.0.0.
+ Deprecation warnings can be disabled by setting deprecation_warnings=False in 
+ansible.cfg.
+ok: [localhost]
+
+TASK [Résultat] ****************************************************************
+ok: [localhost] => 
+    msg: 'prod OK : {''app'': ''legeni-webapp'', ''env'': ''prod'', ''hostname'': ''webapp-86897478bf-svmhd'',
+        ''version'': ''2.0.0''}'
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
