@@ -1,0 +1,8 @@
+$ kubectl -n legeni-dev apply -f 30-webapp.yaml
+deployment.apps/webapp unchanged
+service/webapp configured
+
+$ kubectl -n legeni-dev get svc webapp
+NAME     TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+webapp   ClusterIP   10.103.23.79   <none>        80/TCP    3d23h
+

@@ -1,0 +1,10 @@
+$ kubectl get pods -n ingress-nginx
+NAME                                       READY   STATUS      RESTARTS      AGE
+ingress-nginx-admission-create-jvspx       0/1     Completed   0             4d
+ingress-nginx-admission-patch-h74jq        0/1     Completed   0             4d
+ingress-nginx-controller-d7cd8c989-2spg4   1/1     Running     5 (47m ago)   4d
+
+$ kubectl get ingressclass
+NAME              CONTROLLER             PARAMETERS   AGE
+nginx (default)   k8s.io/ingress-nginx   <none>       4d
+

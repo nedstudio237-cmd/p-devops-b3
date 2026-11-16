@@ -1,0 +1,14 @@
+$ kubectl apply -f blog-ingress.yaml
+ingress.networking.k8s.io/blog created
+
+$ kubectl get ingress -A
+NAMESPACE    NAME     CLASS   HOSTS               ADDRESS        PORTS   AGE
+default      blog     nginx   blog.legeni.local                  80      15s
+legeni-dev   legeni   nginx   legeni.local        192.168.49.2   80      64s
+
+$ curl -sI http://blog.legeni.local | head -1
+HTTP/1.1 302 Found
+
+$ curl -sL http://blog.legeni.local | grep -o '<title>[^<]*</title>'
+<title>WordPress &rsaquo; Installation</title>
+

@@ -1,0 +1,7 @@
+$ kubectl apply -f 60-ingress.yaml
+ingress.networking.k8s.io/legeni created
+
+$ kubectl -n legeni-dev get ingress
+NAME     CLASS   HOSTS          ADDRESS        PORTS   AGE
+legeni   nginx   legeni.local   192.168.49.2   80      47s
+

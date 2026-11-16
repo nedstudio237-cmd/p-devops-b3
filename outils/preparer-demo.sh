@@ -15,13 +15,13 @@ for i in $(seq 1 60); do curl -s -o /dev/null -w "%{http_code}" localhost:8080/l
 curl -s -o /dev/null -w "%{http_code}" localhost:8080/login | grep -q 200 && ok "Jenkins : http://localhost:8080" || ko "Jenkins ne répond pas"
 
 echo "== 3. Application sur Kubernetes (namespace legeni-dev)"
-kubectl -n legeni-dev rollout status deploy/webapp --timeout=120s >/dev/null 2>&1 && ok "webapp : $(minikube service webapp -n legeni-dev --url 2>/dev/null)" || ko "webapp absente (voir TP 4.7)"
+kubectl -n legeni-dev rollout status deploy/webapp --timeout=120s >/dev/null 2>&1 && ok "webapp : https://legeni.local (Ingress, TP 4.11)" || ko "webapp absente (voir TP 4.7)"
 
 echo "== 4. Liens utiles"
 echo "  Jenkins ................ http://localhost:8080"
 echo "  Site restaurant (3.2) .. http://localhost:8092   (après un build du job 'build')"
 echo "  Prod locale (3.4) ...... http://localhost:8099   (après un build du job 'artefact')"
-echo "  Webapp K8s (4.7/4.8) ... $(minikube service webapp -n legeni-dev --url 2>/dev/null)"
+echo "  Webapp K8s (Ingress) ... https://legeni.local  (certificat auto-signé : accepter l avertissement)"
 echo "  Dépôt des TPs .......... https://github.com/nedstudio237-cmd/p-devops-b3"
 echo "  Dépôt de l'appli ....... https://github.com/nedstudio237-cmd/legeni-webapp"
 echo "  Images Docker Hub ...... https://hub.docker.com/u/nedstudio"

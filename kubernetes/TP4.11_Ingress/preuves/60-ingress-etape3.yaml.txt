@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: legeni
+  namespace: legeni-dev
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: legeni.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webapp
+                port:
+                  number: 80

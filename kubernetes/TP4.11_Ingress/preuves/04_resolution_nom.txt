@@ -1,0 +1,10 @@
+$ echo "$(minikube ip) legeni.local blog.legeni.local" | sudo tee -a /etc/hosts
+192.168.49.2 legeni.local blog.legeni.local
+
+$ curl -s http://legeni.local/api/info
+{"app":"legeni-webapp","env":"dev","hostname":"webapp-78fff596cd-l2wxs","version":"2.0.0"}
+
+
+$ curl -s -o /dev/null -w '%{http_code}\n' http://192.168.49.2:30080/   # l'ancien NodePort ne répond plus
+000
+

@@ -80,14 +80,14 @@ Garder l'onglet **Dashboard Kubernetes** ouvert, namespace `legeni-dev` (menu en
 - **Montrer** dans le Dashboard (onglet **Pods**) : les Pods sont recréés **tout seuls** en quelques secondes.
 
 ### TP 4.4 / 4.7 – L'application, sa configuration, Redis
-- **Ouvrir** l'URL de la webapp (affichée par le script) : rafraîchir plusieurs fois → le **hostname change**, le **compteur de visites** augmente (partagé grâce à Redis).
+- **Ouvrir** https://legeni.local (accepter l avertissement du certificat auto-signé) : rafraîchir plusieurs fois → le **hostname change**, le **compteur de visites** augmente (partagé grâce à Redis).
 - **Dashboard** → **Config and Storage** → **Config Maps** → `webapp-config` ; **Secrets** → `redis-secret` (valeur masquée).
 
 ### TP 4.8 – Mise à jour sans coupure et retour arrière
 - **Terminal** (une boucle dans un 2e terminal) :
   ```bash
-  URL=$(minikube service webapp -n legeni-dev --url)
-  while true; do curl -s -m1 $URL/api/info | grep -o '"version":"[^"]*"'; sleep 0.5; done
+  URL=https://legeni.local
+  while true; do curl -sk -m1 $URL/api/info | grep -o '"version":"[^"]*"'; sleep 0.5; done
   ```
 - **Terminal 1** :
   ```bash

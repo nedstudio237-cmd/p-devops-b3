@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: legeni
+  namespace: legeni-dev
+spec:
+  ingressClassName: nginx
+  tls:                                  # étape 6 : HTTPS (certificat auto-signé dans le Secret legeni-tls)
+    - hosts: [legeni.local]
+      secretName: legeni-tls
+  rules:
+    - host: legeni.local
+      http:
+        paths:
+          - path: /api                  # étape 6 : routage par chemin (le plus précis l'emporte)
+            pathType: Prefix
+            backend:
+              service:
+                name: webapp
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webapp
+                port:
+                  number: 80

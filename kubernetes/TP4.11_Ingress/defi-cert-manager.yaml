@@ -1,0 +1,44 @@
+# Défi TP 4.11 : certificats Let's Encrypt automatiques avec cert-manager (NON appliqué :
+# Let's Encrypt doit pouvoir joindre le domaine depuis Internet, impossible avec legeni.local).
+# Prérequis : installer cert-manager (kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/vX.Y.Z/cert-manager.yaml)
+---
+# 1. ClusterIssuer : « qui » délivre les certificats, pour tout le cluster
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory   # (staging pour les tests : acme-staging-v02)
+    email: nedstudio237@gmail.com                            # avertissements d'expiration
+    privateKeySecretRef:
+      name: letsencrypt-prod-account-key                     # clé du compte ACME
+    solvers:
+      - http01:                                               # preuve de propriété : défi HTTP servi par l'Ingress
+          ingress:
+            ingressClassName: nginx
+---
+# 2. Ingress : l'annotation demande à cert-manager de créer et renouveler le Secret TLS
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: legeni
+  namespace: legeni-dev
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts: [legeni.example.com]        # vrai domaine public pointant vers l'Ingress
+      secretName: legeni-tls             # créé et renouvelé automatiquement par cert-manager
+  rules:
+    - host: legeni.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webapp
+                port:
+                  number: 80
