@@ -1,0 +1,41 @@
+$ kubectl apply -f 20-redis.yaml
+deployment.apps/redis configured
+service/redis unchanged
+
+$ kubectl rollout status deployment/redis --timeout=180s
+Waiting for deployment "redis" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "redis" rollout to finish: 1 old replicas are pending termination...
+deployment "redis" successfully rolled out
+
+$ kubectl get pods -l app=redis
+NAME                     READY   STATUS        RESTARTS   AGE
+redis-5648974499-68qx4   1/1     Running       0          3s
+redis-796dcd5445-p2zgw   1/1     Terminating   0          5m5s
+
+$ kubectl describe pod -l app=redis | grep -E 'Liveness|Readiness|Limits|Requests|cpu:|memory:'
+    Limits:
+      cpu:     200m
+      memory:  128Mi
+    Requests:
+      cpu:      50m
+      memory:   32Mi
+    Liveness:   tcp-socket :6379 delay=0s timeout=1s period=10s successThreshold=1 failureThreshold=3
+    Readiness:  exec [sh -c redis-cli -a "$REDIS_PASSWORD" --no-auth-warning ping | grep PONG] delay=0s timeout=1s period=5s successThreshold=1 failureThreshold=3
+
+$ kubectl describe quota quota-dev
+Name:            quota-dev
+Namespace:       legeni-dev
+Resource         Used   Hard
+--------         ----   ----
+limits.memory    384Mi  2Gi
+pods             4      10
+requests.cpu     150m   1
+requests.memory  160Mi  1Gi
+
+$ curl -s -o /dev/null -w '%{http_code}\n' http://192.168.49.2:30080/ready
+200
+
+# Quota supprimé pour ne pas gêner les TPs suivants
+$ kubectl delete -f 50-quota.yaml
+resourcequota "quota-dev" deleted from legeni-dev namespace
+

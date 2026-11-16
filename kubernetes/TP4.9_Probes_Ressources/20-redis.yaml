@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: legeni-dev
+  labels: {app: redis, env: dev}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: redis}
+  template:
+    metadata:
+      labels: {app: redis, env: dev}
+    spec:
+      containers:
+        - name: redis
+          image: redis:7.4-alpine
+          args: ["--requirepass", "$(REDIS_PASSWORD)"]
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef: {name: redis-secret, key: REDIS_PASSWORD}
+          ports:
+            - containerPort: 6379
+          # Défi TP 4.9 : sondes et ressources pour Redis
+          readinessProbe:
+            exec:
+              command: ["sh", "-c", "redis-cli -a \"$REDIS_PASSWORD\" --no-auth-warning ping | grep PONG"]
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket: {port: 6379}
+            periodSeconds: 10
+          resources:
+            requests: {cpu: 50m, memory: 32Mi}
+            limits:   {cpu: 200m, memory: 128Mi}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: legeni-dev
+  labels: {env: dev}
+spec:
+  type: ClusterIP          # accessible uniquement depuis l'intérieur du cluster
+  selector: {app: redis}
+  ports:
+    - port: 6379

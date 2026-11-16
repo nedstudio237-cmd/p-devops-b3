@@ -1,0 +1,28 @@
+$ kubectl scale deployment redis --replicas=0
+deployment.apps/redis scaled
+
+$ kubectl get pods -l app=webapp
+NAME                      READY   STATUS    RESTARTS   AGE
+webapp-78fff596cd-67rvf   0/1     Running   0          33s
+webapp-78fff596cd-vrf86   0/1     Running   0          46s
+
+$ kubectl get endpointslices -l kubernetes.io/service-name=webapp -o jsonpath='{.items[*].endpoints[*].conditions.ready}'
+false false
+
+$ kubectl describe svc webapp | grep -i endpoints
+Endpoints:                
+
+$ curl -s -m3 -o /dev/null -w '%{http_code}\n' http://192.168.49.2:30080/
+000
+
+$ kubectl scale deployment redis --replicas=1
+deployment.apps/redis scaled
+
+$ kubectl get pods -l app=webapp
+NAME                      READY   STATUS    RESTARTS   AGE
+webapp-78fff596cd-67rvf   1/1     Running   0          50s
+webapp-78fff596cd-vrf86   1/1     Running   0          63s
+
+$ curl -s -o /dev/null -w '%{http_code}\n' http://192.168.49.2:30080/
+200
+

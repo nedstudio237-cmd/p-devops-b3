@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: oom
+  namespace: legeni-dev
+spec:
+  restartPolicy: Never
+  containers:
+    - name: oom
+      image: python:3.12-slim
+      command: ["python", "-c", "x = bytearray(300*1024*1024)"]
+      resources:
+        limits: {memory: 64Mi}

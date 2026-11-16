@@ -1,0 +1,53 @@
+$ kubectl patch deployment webapp --type=json -p='[{"op":"replace","path":"/spec/template/spec/containers/0/livenessProbe/httpGet/path","value":"/inexistant"}]'
+deployment.apps/webapp patched
+
+# RESTARTS toutes les 20 s :
+  02:39:05
+    webapp-5d768c66b7-g9fxj   1/1   Running   1 (14s ago)   46s
+    webapp-5d768c66b7-mzg2q   0/1   Running   1 (1s ago)    33s
+  02:39:25
+    webapp-5d768c66b7-g9fxj   0/1   Running   2 (4s ago)    66s
+    webapp-5d768c66b7-mzg2q   1/1   Running   1 (21s ago)   53s
+  02:39:45
+    webapp-5d768c66b7-g9fxj   1/1   Running   2 (24s ago)   86s
+    webapp-5d768c66b7-mzg2q   0/1   Running   2 (11s ago)   73s
+  02:40:05
+    webapp-5d768c66b7-g9fxj   0/1   Running   3 (15s ago)   107s
+    webapp-5d768c66b7-mzg2q   0/1   Running   3 (2s ago)    94s
+  02:40:26
+    webapp-5d768c66b7-g9fxj   0/1   Running   4 (5s ago)    2m7s
+    webapp-5d768c66b7-mzg2q   1/1   Running   3 (22s ago)   114s
+  02:40:46
+    webapp-5d768c66b7-g9fxj   1/1   Running   4 (25s ago)   2m27s
+    webapp-5d768c66b7-mzg2q   1/1   Running   4 (12s ago)   2m14s
+
+$ kubectl describe pod -l app=webapp | grep -E 'Liveness probe failed|Container webapp failed liveness' | sort -u | head -4
+
+$ kubectl rollout undo deployment webapp
+Warning: resource deployments/webapp was previously managed with 'kubectl apply'. Rolling back will not update the kubectl.kubernetes.io/last-applied-configuration annotation, which may cause unexpected behavior on future 'kubectl apply' operations. Consider using 'kubectl apply' with your previous configuration file instead.
+deployment.apps/webapp rolled back
+
+$ kubectl get pods -l app=webapp
+NAME                      READY   STATUS    RESTARTS   AGE
+webapp-78fff596cd-l2wxs   1/1     Running   0          18s
+webapp-78fff596cd-mmzz4   1/1     Running   0          30s
+
+# (les Pods en échec ont été remplacés par le rollback : on lit leurs événements)
+$ kubectl get events --sort-by=.lastTimestamp | grep -i liveness | tail -4
+34s         Normal    Killing             pod/webapp-5d768c66b7-g9fxj      Container webapp failed liveness probe, will be restarted
+25s         Warning   Unhealthy           pod/webapp-78fff596cd-mmzz4      Liveness probe failed: Get "http://10.244.0.63:5000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+20s         Normal    Killing             pod/webapp-5d768c66b7-mzg2q      Container webapp failed liveness probe, will be restarted
+13s         Warning   Unhealthy           pod/webapp-78fff596cd-l2wxs      Liveness probe failed: Get "http://10.244.0.64:5000/health": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+# Observation : juste après un démarrage, les Pods sains ont aussi des échecs ponctuels de sonde (timeout 1 s) :
+# le conteneur consomme 202m CPU pour une limite de 200m -> il est ralenti (throttling) pendant le démarrage de gunicorn.
+# Moins de 3 échecs consécutifs (failureThreshold: 3) -> aucun redémarrage (RESTARTS 0).
+$ kubectl get pods -l app=webapp
+NAME                      READY   STATUS    RESTARTS   AGE
+webapp-78fff596cd-l2wxs   1/1     Running   0          51s
+webapp-78fff596cd-mmzz4   1/1     Running   0          63s
+
+$ kubectl top pods
+NAME                      CPU(cores)   MEMORY(bytes)   
+redis-796dcd5445-p2zgw    7m           3Mi             
+webapp-78fff596cd-mmzz4   202m         61Mi            
+

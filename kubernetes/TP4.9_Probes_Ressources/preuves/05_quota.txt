@@ -1,0 +1,37 @@
+$ kubectl apply -f 50-quota.yaml
+resourcequota/quota-dev created
+
+$ kubectl describe quota quota-dev
+Name:            quota-dev
+Namespace:       legeni-dev
+Resource         Used   Hard
+--------         ----   ----
+limits.memory    256Mi  2Gi
+pods             3      10
+requests.cpu     100m   1
+requests.memory  128Mi  1Gi
+
+$ kubectl scale deployment webapp --replicas=15
+deployment.apps/webapp scaled
+
+$ kubectl get deploy webapp
+NAME     READY   UP-TO-DATE   AVAILABLE   AGE
+webapp   6/15    9            6           3d23h
+
+$ kubectl get events --sort-by=.lastTimestamp | grep -i 'exceeded quota' | tail -2
+20s         Warning   FailedCreate        replicaset/webapp-78fff596cd     Error creating: pods "webapp-78fff596cd-w44n6" is forbidden: exceeded quota: quota-dev, requested: pods=1, used: pods=10, limited: pods=10
+17s         Warning   FailedCreate        replicaset/webapp-78fff596cd     (combined from similar events): Error creating: pods "webapp-78fff596cd-65chw" is forbidden: exceeded quota: quota-dev, requested: pods=1, used: pods=10, limited: pods=10
+
+$ kubectl describe quota quota-dev
+Name:            quota-dev
+Namespace:       legeni-dev
+Resource         Used    Hard
+--------         ----    ----
+limits.memory    1152Mi  2Gi
+pods             10      10
+requests.cpu     450m    1
+requests.memory  576Mi   1Gi
+
+$ kubectl scale deployment webapp --replicas=2
+deployment.apps/webapp scaled
+

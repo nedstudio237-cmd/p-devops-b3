@@ -1,0 +1,26 @@
+$ kubectl apply -f 30-webapp.yaml
+deployment.apps/webapp configured
+service/webapp unchanged
+
+$ kubectl rollout status deployment/webapp --timeout=180s
+Waiting for deployment "webapp" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "webapp" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "webapp" rollout to finish: 1 old replicas are pending termination...
+deployment "webapp" successfully rolled out
+
+$ kubectl describe pod -l app=webapp | grep -E 'Liveness|Readiness' | sort -u
+    Liveness:   http-get http://:5000/health delay=5s timeout=1s period=10s successThreshold=1 failureThreshold=3
+    Readiness:  http-get http://:5000/ready delay=0s timeout=1s period=2s successThreshold=1 failureThreshold=2
+    Readiness:  http-get http://:5000/ready delay=0s timeout=1s period=5s successThreshold=1 failureThreshold=2
+
+$ kubectl get pods -l app=webapp
+NAME                      READY   STATUS        RESTARTS   AGE
+webapp-597b45dd89-hf7kg   1/1     Terminating   0          2m10s
+webapp-78fff596cd-67rvf   1/1     Running       0          13s
+webapp-78fff596cd-vrf86   1/1     Running       0          26s
+

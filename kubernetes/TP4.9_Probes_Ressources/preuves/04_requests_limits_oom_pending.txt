@@ -1,0 +1,44 @@
+$ kubectl top pods
+NAME                      CPU(cores)   MEMORY(bytes)   
+redis-796dcd5445-p2zgw    7m           3Mi             
+webapp-78fff596cd-mmzz4   202m         61Mi            
+
+$ kubectl describe node | grep -A8 'Allocated resources'
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests     Limits
+  --------           --------     ------
+  cpu                1150m (28%)  500m (12%)
+  memory             638Mi (8%)   476Mi (6%)
+  ephemeral-storage  0 (0%)       0 (0%)
+  hugepages-1Gi      0 (0%)       0 (0%)
+  hugepages-2Mi      0 (0%)       0 (0%)
+
+$ kubectl apply -f oom.yaml && sleep 20
+pod/oom created
+
+$ kubectl get pod oom
+NAME   READY   STATUS      RESTARTS   AGE
+oom    0/1     OOMKilled   0          21s
+
+$ kubectl get pod oom -o jsonpath='{.status.containerStatuses[0].state.terminated.reason} exit={.status.containerStatuses[0].state.terminated.exitCode}'
+OOMKilled exit=137
+
+$ kubectl delete pod oom
+pod "oom" deleted from legeni-dev namespace
+
+$ kubectl run gros --image=nginx:1.27-alpine --overrides='{"spec":{"containers":[{"name":"gros","image":"nginx:1.27-alpine","resources":{"requests":{"cpu":"50"}}}]}}'
+pod/gros created
+
+$ kubectl get pod gros
+NAME   READY   STATUS    RESTARTS   AGE
+gros   0/1     Pending   0          5s
+
+$ kubectl describe pod gros | tail -3
+  Type     Reason            Age   From               Message
+  ----     ------            ----  ----               -------
+  Warning  FailedScheduling  5s    default-scheduler  0/1 nodes are available: 1 Insufficient cpu. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling.
+
+$ kubectl delete pod gros
+pod "gros" deleted from legeni-dev namespace
+
