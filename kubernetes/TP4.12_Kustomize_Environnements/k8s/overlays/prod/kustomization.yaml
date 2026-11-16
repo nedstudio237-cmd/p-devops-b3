@@ -11,7 +11,7 @@ patches:
 images:
   - name: legeni-webapp
     newName: nedstudio/legeni-webapp
-    newTag: "1.0.0"
+    newTag: "2.0.0"
 configMapGenerator:
   - name: webapp-config
     behavior: merge

@@ -1,0 +1,59 @@
+$ diff <(kubectl kustomize overlays/staging) <(kubectl kustomize overlays/prod)
+3,4c3,4
+<   APP_COLOR: '#bf8700'
+<   APP_ENV: staging
+---
+>   APP_COLOR: '#2da44e'
+>   APP_ENV: prod
+11,13c11,13
+<     env: staging
+<   name: webapp-config-thhbmh54h2
+<   namespace: legeni-staging
+---
+>     env: prod
+>   name: webapp-config-t5fkchbk2t
+>   namespace: legeni-prod
+20c20
+<     env: staging
+---
+>     env: prod
+22c22
+<   namespace: legeni-staging
+---
+>   namespace: legeni-prod
+35c35
+<     env: staging
+---
+>     env: prod
+37c37
+<   namespace: legeni-staging
+---
+>   namespace: legeni-prod
+52c52
+<     env: staging
+---
+>     env: prod
+54c54
+<   namespace: legeni-staging
+---
+>   namespace: legeni-prod
+56c56
+<   replicas: 2
+---
+>   replicas: 4
+74c74
+<             name: webapp-config-thhbmh54h2
+---
+>             name: webapp-config-t5fkchbk2t
+77c77
+<         image: nedstudio/legeni-webapp:2.0.0
+---
+>         image: nedstudio/legeni-webapp:1.0.0
+107c107
+<     env: staging
+---
+>     env: prod
+109c109
+<   namespace: legeni-staging
+---
+>   namespace: legeni-prod

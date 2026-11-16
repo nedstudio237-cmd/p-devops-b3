@@ -1,0 +1,16 @@
+$ kubectl delete -k overlays/staging
+configmap "webapp-config-thhbmh54h2" deleted from legeni-staging namespace
+service "redis" deleted from legeni-staging namespace
+service "webapp" deleted from legeni-staging namespace
+deployment.apps "webapp" deleted from legeni-staging namespace
+statefulset.apps "redis" deleted from legeni-staging namespace
+
+$ kubectl get deploy -A -l app.kubernetes.io/part-of=legeni
+NAMESPACE     NAME     READY   UP-TO-DATE   AVAILABLE   AGE
+legeni-kdev   webapp   1/1     1            1           18s
+legeni-prod   webapp   4/4     4            4           2m18s
+
+$ kubectl get pvc -n legeni-staging   # le PVC du StatefulSet n'est pas supprimé par delete -k
+NAME           STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+data-redis-0   Bound    pvc-cff7d37a-5c73-422d-b267-9e3801c91d8c   1Gi        RWO            standard       <unset>                 2m20s
+

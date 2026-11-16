@@ -1,0 +1,60 @@
+$ kubectl create namespace legeni-staging --dry-run=client -o yaml | kubectl apply -f -
+namespace/legeni-staging created
+$ kubectl create secret generic redis-secret -n legeni-staging --from-literal=REDIS_PASSWORD="$(openssl rand -hex 12)" --dry-run=client -o yaml | kubectl apply -f -
+secret/redis-secret created
+$ kubectl apply -k overlays/staging
+configmap/webapp-config-thhbmh54h2 created
+service/redis created
+service/webapp created
+deployment.apps/webapp created
+statefulset.apps/redis created
+
+$ kubectl create namespace legeni-prod --dry-run=client -o yaml | kubectl apply -f -
+namespace/legeni-prod created
+$ kubectl create secret generic redis-secret -n legeni-prod --from-literal=REDIS_PASSWORD="$(openssl rand -hex 12)" --dry-run=client -o yaml | kubectl apply -f -
+secret/redis-secret created
+$ kubectl apply -k overlays/prod
+configmap/webapp-config-t5fkchbk2t created
+service/redis created
+service/webapp created
+deployment.apps/webapp created
+statefulset.apps/redis created
+
+$ kubectl get deploy -A -l app.kubernetes.io/part-of=legeni
+NAMESPACE        NAME     READY   UP-TO-DATE   AVAILABLE   AGE
+legeni-prod      webapp   4/4     4            4           20s
+legeni-staging   webapp   2/2     2            2           22s
+
+$ kubectl get sts,pods -n legeni-staging
+NAME                     READY   AGE
+statefulset.apps/redis   1/1     22s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/redis-0                   1/1     Running   0          22s
+pod/webapp-7d6ddc7dd4-57wqb   1/1     Running   0          22s
+pod/webapp-7d6ddc7dd4-rvn67   1/1     Running   0          22s
+
+$ kubectl get pods -n legeni-prod
+NAME                      READY   STATUS    RESTARTS   AGE
+redis-0                   1/1     Running   0          20s
+webapp-6779c47b97-4nqct   1/1     Running   0          20s
+webapp-6779c47b97-5drn5   1/1     Running   0          20s
+webapp-6779c47b97-sg28g   1/1     Running   0          20s
+webapp-6779c47b97-svn9m   1/1     Running   0          20s
+
+$ kubectl -n legeni-staging exec deploy/webapp -- python -c "import urllib.request as u; print(u.urlopen('http://localhost:5000/api/info').read().decode())"
+{"app":"legeni-webapp","env":"staging","hostname":"webapp-7d6ddc7dd4-rvn67","version":"2.0.0"}
+
+
+$ kubectl -n legeni-staging exec deploy/webapp -- env | grep -E 'APP_ENV|APP_COLOR'
+APP_COLOR=#bf8700
+APP_ENV=staging
+
+$ kubectl -n legeni-prod exec deploy/webapp -- python -c "import urllib.request as u; print(u.urlopen('http://localhost:5000/api/info').read().decode())"
+{"app":"legeni-webapp","env":"prod","hostname":"webapp-6779c47b97-4nqct","version":"1.0.0"}
+
+
+$ kubectl -n legeni-prod exec deploy/webapp -- env | grep -E 'APP_ENV|APP_COLOR'
+APP_COLOR=#2da44e
+APP_ENV=prod
+

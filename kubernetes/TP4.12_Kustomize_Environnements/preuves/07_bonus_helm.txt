@@ -1,0 +1,104 @@
+# Bonus Helm (namespace helm-demo : un Service 'redis' existe déjà dans legeni-dev)
+$ helm version --short
+v3.16.4+g7877b45
+
+$ helm install redis oci://registry-1.docker.io/bitnamicharts/redis -n helm-demo --create-namespace --set architecture=standalone --set auth.password=$(openssl rand -hex 12) --wait --timeout 8m
+Pulled: registry-1.docker.io/bitnamicharts/redis:28.3.12
+Digest: sha256:a80baff98e6d4865d13d303855e2495e3049c2df515ac729c5f2530e265ef796
+NAME: redis
+LAST DEPLOYED: Mon Nov 16 02:54:51 2026
+NAMESPACE: helm-demo
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+CHART NAME: redis
+CHART VERSION: 28.3.12
+APP VERSION: 8.10.3
+
+⚠ WARNING: Since August 28th, 2025, only a limited subset of images/charts are available for free.
+    Subscribe to Bitnami Secure Images to receive continued support and security updates.
+    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267
+
+** Please be patient while the chart is being deployed **
+
+Redis(R) can be accessed via port 6379 on the following DNS name from within your cluster:
+
+    redis-master.helm-demo.svc.cluster.local
+
+To get your password run:
+
+    export REDIS_PASSWORD=$(kubectl get secret --namespace helm-demo redis -o jsonpath="{.data.redis-password}" | base64 -d)
+
+To connect to your Redis(R) server:
+
+1. Run a Redis(R) pod that you can use as a client:
+
+   kubectl run --namespace helm-demo redis-client --restart='Never'  --env REDIS_PASSWORD=$REDIS_PASSWORD  --image registry-1.docker.io/bitnami/redis:latest --command -- sleep infinity
+
+   Use the following command to attach to the pod:
+
+   kubectl exec --tty -i redis-client \
+   --namespace helm-demo -- bash
+
+2. Connect using the Redis(R) CLI:
+   REDISCLI_AUTH="$REDIS_PASSWORD" redis-cli -h redis-master
+
+To connect to your database from outside the cluster execute the following commands:
+
+    kubectl port-forward --namespace helm-demo svc/redis-master 6379:6379 &
+    REDISCLI_AUTH="$REDIS_PASSWORD" redis-cli -h 127.0.0.1 -p 6379
+WARNING: Rolling tag detected (bitnami/redis:latest), please note that it is strongly recommended to avoid using rolling tags in a production environment.
++info https://techdocs.broadcom.com/us/en/vmware-tanzu/bitnami-secure-images/bitnami-secure-images/services/bsi-doc/apps-tutorials-understand-rolling-tags-containers-index.html
+WARNING: Rolling tag detected (bitnami/redis-sentinel:latest), please note that it is strongly recommended to avoid using rolling tags in a production environment.
++info https://techdocs.broadcom.com/us/en/vmware-tanzu/bitnami-secure-images/bitnami-secure-images/services/bsi-doc/apps-tutorials-understand-rolling-tags-containers-index.html
+WARNING: Rolling tag detected (bitnami/redis-exporter:latest), please note that it is strongly recommended to avoid using rolling tags in a production environment.
++info https://techdocs.broadcom.com/us/en/vmware-tanzu/bitnami-secure-images/bitnami-secure-images/services/bsi-doc/apps-tutorials-understand-rolling-tags-containers-index.html
+WARNING: Rolling tag detected (bitnami/os-shell:latest), please note that it is strongly recommended to avoid using rolling tags in a production environment.
++info https://techdocs.broadcom.com/us/en/vmware-tanzu/bitnami-secure-images/bitnami-secure-images/services/bsi-doc/apps-tutorials-understand-rolling-tags-containers-index.html
+WARNING: Rolling tag detected (bitnami/os-shell:latest), please note that it is strongly recommended to avoid using rolling tags in a production environment.
++info https://techdocs.broadcom.com/us/en/vmware-tanzu/bitnami-secure-images/bitnami-secure-images/services/bsi-doc/apps-tutorials-understand-rolling-tags-containers-index.html
+
+WARNING: There are "resources" sections in the chart not set. Using "resourcesPreset" is not recommended for production. For production installations, please set the following values according to your workload needs:
+  - replica.resources
+  - master.resources
++info https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+$ helm list -n helm-demo
+NAME 	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART        	APP VERSION
+redis	helm-demo	1       	2026-11-16 02:54:51.517771755 +0100 WAT	deployed	redis-28.3.12	8.10.3     
+
+$ kubectl get pods,svc,pvc -n helm-demo
+NAME                 READY   STATUS    RESTARTS   AGE
+pod/redis-master-0   1/1     Running   0          109s
+
+NAME                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/redis-headless   ClusterIP   None             <none>        6379/TCP   109s
+service/redis-master     ClusterIP   10.100.245.147   <none>        6379/TCP   109s
+
+NAME                                              STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/redis-data-redis-master-0   Bound    pvc-5eb5feb5-21f9-44ef-9ff0-42a0da4bc6ec   8Gi        RWO            standard       <unset>                 109s
+
+$ kubectl -n helm-demo exec redis-master-0 -- sh -c 'redis-cli -a "$REDIS_PASSWORD" --no-auth-warning ping'
+NOAUTH Authentication required.
+
+AUTH failed: WRONGPASS invalid username-password pair or user is disabled.
+# (le chart Bitnami fournit le mot de passe par fichier, pas par la variable REDIS_PASSWORD : le test manuel est mal écrit ;
+#  le Pod est 1/1 Ready, et la readinessProbe du chart fait elle-même un 'redis-cli ping' authentifié)
+
+$ helm get values redis -n helm-demo | sed -E 's/(password: ).*/\1<masqué>/'
+USER-SUPPLIED VALUES:
+architecture: standalone
+auth:
+  password: <masqué>
+
+$ helm template redis oci://registry-1.docker.io/bitnamicharts/redis --set architecture=standalone 2>/dev/null | grep -c '^kind:'
+10
+
+# Nettoyage
+$ helm uninstall redis -n helm-demo
+release "redis" uninstalled
+
+$ kubectl delete namespace helm-demo
+namespace "helm-demo" deleted
+

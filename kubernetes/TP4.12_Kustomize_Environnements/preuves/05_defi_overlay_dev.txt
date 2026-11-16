@@ -1,0 +1,25 @@
+# namespace legeni-kdev (legeni-dev est déjà utilisé par les TPs 4.7 à 4.11)
+$ kubectl kustomize overlays/dev | grep -E 'replicas|imagePullPolicy|image:|APP_'
+  APP_COLOR: '#8250df'
+  APP_ENV: dev
+  replicas: 1
+        image: nedstudio/legeni-webapp:2.0.0
+        imagePullPolicy: IfNotPresent
+  replicas: 1
+        image: redis:7.4-alpine
+
+$ kubectl apply -k overlays/dev
+configmap/webapp-config-4fkkgttbhm created
+service/redis created
+service/webapp created
+deployment.apps/webapp created
+statefulset.apps/redis created
+
+$ kubectl get pods -n legeni-kdev
+NAME                     READY   STATUS    RESTARTS   AGE
+redis-0                  1/1     Running   0          17s
+webapp-8b7945d66-2z988   1/1     Running   0          17s
+
+$ kubectl -n legeni-kdev get deploy webapp -o jsonpath='{.spec.replicas} réplica(s), {.spec.template.spec.containers[0].image}, pull={.spec.template.spec.containers[0].imagePullPolicy}'
+1 réplica(s), nedstudio/legeni-webapp:2.0.0, pull=IfNotPresent
+

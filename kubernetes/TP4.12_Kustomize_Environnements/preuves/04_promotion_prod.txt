@@ -1,0 +1,49 @@
+$ sed -i 's/newTag: .*/newTag: "2.0.0"/' overlays/prod/kustomization.yaml
+
+$ git diff overlays/prod
+diff --git a/kubernetes/TP4.12_Kustomize_Environnements/k8s/overlays/prod/kustomization.yaml b/kubernetes/TP4.12_Kustomize_Environnements/k8s/overlays/prod/kustomization.yaml
+index e03646a..033ec76 100644
+--- a/kubernetes/TP4.12_Kustomize_Environnements/k8s/overlays/prod/kustomization.yaml
++++ b/kubernetes/TP4.12_Kustomize_Environnements/k8s/overlays/prod/kustomization.yaml
+@@ -11,7 +11,7 @@ patches:
+ images:
+   - name: legeni-webapp
+     newName: nedstudio/legeni-webapp
+-    newTag: "1.0.0"
++    newTag: "2.0.0"
+ configMapGenerator:
+   - name: webapp-config
+     behavior: merge
+
+$ kubectl diff -k overlays/prod | grep -E '^[-+] ' | grep -vE 'generation|resourceVersion|uid|creationTimestamp'
+-        image: nedstudio/legeni-webapp:1.0.0
++        image: nedstudio/legeni-webapp:2.0.0
+
+$ kubectl apply -k overlays/prod
+configmap/webapp-config-t5fkchbk2t unchanged
+service/redis unchanged
+service/webapp unchanged
+deployment.apps/webapp configured
+statefulset.apps/redis configured
+
+$ kubectl rollout status deploy/webapp -n legeni-prod --timeout=300s
+Waiting for deployment "webapp" rollout to finish: 1 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 1 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 2 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 2 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 2 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 2 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 2 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 3 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 3 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 3 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 3 out of 4 new replicas have been updated...
+Waiting for deployment "webapp" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "webapp" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "webapp" rollout to finish: 1 old replicas are pending termination...
+deployment "webapp" successfully rolled out
+
+$ kubectl -n legeni-prod exec deploy/webapp -- python -c "import urllib.request as u; print(u.urlopen('http://localhost:5000/api/info').read().decode())"
+{"app":"legeni-webapp","env":"prod","hostname":"webapp-944cbb9bb-mjf67","version":"2.0.0"}
+
+
