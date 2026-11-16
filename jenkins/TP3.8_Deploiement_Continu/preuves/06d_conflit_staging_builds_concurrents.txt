@@ -1,0 +1,212 @@
+Branch indexing
+Connecting to https://api.github.com using nedstudio237-cmd/****** (GitHub (Personal Access Token))
+Obtained Jenkinsfile from 28188985c58cd4696d7797dd4011ea1ac422099c+84ab721deff5013f239daf0da9d0125d520b9a81 (f39229c7cbaa949ef6cba96fc0f694b4ecb443ce)
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/legeni-webapp-mb_PR-5
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git init /var/jenkins_home/workspace/legeni-webapp-mb_PR-5 # timeout=10
+Fetching upstream changes from https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials GitHub (Personal Access Token)
+ > git fetch --no-tags --force --progress -- https://github.com/nedstudio237-cmd/legeni-webapp.git +refs/pull/5/head:refs/remotes/origin/PR-5 +refs/heads/main:refs/remotes/origin/main # timeout=10
+ > git config remote.origin.url https://github.com/nedstudio237-cmd/legeni-webapp.git # timeout=10
+ > git config --add remote.origin.fetch +refs/pull/5/head:refs/remotes/origin/PR-5 # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/main:refs/remotes/origin/main # timeout=10
+ > git config remote.origin.url https://github.com/nedstudio237-cmd/legeni-webapp.git # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/nedstudio237-cmd/legeni-webapp.git
+using GIT_ASKPASS to set credentials GitHub (Personal Access Token)
+ > git fetch --no-tags --force --progress -- https://github.com/nedstudio237-cmd/legeni-webapp.git +refs/pull/5/head:refs/remotes/origin/PR-5 +refs/heads/main:refs/remotes/origin/main # timeout=10
+Merging remotes/origin/main commit 84ab721deff5013f239daf0da9d0125d520b9a81 into PR head commit 28188985c58cd4696d7797dd4011ea1ac422099c
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 28188985c58cd4696d7797dd4011ea1ac422099c # timeout=10
+ > git remote # timeout=10
+ > git config --get remote.origin.url # timeout=10
+using GIT_ASKPASS to set credentials GitHub (Personal Access Token)
+ > git merge 84ab721deff5013f239daf0da9d0125d520b9a81 # timeout=10
+ > git rev-parse HEAD^{commit} # timeout=10
+Merge succeeded, producing 28188985c58cd4696d7797dd4011ea1ac422099c
+Checking out Revision 28188985c58cd4696d7797dd4011ea1ac422099c (PR-5)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 28188985c58cd4696d7797dd4011ea1ac422099c # timeout=10
+Commit message: "TP 3.8 : annulation de la panne simulée"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-11-16T08:46:18.430Z] Timeout set to expire in 30 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Tests unitaires)
+[Pipeline] sh
+[2026-11-16T08:46:18.824Z] + docker build --target test -t legeni-webapp:test .
+[2026-11-16T08:46:19.376Z] #0 building with "default" instance using docker driver
+[2026-11-16T08:46:19.376Z] 
+[2026-11-16T08:46:19.376Z] #1 [internal] load build definition from Dockerfile
+[2026-11-16T08:46:19.376Z] #1 transferring dockerfile: 1.23kB 0.0s done
+[2026-11-16T08:46:19.376Z] #1 DONE 0.1s
+[2026-11-16T08:46:19.376Z] 
+[2026-11-16T08:46:19.376Z] #2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+[2026-11-16T08:46:21.862Z] #2 DONE 2.2s
+[2026-11-16T08:46:21.862Z] 
+[2026-11-16T08:46:21.862Z] #3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+[2026-11-16T08:46:21.862Z] #3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.0s done
+[2026-11-16T08:46:21.862Z] #3 CACHED
+[2026-11-16T08:46:21.862Z] 
+[2026-11-16T08:46:21.862Z] #4 [internal] load metadata for docker.io/library/python:3.12-slim
+[2026-11-16T08:46:25.990Z] #4 DONE 3.9s
+[2026-11-16T08:46:25.990Z] 
+[2026-11-16T08:46:25.990Z] #5 [internal] load .dockerignore
+[2026-11-16T08:46:25.990Z] #5 transferring context: 143B done
+[2026-11-16T08:46:25.990Z] #5 DONE 0.1s
+[2026-11-16T08:46:26.241Z] 
+[2026-11-16T08:46:26.242Z] #6 [base 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+[2026-11-16T08:46:26.242Z] #6 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+[2026-11-16T08:46:26.242Z] #6 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.1s done
+[2026-11-16T08:46:26.242Z] #6 DONE 0.1s
+[2026-11-16T08:46:26.242Z] 
+[2026-11-16T08:46:26.242Z] #7 [internal] load build context
+[2026-11-16T08:46:26.493Z] #7 transferring context: 9.06kB 0.0s done
+[2026-11-16T08:46:26.493Z] #7 DONE 0.1s
+[2026-11-16T08:46:26.493Z] 
+[2026-11-16T08:46:26.493Z] #8 [test 4/4] RUN flake8 . && pytest -q
+[2026-11-16T08:46:26.493Z] #8 CACHED
+[2026-11-16T08:46:26.493Z] 
+[2026-11-16T08:46:26.493Z] #9 exporting to image
+[2026-11-16T08:46:26.493Z] #9 exporting layers 0.0s done
+[2026-11-16T08:46:26.493Z] #9 exporting manifest sha256:e69bf92bdb71a2f41263fcb236f9c4f9edfdff4e93ec4b4f1f36fd08b5321b4f 0.0s done
+[2026-11-16T08:46:26.493Z] #9 exporting config sha256:a73dfd1220b3cfd3fc970e3ee6aa2e09595747fc1931516e50b8c9cd3d283e81 done
+[2026-11-16T08:46:26.493Z] #9 exporting attestation manifest sha256:1f0a36ab702e1f3d7954b66ded678b144c7bdc16b041c444bc6301a7cf2b0ca6
+[2026-11-16T08:46:26.493Z] #9 exporting attestation manifest sha256:1f0a36ab702e1f3d7954b66ded678b144c7bdc16b041c444bc6301a7cf2b0ca6 0.0s done
+[2026-11-16T08:46:26.493Z] #9 exporting manifest list sha256:b5ac286f4735d8f1bfc983485d0b45b66b410cdf4313db5638b8f87b31583593 0.0s done
+[2026-11-16T08:46:26.493Z] #9 naming to docker.io/library/legeni-webapp:test done
+[2026-11-16T08:46:26.493Z] #9 unpacking to docker.io/library/legeni-webapp:test 0.1s done
+[2026-11-16T08:46:26.745Z] #9 DONE 0.3s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build image)
+[Pipeline] sh
+[2026-11-16T08:46:27.429Z] + docker build --build-arg APP_VERSION=1.0.1 -t legeni-webapp:1.0.1 .
+[2026-11-16T08:46:28.343Z] #0 building with "default" instance using docker driver
+[2026-11-16T08:46:28.343Z] 
+[2026-11-16T08:46:28.343Z] #1 [internal] load build definition from Dockerfile
+[2026-11-16T08:46:28.343Z] #1 transferring dockerfile: 1.23kB done
+[2026-11-16T08:46:28.343Z] #1 DONE 0.0s
+[2026-11-16T08:46:28.343Z] 
+[2026-11-16T08:46:28.343Z] #2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+[2026-11-16T08:46:30.830Z] #2 DONE 2.5s
+[2026-11-16T08:46:30.830Z] 
+[2026-11-16T08:46:30.830Z] #3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+[2026-11-16T08:46:30.830Z] #3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.0s done
+[2026-11-16T08:46:30.830Z] #3 CACHED
+[2026-11-16T08:46:30.830Z] 
+[2026-11-16T08:46:30.830Z] #4 [internal] load metadata for docker.io/library/python:3.12-slim
+[2026-11-16T08:46:32.177Z] #4 DONE 1.1s
+[2026-11-16T08:46:32.177Z] 
+[2026-11-16T08:46:32.177Z] #5 [internal] load .dockerignore
+[2026-11-16T08:46:32.177Z] #5 transferring context: 143B 0.0s done
+[2026-11-16T08:46:32.177Z] #5 DONE 0.0s
+[2026-11-16T08:46:32.177Z] 
+[2026-11-16T08:46:32.177Z] #6 [base 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+[2026-11-16T08:46:32.177Z] #6 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+[2026-11-16T08:46:32.429Z] #6 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.2s done
+[2026-11-16T08:46:32.429Z] #6 DONE 0.2s
+[2026-11-16T08:46:32.429Z] 
+[2026-11-16T08:46:32.429Z] #7 [internal] load build context
+[2026-11-16T08:46:32.429Z] #7 transferring context: 63B 0.0s done
+[2026-11-16T08:46:32.429Z] #7 DONE 0.1s
+[2026-11-16T08:46:32.429Z] 
+[2026-11-16T08:46:32.429Z] #8 [base 2/4] WORKDIR /app
+[2026-11-16T08:46:32.429Z] #8 CACHED
+[2026-11-16T08:46:32.429Z] 
+[2026-11-16T08:46:32.429Z] #9 [base 3/4] COPY requirements.txt .
+[2026-11-16T08:46:32.429Z] #9 CACHED
+[2026-11-16T08:46:32.429Z] 
+[2026-11-16T08:46:32.429Z] #10 [base 4/4] RUN pip install --no-cache-dir -r requirements.txt
+[2026-11-16T08:46:32.429Z] #10 CACHED
+[2026-11-16T08:46:32.429Z] 
+[2026-11-16T08:46:32.429Z] #11 [runtime 1/2] RUN useradd --create-home --uid 10001 appuser
+[2026-11-16T08:46:32.429Z] #11 CACHED
+[2026-11-16T08:46:32.429Z] 
+[2026-11-16T08:46:32.429Z] #12 [runtime 2/2] COPY app.py .
+[2026-11-16T08:46:32.429Z] #12 CACHED
+[2026-11-16T08:46:32.429Z] 
+[2026-11-16T08:46:32.429Z] #13 exporting to image
+[2026-11-16T08:46:32.429Z] #13 exporting layers 0.0s done
+[2026-11-16T08:46:32.429Z] #13 exporting manifest sha256:7f8ee9189129e93d63d5ca37fc736d0d924777613a4a305ee0509dc5d0c033dd 0.0s done
+[2026-11-16T08:46:32.429Z] #13 exporting config sha256:4ab0160b774bf1ef8922a32f950f67a0671f08b3a8d25c2ca3d6142ea3bde8c9 0.0s done
+[2026-11-16T08:46:32.681Z] #13 exporting attestation manifest sha256:815b20288f58b79d470f2d459cfbfa5566e97fcd1f8693728bdca60afb15ab6f 0.0s done
+[2026-11-16T08:46:32.681Z] #13 exporting manifest list sha256:f0b22f317a98584dd9912400389a4030584f10477dae24c5399caeea07f19acc 0.0s done
+[2026-11-16T08:46:32.681Z] #13 naming to docker.io/library/legeni-webapp:1.0.1 done
+[2026-11-16T08:46:32.681Z] #13 unpacking to docker.io/library/legeni-webapp:1.0.1
+[2026-11-16T08:46:32.681Z] #13 unpacking to docker.io/library/legeni-webapp:1.0.1 0.0s done
+[2026-11-16T08:46:32.681Z] #13 DONE 0.3s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Déploiement staging)
+[Pipeline] withCredentials
+[2026-11-16T08:46:33.440Z] Masking supported pattern matches of $REDIS_PASSWORD
+[Pipeline] {
+[Pipeline] sh
+[2026-11-16T08:46:33.788Z] + IMAGE_REF=legeni-webapp:1.0.1 APP_ENV=staging APP_COLOR=#bf8700 PORT=8081 docker compose -f deploy/docker-compose.deploy.yml -p legeni-staging up -d --wait
+[2026-11-16T08:46:34.342Z]  Container legeni-staging-redis-1 Running 
+[2026-11-16T08:46:34.343Z]  Container legeni-staging-web-1 Recreate 
+[2026-11-16T08:46:34.594Z]  Container legeni-staging-web-1 Error response from daemon: Conflict. The container name "/27363a960d4d_legeni-staging-web-1" is already in use by container "d1024d0f6efc05fd19f70abca6ffd5c8783a0825701c75b1dd413cd9d1ee6400". You have to remove (or rename) that container to be able to reuse that name. 
+[2026-11-16T08:46:34.594Z] Error response from daemon: Conflict. The container name "/27363a960d4d_legeni-staging-web-1" is already in use by container "d1024d0f6efc05fd19f70abca6ffd5c8783a0825701c75b1dd413cd9d1ee6400". You have to remove (or rename) that container to be able to reuse that name.
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Validation production)
+Stage "Validation production" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Déploiement production)
+Stage "Déploiement production" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+[2026-11-16T08:46:35.432Z] ❌ legeni-webapp-mb/PR-5 #1 en échec
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+
+GitHub has been notified of this commit’s build result
+
+Finished: FAILURE

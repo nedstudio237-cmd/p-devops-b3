@@ -1,0 +1,3 @@
+$ docker ps --filter name=legeni-prod --format "{{.Names}} {{.Image}} {{.Status}}"
+legeni-prod-web-1 legeni-webapp:1.0.3 Up 11 seconds (healthy)
+legeni-prod-redis-1 redis:7.4-alpine Up 6 minutes (healthy)

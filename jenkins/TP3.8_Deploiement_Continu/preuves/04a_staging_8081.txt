@@ -1,0 +1,6 @@
+$ curl -s localhost:8081/api/info
+{"app":"legeni-webapp","env":"staging","hostname":"82bf908d1f2e","version":"1.0.3"}
+
+$ curl -s localhost:8081 | grep -io "staging\|#bf8700" | sort -u
+#bf8700
+staging
