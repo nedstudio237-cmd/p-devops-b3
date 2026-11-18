@@ -7,6 +7,8 @@ Chaque dossier de TP contient :
 - **`COMMANDES.md`** : les commandes utilisées et leur rôle, plus les réponses aux questions ;
 - **`preuves/`** : les sorties des commandes qui prouvent que le TP fonctionne.
 
+📘 **Fiche mémo des bases DevOps : [FICHE_MEMO_DEVOPS.md](FICHE_MEMO_DEVOPS.md)**
+
 ## Environnement
 
 Ubuntu 24.04 (VM VMware), Docker 29, Minikube (driver Docker), Jenkins et Ansible en Docker Compose sur le réseau `minikube` (TP 2.8).
