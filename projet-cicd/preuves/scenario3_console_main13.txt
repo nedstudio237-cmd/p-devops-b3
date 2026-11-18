@@ -1,0 +1,653 @@
+Branch indexing
+Connecting to https://api.github.com using nedstudio237-cmd/****** (GitHub (Personal Access Token))
+Obtained Jenkinsfile from c620dd6cd74f98365e7b009c9d6c4831601b8eda
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/legeni-webapp-mb_main
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git init /var/jenkins_home/workspace/legeni-webapp-mb_main # timeout=10
+Fetching upstream changes from https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials GitHub (Personal Access Token)
+ > git fetch --no-tags --force --progress -- https://github.com/nedstudio237-cmd/legeni-webapp.git +refs/heads/main:refs/remotes/origin/main # timeout=10
+ > git config remote.origin.url https://github.com/nedstudio237-cmd/legeni-webapp.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/main:refs/remotes/origin/main # timeout=10
+Avoid second fetch
+Checking out Revision c620dd6cd74f98365e7b009c9d6c4831601b8eda (main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f c620dd6cd74f98365e7b009c9d6c4831601b8eda # timeout=10
+Commit message: "Merge pull request #13 from nedstudio237-cmd/feature/readiness-cassee"
+ > git rev-list --no-walk 46297b4da2f2b93320e7514c5093ceaeff727407 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-11-17T17:20:06.513Z] Timeout set to expire in 1 hr 0 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Préparation)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] readFile
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Qualité)
+[Pipeline] parallel
+[Pipeline] { (Branch: Tests + couverture)
+[Pipeline] { (Branch: flake8)
+[Pipeline] { (Branch: hadolint)
+[Pipeline] { (Branch: Syntaxe Ansible)
+[Pipeline] stage
+[Pipeline] { (Tests + couverture)
+[Pipeline] stage
+[Pipeline] { (flake8)
+[Pipeline] stage
+[Pipeline] { (hadolint)
+[Pipeline] stage
+[Pipeline] { (Syntaxe Ansible)
+[Pipeline] getContext
+[Pipeline] getContext
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] withCredentials
+[2026-11-17T17:20:09.091Z] Masking supported pattern matches of $VAULT_PASS
+[Pipeline] sh
+[2026-11-17T17:20:09.256Z] + mkdir -p reports
+[2026-11-17T17:20:09.257Z] + docker run --rm -i hadolint/hadolint:v2.12.0 hadolint -f json -
+[Pipeline] sh
+[2026-11-17T17:20:09.546Z] + docker inspect -f . python:3.12-slim
+[2026-11-17T17:20:09.796Z] + docker inspect -f . python:3.12-slim
+[Pipeline] {
+[2026-11-17T17:20:10.960Z] .
+[Pipeline] dir
+[2026-11-17T17:20:11.014Z] Running in /var/jenkins_home/workspace/legeni-webapp-mb_main/ansible
+[Pipeline] {
+[Pipeline] }
+[Pipeline] sh
+[2026-11-17T17:20:11.679Z] .
+[2026-11-17T17:20:11.719Z] + ansible-playbook provision.yml --syntax-check
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-11-17T17:20:12.598Z] Jenkins seems to be running inside container 39f9e3169725f52face97d4617a47f30f857ec634e1f2c3f330af2edea7b6650
+[2026-11-17T17:20:13.125Z] $ docker run -t -d -u 1000:1000 -e HOME=/tmp -w /var/jenkins_home/workspace/legeni-webapp-mb_main --volumes-from 39f9e3169725f52face97d4617a47f30f857ec634e1f2c3f330af2edea7b6650 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12-slim cat
+[2026-11-17T17:20:16.146Z] $ docker top c64bf620c3ad3fec1e384f72f2a58da9ad7b9de7486a480930d5dcec30820f37 -eo pid,comm
+[Pipeline] {
+[Pipeline] }
+Post stage
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-11-17T17:20:18.548Z] Jenkins seems to be running inside container 39f9e3169725f52face97d4617a47f30f857ec634e1f2c3f330af2edea7b6650
+[2026-11-17T17:20:19.153Z] $ docker run -t -d -u 1000:1000 -e HOME=/tmp -w /var/jenkins_home/workspace/legeni-webapp-mb_main --volumes-from 39f9e3169725f52face97d4617a47f30f857ec634e1f2c3f330af2edea7b6650 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12-slim cat
+[2026-11-17T17:20:19.784Z] 
+[2026-11-17T17:20:19.784Z] playbook: provision.yml
+[2026-11-17T17:20:19.784Z] + ansible-playbook deploy.yml --syntax-check --vault-password-file ****
+[2026-11-17T17:20:21.425Z] $ docker top f79c9f0d60320be46a9da8aa8d709ca67e2246892970b7aebb4972f769d745b3 -eo pid,comm
+[Pipeline] {
+[Pipeline] recordIssues
+[2026-11-17T17:20:22.220Z] [HadoLint] Searching for all files in '/var/jenkins_home/workspace/legeni-webapp-mb_main' that match the pattern 'reports/hadolint.json'
+[2026-11-17T17:20:22.220Z] [HadoLint] Traversing of symbolic links: enabled
+[2026-11-17T17:20:22.220Z] [HadoLint] -> found 1 file
+[2026-11-17T17:20:22.220Z] [HadoLint] Successfully parsed file /var/jenkins_home/workspace/legeni-webapp-mb_main/reports/hadolint.json
+[2026-11-17T17:20:22.220Z] [HadoLint] -> found 0 issues (skipped 0 duplicates)
+[2026-11-17T17:20:22.220Z] [HadoLint] Successfully processed file 'reports/hadolint.json'
+[2026-11-17T17:20:22.236Z] [HadoLint] Skipping post processing
+[2026-11-17T17:20:22.236Z] [HadoLint] No filter has been set, publishing all 0 issues
+[2026-11-17T17:20:22.236Z] [HadoLint] Repository miner is not configured, skipping repository mining
+[2026-11-17T17:20:22.332Z] [HadoLint] Reference build recorder is not configured
+[2026-11-17T17:20:22.332Z] [HadoLint] No valid reference build found
+[2026-11-17T17:20:22.332Z] [HadoLint] All reported issues will be considered outstanding
+[2026-11-17T17:20:22.332Z] [HadoLint] No quality gates have been set - skipping
+[2026-11-17T17:20:22.332Z] [HadoLint] Health report is disabled - skipping
+[2026-11-17T17:20:22.332Z] [HadoLint] Created analysis result for 0 issues (found 0 new issues, fixed 0 issues)
+[2026-11-17T17:20:22.332Z] [HadoLint] Attaching ResultAction with ID 'hadolint' to build 'legeni-webapp-mb/main #13'.
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-17T17:20:22.853Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-17T17:20:24.603Z] + python -m venv /tmp/venv
+[2026-11-17T17:20:24.711Z] + python -m venv /tmp/venv-lint
+[2026-11-17T17:20:26.289Z] 
+[2026-11-17T17:20:26.289Z] playbook: deploy.yml
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-17T17:20:51.154Z] + /tmp/venv-lint/bin/pip install -q flake8==7.1.1
+[2026-11-17T17:20:56.593Z] + /tmp/venv/bin/pip install -q -r requirements.txt -r requirements-dev.txt
+[2026-11-17T17:21:09.134Z] 
+[2026-11-17T17:21:09.135Z] [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-17T17:21:09.135Z] [notice] To update, run: python -m pip install --upgrade pip
+[2026-11-17T17:21:09.135Z] + mkdir -p reports
+[2026-11-17T17:21:09.135Z] + /tmp/venv-lint/bin/flake8 --output-file=reports/flake8.txt --tee .
+Post stage
+[Pipeline] recordIssues
+[2026-11-17T17:21:12.634Z] [Flake8] Searching for all files in '/var/jenkins_home/workspace/legeni-webapp-mb_main' that match the pattern 'reports/flake8.txt'
+[2026-11-17T17:21:12.634Z] [Flake8] Traversing of symbolic links: enabled
+[2026-11-17T17:21:12.634Z] [Flake8] -> found 1 file
+[2026-11-17T17:21:12.634Z] [Flake8] Skipping file 'reports/flake8.txt' because it's empty
+[2026-11-17T17:21:12.645Z] [Flake8] Skipping post processing
+[2026-11-17T17:21:12.648Z] [Flake8] No filter has been set, publishing all 0 issues
+[2026-11-17T17:21:12.648Z] [Flake8] Repository miner is not configured, skipping repository mining
+[2026-11-17T17:21:12.666Z] [Flake8] Reference build recorder is not configured
+[2026-11-17T17:21:12.666Z] [Flake8] No valid reference build found
+[2026-11-17T17:21:12.668Z] [Flake8] All reported issues will be considered outstanding
+[2026-11-17T17:21:12.668Z] [Flake8] No quality gates have been set - skipping
+[2026-11-17T17:21:12.668Z] [Flake8] Health report is disabled - skipping
+[2026-11-17T17:21:12.668Z] [Flake8] Created analysis result for 0 issues (found 0 new issues, fixed 0 issues)
+[2026-11-17T17:21:12.668Z] [Flake8] Attaching ResultAction with ID 'flake8' to build 'legeni-webapp-mb/main #13'.
+[2026-11-17T17:21:13.044Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[2026-11-17T17:21:13.786Z] $ docker stop --time=1 f79c9f0d60320be46a9da8aa8d709ca67e2246892970b7aebb4972f769d745b3
+[2026-11-17T17:21:16.495Z] $ docker rm -f --volumes f79c9f0d60320be46a9da8aa8d709ca67e2246892970b7aebb4972f769d745b3
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-17T17:21:43.131Z] 
+[2026-11-17T17:21:43.132Z] [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-17T17:21:43.132Z] [notice] To update, run: python -m pip install --upgrade pip
+[2026-11-17T17:21:43.132Z] + mkdir -p reports
+[2026-11-17T17:21:43.132Z] + /tmp/venv/bin/pytest --junitxml=reports/junit.xml --cov=app --cov-report=xml:reports/coverage.xml --cov-fail-under=80
+[2026-11-17T17:21:43.132Z] ============================= test session starts ==============================
+[2026-11-17T17:21:43.132Z] platform linux -- Python 3.12.16, pytest-8.3.4, pluggy-1.7.0
+[2026-11-17T17:21:43.132Z] rootdir: /var/jenkins_home/workspace/legeni-webapp-mb_main
+[2026-11-17T17:21:43.132Z] configfile: pytest.ini
+[2026-11-17T17:21:43.132Z] testpaths: tests
+[2026-11-17T17:21:43.132Z] plugins: cov-6.0.0
+[2026-11-17T17:21:43.132Z] collected 6 items
+[2026-11-17T17:21:43.132Z] 
+[2026-11-17T17:21:43.132Z] tests/test_app.py ......                                                 [100%]
+[2026-11-17T17:21:43.132Z] 
+[2026-11-17T17:21:43.132Z] - generated xml file: /var/jenkins_home/workspace/legeni-webapp-mb_main/reports/junit.xml -
+[2026-11-17T17:21:43.132Z] 
+[2026-11-17T17:21:43.132Z] ---------- coverage: platform linux, python 3.12.16-final-0 ----------
+[2026-11-17T17:21:43.132Z] Coverage XML written to file reports/coverage.xml
+[2026-11-17T17:21:43.132Z] 
+[2026-11-17T17:21:43.132Z] Required test coverage of 80% reached. Total coverage: 83.64%
+[2026-11-17T17:21:43.132Z] ============================== 6 passed in 2.66s ===============================
+Post stage
+[Pipeline] junit
+[2026-11-17T17:21:43.239Z] Recording test results
+[2026-11-17T17:21:43.374Z] [Checks API] No suitable checks publisher found.
+[Pipeline] recordCoverage
+[2026-11-17T17:21:43.507Z] [Coverage] Recording coverage results
+[2026-11-17T17:21:43.507Z] [Coverage] Creating parser for Cobertura Coverage Reports
+[2026-11-17T17:21:43.507Z] [Coverage] Searching for all files in '/var/jenkins_home/workspace/legeni-webapp-mb_main' that match the pattern 'reports/coverage.xml'
+[2026-11-17T17:21:43.507Z] [Coverage] Traversing of symbolic links: enabled
+[2026-11-17T17:21:43.507Z] [Coverage] -> found 1 file
+[2026-11-17T17:21:43.507Z] [Coverage] Successfully parsed file '/var/jenkins_home/workspace/legeni-webapp-mb_main/reports/coverage.xml'
+[2026-11-17T17:21:43.507Z] [Coverage] Module Coverage: 100.00% (1/1)
+[2026-11-17T17:21:43.507Z] [Coverage] Package Coverage: 100.00% (1/1)
+[2026-11-17T17:21:43.507Z] [Coverage] File Coverage: 100.00% (1/1)
+[2026-11-17T17:21:43.507Z] [Coverage] Class Coverage: 100.00% (1/1)
+[2026-11-17T17:21:43.507Z] [Coverage] Line Coverage: 83.64% (46/55)
+[2026-11-17T17:21:43.507Z] [Coverage] Lines of Code: 55
+[2026-11-17T17:21:43.507Z] [Coverage] Cyclomatic Complexity: 0
+[2026-11-17T17:21:43.507Z] [Coverage] Successfully processed file 'reports/coverage.xml'
+[2026-11-17T17:21:43.522Z] [Coverage] Resolving source code files...
+[2026-11-17T17:21:43.522Z] [Coverage] Searching for source code files in '/var/jenkins_home/workspace/legeni-webapp-mb_main/src/main/java'
+[2026-11-17T17:21:43.522Z] [Coverage] -> resolved absolute paths for all 1 source files
+[2026-11-17T17:21:43.639Z] [Checks API] No suitable checks publisher found.
+[2026-11-17T17:21:43.639Z] [Coverage] Obtaining result action of reference build
+[2026-11-17T17:21:43.639Z] [Coverage] Reference build recorder is not configured
+[2026-11-17T17:21:43.639Z] [Coverage] -> Found no reference build
+[2026-11-17T17:21:43.639Z] [Coverage] No quality gates have been set - skipping
+[2026-11-17T17:21:43.641Z] [Coverage] Executing source code painting...
+[2026-11-17T17:21:43.641Z] [Coverage] Painting 1 source files on agent
+[2026-11-17T17:21:43.641Z] [Coverage] -> finished painting successfully
+[2026-11-17T17:21:43.641Z] [Coverage] -> zipping sources from folder '/var/jenkins_home/workspace/legeni-webapp-mb_main/coverage-sources-.tmp15586490887884589255/coverage' as '/var/jenkins_home/workspace/legeni-webapp-mb_main/coverage-sources-coverage.zip'
+[2026-11-17T17:21:43.641Z] [Coverage] -> deleted temporary source folder '/var/jenkins_home/workspace/legeni-webapp-mb_main/coverage-sources-.tmp15586490887884589255'
+[2026-11-17T17:21:43.641Z] [Coverage] Copying painted sources from agent to build folder
+[2026-11-17T17:21:43.641Z] [Coverage] -> extracting...
+[2026-11-17T17:21:43.641Z] [Coverage] -> done
+[2026-11-17T17:21:43.641Z] [Coverage] Deleting source code files of build #12 – 1.1.0-12
+[2026-11-17T17:21:43.641Z] [Coverage] Finished coverage processing - adding the action to the build...
+[Pipeline] }
+[2026-11-17T17:21:43.731Z] $ docker stop --time=1 c64bf620c3ad3fec1e384f72f2a58da9ad7b9de7486a480930d5dcec30820f37
+[2026-11-17T17:21:45.476Z] $ docker rm -f --volumes c64bf620c3ad3fec1e384f72f2a58da9ad7b9de7486a480930d5dcec30820f37
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build image)
+[Pipeline] sh
+[2026-11-17T17:21:48.268Z] + docker build --build-arg APP_VERSION=1.1.0-13 -t nedstudio/legeni-webapp:1.1.0-13 .
+[2026-11-17T17:21:50.142Z] #0 building with "default" instance using docker driver
+[2026-11-17T17:21:50.142Z] 
+[2026-11-17T17:21:50.142Z] #1 [internal] load build definition from Dockerfile
+[2026-11-17T17:21:50.142Z] #1 transferring dockerfile: 1.23kB 0.0s done
+[2026-11-17T17:21:50.142Z] #1 DONE 0.0s
+[2026-11-17T17:21:50.142Z] 
+[2026-11-17T17:21:50.142Z] #2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+[2026-11-17T17:21:52.014Z] #2 DONE 1.9s
+[2026-11-17T17:21:52.014Z] 
+[2026-11-17T17:21:52.014Z] #3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+[2026-11-17T17:21:52.014Z] #3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+[2026-11-17T17:21:52.014Z] #3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.2s done
+[2026-11-17T17:21:52.267Z] #3 CACHED
+[2026-11-17T17:21:53.617Z] 
+[2026-11-17T17:21:53.618Z] #4 [internal] load metadata for docker.io/library/python:3.12-slim
+[2026-11-17T17:21:54.967Z] #4 DONE 1.4s
+[2026-11-17T17:21:54.967Z] 
+[2026-11-17T17:21:54.967Z] #5 [internal] load .dockerignore
+[2026-11-17T17:21:54.967Z] #5 transferring context: 166B 0.0s done
+[2026-11-17T17:21:54.967Z] #5 DONE 0.1s
+[2026-11-17T17:21:55.540Z] 
+[2026-11-17T17:21:55.540Z] #6 [base 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+[2026-11-17T17:21:55.540Z] #6 ...
+[2026-11-17T17:21:55.540Z] 
+[2026-11-17T17:21:55.540Z] #7 [internal] load build context
+[2026-11-17T17:21:55.540Z] #7 transferring context: 3.91kB 0.0s done
+[2026-11-17T17:21:55.540Z] #7 DONE 0.1s
+[2026-11-17T17:21:55.540Z] 
+[2026-11-17T17:21:55.540Z] #6 [base 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+[2026-11-17T17:21:55.540Z] #6 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+[2026-11-17T17:21:55.540Z] #6 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.3s done
+[2026-11-17T17:21:55.540Z] #6 DONE 0.3s
+[2026-11-17T17:21:55.797Z] 
+[2026-11-17T17:21:55.797Z] #8 [base 2/4] WORKDIR /app
+[2026-11-17T17:21:55.797Z] #8 CACHED
+[2026-11-17T17:21:55.797Z] 
+[2026-11-17T17:21:55.797Z] #9 [base 3/4] COPY requirements.txt .
+[2026-11-17T17:21:55.797Z] #9 CACHED
+[2026-11-17T17:21:55.797Z] 
+[2026-11-17T17:21:55.797Z] #10 [base 4/4] RUN pip install --no-cache-dir -r requirements.txt
+[2026-11-17T17:21:55.797Z] #10 CACHED
+[2026-11-17T17:21:55.797Z] 
+[2026-11-17T17:21:55.797Z] #11 [runtime 1/2] RUN useradd --create-home --uid 10001 appuser
+[2026-11-17T17:21:59.038Z] #11 DONE 3.3s
+[2026-11-17T17:21:59.038Z] 
+[2026-11-17T17:21:59.038Z] #12 [runtime 2/2] COPY app.py .
+[2026-11-17T17:21:59.302Z] #12 DONE 0.4s
+[2026-11-17T17:21:59.555Z] 
+[2026-11-17T17:21:59.555Z] #13 exporting to image
+[2026-11-17T17:21:59.555Z] #13 exporting layers
+[2026-11-17T17:22:00.476Z] #13 exporting layers 0.8s done
+[2026-11-17T17:22:00.476Z] #13 exporting manifest sha256:cf582a380e68101e542d43d561fed2af2ead77f8b9381ca504f44ad56ad43b48 0.1s done
+[2026-11-17T17:22:00.476Z] #13 exporting config sha256:634d491aa63e2725a179e5d11f2220aa1ed6ce8d71b498d229631c255db79486 0.1s done
+[2026-11-17T17:22:00.476Z] #13 exporting attestation manifest sha256:4761dd2263c57f344a5d673d0f2d5a4df734703b9e59c7e0ff1d540d52c8d940 0.1s done
+[2026-11-17T17:22:00.476Z] #13 exporting manifest list sha256:d3bb273aa84a4023d4ac696cd143145e98f617026f289289468b5cfc572806b5
+[2026-11-17T17:22:00.728Z] #13 exporting manifest list sha256:d3bb273aa84a4023d4ac696cd143145e98f617026f289289468b5cfc572806b5 0.1s done
+[2026-11-17T17:22:00.728Z] #13 naming to docker.io/nedstudio/legeni-webapp:1.1.0-13 0.0s done
+[2026-11-17T17:22:00.728Z] #13 unpacking to docker.io/nedstudio/legeni-webapp:1.1.0-13
+[2026-11-17T17:22:00.987Z] #13 unpacking to docker.io/nedstudio/legeni-webapp:1.1.0-13 0.3s done
+[2026-11-17T17:22:01.547Z] #13 DONE 1.9s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Scan Trivy)
+[Pipeline] sh
+[2026-11-17T17:22:02.779Z] + docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v trivy_cache:/root/.cache aquasec/trivy:0.57.1 image --severity CRITICAL --ignore-unfixed --exit-code 1 nedstudio/legeni-webapp:1.1.0-13
+[2026-11-17T17:22:06.023Z] 2026-11-17T17:22:05Z	INFO	[vuln] Vulnerability scanning is enabled
+[2026-11-17T17:22:06.023Z] 2026-11-17T17:22:05Z	INFO	[secret] Secret scanning is enabled
+[2026-11-17T17:22:06.023Z] 2026-11-17T17:22:05Z	INFO	[secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+[2026-11-17T17:22:06.023Z] 2026-11-17T17:22:05Z	INFO	[secret] Please see also https://aquasecurity.github.io/trivy/v0.57/docs/scanner/secret#recommendation for faster secret detection
+[2026-11-17T17:22:20.806Z] 2026-11-17T17:22:19Z	INFO	Detected OS	family="debian" version="13.7"
+[2026-11-17T17:22:20.806Z] 2026-11-17T17:22:19Z	INFO	[debian] Detecting vulnerabilities...	os_version="13" pkg_num=87
+[2026-11-17T17:22:20.806Z] 2026-11-17T17:22:19Z	INFO	Number of language-specific files	num=1
+[2026-11-17T17:22:20.806Z] 2026-11-17T17:22:19Z	INFO	[python-pkg] Detecting vulnerabilities...
+[2026-11-17T17:22:20.806Z] 2026-11-17T17:22:19Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://aquasecurity.github.io/trivy/v0.57/docs/scanner/vulnerability#severity-selection for details.
+[2026-11-17T17:22:20.806Z] 
+[2026-11-17T17:22:20.806Z] nedstudio/legeni-webapp:1.1.0-13 (debian 13.7)
+[2026-11-17T17:22:20.806Z] ==============================================
+[2026-11-17T17:22:20.806Z] Total: 0 (CRITICAL: 0)
+[2026-11-17T17:22:20.806Z] 
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Docker Hub)
+[Pipeline] withCredentials
+[2026-11-17T17:22:21.533Z] Masking supported pattern matches of $REG_PASS
+[Pipeline] {
+[Pipeline] sh
+[2026-11-17T17:22:21.934Z] + echo ****
+[2026-11-17T17:22:21.935Z] + docker login -u nedstudio --password-stdin
+[2026-11-17T17:22:26.067Z] 
+[2026-11-17T17:22:26.068Z] WARNING! Your credentials are stored unencrypted in '/var/jenkins_home/.docker/config.json'.
+[2026-11-17T17:22:26.068Z] Configure a credential helper to remove this warning. See
+[2026-11-17T17:22:26.068Z] https://docs.docker.com/go/credential-store/
+[2026-11-17T17:22:26.068Z] 
+[2026-11-17T17:22:26.068Z] Login Succeeded
+[2026-11-17T17:22:26.068Z] + docker push nedstudio/legeni-webapp:1.1.0-13
+[2026-11-17T17:22:26.068Z] The push refers to repository [docker.io/nedstudio/legeni-webapp]
+[2026-11-17T17:22:26.068Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:26.068Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:26.068Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:26.068Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:26.068Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:26.068Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:26.068Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:26.068Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:26.068Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:26.068Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:26.068Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:26.068Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:26.068Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:26.068Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:26.068Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:26.068Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:26.319Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:26.319Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:26.319Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:26.319Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:26.319Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:26.319Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:26.319Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:26.319Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:26.575Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:26.575Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:26.575Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:26.575Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:26.575Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:26.575Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:26.575Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:26.575Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:26.575Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:26.575Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:26.575Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:26.575Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:26.826Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:26.826Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:26.826Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:26.826Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:26.826Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:26.826Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:26.826Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:26.826Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:27.078Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:27.078Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:27.078Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:27.078Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:27.078Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:27.078Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:27.078Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:27.078Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:27.078Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:27.078Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:27.078Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:27.078Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:27.331Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:27.331Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:27.331Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:27.331Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:27.331Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:27.331Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:27.331Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:27.331Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:27.583Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:27.583Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:27.583Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:27.583Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:27.583Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:27.583Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:27.583Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:27.583Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:27.583Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:27.583Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:27.583Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:27.583Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:27.836Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:27.836Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:27.836Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:27.836Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:27.836Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:27.836Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:27.836Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:27.836Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:28.086Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:28.086Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:28.086Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:28.086Z] 44136fa355b3: Waiting
+[2026-11-17T17:22:28.086Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:28.086Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:28.086Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:28.086Z] 44136fa355b3: Already exists
+[2026-11-17T17:22:28.086Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:28.086Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:28.086Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:28.086Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:28.086Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:28.337Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:28.337Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:28.337Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:28.337Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:28.337Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:28.337Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:28.337Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:28.337Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:28.337Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:28.337Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:28.337Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:28.337Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:28.592Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:28.592Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:28.592Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:28.592Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:28.592Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:28.592Z] 68bced9e0afa: Waiting
+[2026-11-17T17:22:28.592Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:28.592Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:28.862Z] 05e0eee5572e: Waiting
+[2026-11-17T17:22:28.862Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:28.862Z] 68bced9e0afa: Layer already exists
+[2026-11-17T17:22:28.862Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:28.862Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:28.862Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:28.862Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:28.862Z] 05e0eee5572e: Waiting
+[2026-11-17T17:22:28.862Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:28.862Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:28.862Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:28.862Z] 05e0eee5572e: Waiting
+[2026-11-17T17:22:28.862Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:29.120Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:29.120Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:29.120Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:29.120Z] 05e0eee5572e: Waiting
+[2026-11-17T17:22:29.120Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:29.120Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:29.120Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:29.120Z] 05e0eee5572e: Waiting
+[2026-11-17T17:22:29.375Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:29.375Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:29.375Z] 05e0eee5572e: Waiting
+[2026-11-17T17:22:29.375Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:29.375Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:29.375Z] 05e0eee5572e: Waiting
+[2026-11-17T17:22:29.375Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:29.375Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:29.375Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:29.375Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:29.375Z] 05e0eee5572e: Waiting
+[2026-11-17T17:22:29.375Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:29.627Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:29.627Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:29.627Z] 05e0eee5572e: Waiting
+[2026-11-17T17:22:29.627Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:29.627Z] 37fb86c2a767: Waiting
+[2026-11-17T17:22:29.627Z] 05e0eee5572e: Waiting
+[2026-11-17T17:22:29.627Z] 2dc99d2d0a39: Waiting
+[2026-11-17T17:22:29.627Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:29.880Z] 45e441366676: Waiting
+[2026-11-17T17:22:29.880Z] 7139c377612d: Waiting
+[2026-11-17T17:22:29.880Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:29.880Z] 37fb86c2a767: Layer already exists
+[2026-11-17T17:22:29.880Z] 05e0eee5572e: Waiting
+[2026-11-17T17:22:29.880Z] 2dc99d2d0a39: Layer already exists
+[2026-11-17T17:22:29.880Z] 05e0eee5572e: Waiting
+[2026-11-17T17:22:29.880Z] 45e441366676: Waiting
+[2026-11-17T17:22:29.880Z] 7139c377612d: Waiting
+[2026-11-17T17:22:29.880Z] d4a1621e8066: Waiting
+[2026-11-17T17:22:29.880Z] ab7fc9c5b443: Waiting
+[2026-11-17T17:22:29.880Z] 05e0eee5572e: Layer already exists
+[2026-11-17T17:22:29.880Z] 45e441366676: Waiting
+[2026-11-17T17:22:29.880Z] 7139c377612d: Waiting
+[2026-11-17T17:22:30.130Z] 45e441366676: Waiting
+[2026-11-17T17:22:30.130Z] 7139c377612d: Waiting
+[2026-11-17T17:22:30.130Z] ab7fc9c5b443: Waiting
+[2026-11-17T17:22:30.130Z] ab7fc9c5b443: Waiting
+[2026-11-17T17:22:30.130Z] 45e441366676: Waiting
+[2026-11-17T17:22:30.130Z] 7139c377612d: Waiting
+[2026-11-17T17:22:30.384Z] 45e441366676: Waiting
+[2026-11-17T17:22:30.384Z] 7139c377612d: Waiting
+[2026-11-17T17:22:30.384Z] ab7fc9c5b443: Waiting
+[2026-11-17T17:22:30.384Z] ab7fc9c5b443: Waiting
+[2026-11-17T17:22:30.384Z] 0de1a0a9cc6e: Waiting
+[2026-11-17T17:22:30.384Z] e3e982dc27ed: Waiting
+[2026-11-17T17:22:30.384Z] 45e441366676: Layer already exists
+[2026-11-17T17:22:30.384Z] 7139c377612d: Layer already exists
+[2026-11-17T17:22:30.384Z] ab7fc9c5b443: Layer already exists
+[2026-11-17T17:22:30.384Z] 0de1a0a9cc6e: Waiting
+[2026-11-17T17:22:30.384Z] e3e982dc27ed: Waiting
+[2026-11-17T17:22:30.636Z] 0de1a0a9cc6e: Waiting
+[2026-11-17T17:22:30.636Z] e3e982dc27ed: Waiting
+[2026-11-17T17:22:30.636Z] e3e982dc27ed: Waiting
+[2026-11-17T17:22:30.636Z] 0de1a0a9cc6e: Waiting
+[2026-11-17T17:22:30.889Z] e3e982dc27ed: Waiting
+[2026-11-17T17:22:30.889Z] 0de1a0a9cc6e: Waiting
+[2026-11-17T17:22:30.889Z] 0de1a0a9cc6e: Waiting
+[2026-11-17T17:22:30.889Z] e3e982dc27ed: Waiting
+[2026-11-17T17:22:30.889Z] 0de1a0a9cc6e: Waiting
+[2026-11-17T17:22:30.889Z] e3e982dc27ed: Waiting
+[2026-11-17T17:22:31.142Z] 0de1a0a9cc6e: Waiting
+[2026-11-17T17:22:31.143Z] e3e982dc27ed: Waiting
+[2026-11-17T17:22:31.143Z] e3e982dc27ed: Waiting
+[2026-11-17T17:22:31.143Z] d4a1621e8066: Pushed
+[2026-11-17T17:22:31.143Z] 0de1a0a9cc6e: Waiting
+[2026-11-17T17:22:31.394Z] 0de1a0a9cc6e: Waiting
+[2026-11-17T17:22:31.394Z] e3e982dc27ed: Waiting
+[2026-11-17T17:22:31.394Z] 0de1a0a9cc6e: Waiting
+[2026-11-17T17:22:31.394Z] e3e982dc27ed: Waiting
+[2026-11-17T17:22:32.744Z] e3e982dc27ed: Pushed
+[2026-11-17T17:22:32.744Z] 0de1a0a9cc6e: Pushed
+[2026-11-17T17:22:36.877Z] 1.1.0-13: digest: sha256:d3bb273aa84a4023d4ac696cd143145e98f617026f289289468b5cfc572806b5 size: 856
+[2026-11-17T17:22:36.877Z] + docker logout
+[2026-11-17T17:22:36.877Z] Removing login credentials for https://index.docker.io/v1/
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Déploiement staging)
+[Pipeline] withCredentials
+[2026-11-17T17:22:37.546Z] Masking supported pattern matches of $KUBECONFIG or $VAULT_PASS
+[Pipeline] {
+[Pipeline] dir
+[2026-11-17T17:22:37.682Z] Running in /var/jenkins_home/workspace/legeni-webapp-mb_main/ansible
+[Pipeline] {
+[Pipeline] sh
+[2026-11-17T17:22:38.080Z] + ansible-playbook deploy.yml -e target_env=staging -e app_version=1.1.0-13 --vault-password-file ****
+[2026-11-17T17:22:41.324Z] 
+[2026-11-17T17:22:41.336Z] PLAY [Déployer Legeni WebApp dans Kubernetes] **********************************
+[2026-11-17T17:22:41.336Z] 
+[2026-11-17T17:22:41.336Z] TASK [Vérifier les paramètres] *************************************************
+[2026-11-17T17:22:41.891Z] ok: [localhost] => {
+[2026-11-17T17:22:41.891Z]     "changed": false,
+[2026-11-17T17:22:41.891Z]     "msg": "All assertions passed"
+[2026-11-17T17:22:41.891Z] }
+[2026-11-17T17:22:41.891Z] 
+[2026-11-17T17:22:41.891Z] TASK [Charger les paramètres de l'environnement staging] ***********************
+[2026-11-17T17:22:41.891Z] ok: [localhost]
+[2026-11-17T17:22:41.891Z] 
+[2026-11-17T17:22:41.891Z] TASK [Créer le namespace] ******************************************************
+[2026-11-17T17:22:47.111Z] ok: [localhost]
+[2026-11-17T17:22:47.111Z] 
+[2026-11-17T17:22:47.111Z] TASK [Créer le Secret Redis] ***************************************************
+[2026-11-17T17:22:51.247Z] ok: [localhost]
+[2026-11-17T17:22:51.247Z] 
+[2026-11-17T17:22:51.248Z] TASK [Appliquer les manifests et attendre la fin du rolling update] ************
+[2026-11-17T17:25:57.541Z] fatal: [localhost]: FAILED! => {"changed": true, "duration": 181, "method": "update", "msg": "\"Deployment\" \"webapp\": Timed out waiting on resource", "result": {"apiVersion": "apps/v1", "kind": "Deployment", "metadata": {"annotations": {"deployment.kubernetes.io/revision": "5"}, "creationTimestamp": "2026-11-17T16:09:28Z", "generation": 5, "labels": {"app": "webapp", "env": "staging"}, "managedFields": [{"apiVersion": "apps/v1", "fieldsType": "FieldsV1", "fieldsV1": {"f:metadata": {"f:labels": {".": {}, "f:app": {}, "f:env": {}}}, "f:spec": {"f:progressDeadlineSeconds": {}, "f:replicas": {}, "f:revisionHistoryLimit": {}, "f:selector": {}, "f:strategy": {"f:rollingUpdate": {".": {}, "f:maxSurge": {}, "f:maxUnavailable": {}}, "f:type": {}}, "f:template": {"f:metadata": {"f:annotations": {".": {}, "f:checksum/config": {}, "f:checksum/secret": {}}, "f:labels": {".": {}, "f:app": {}, "f:env": {}}}, "f:spec": {"f:containers": {"k:{\"name\":\"webapp\"}": {".": {}, "f:envFrom": {}, "f:image": {}, "f:imagePullPolicy": {}, "f:lifecycle": {".": {}, "f:preStop": {".": {}, "f:exec": {".": {}, "f:command": {}}}}, "f:livenessProbe": {".": {}, "f:failureThreshold": {}, "f:httpGet": {".": {}, "f:path": {}, "f:port": {}, "f:scheme": {}}, "f:initialDelaySeconds": {}, "f:periodSeconds": {}, "f:successThreshold": {}, "f:timeoutSeconds": {}}, "f:name": {}, "f:ports": {".": {}, "k:{\"containerPort\":5000,\"protocol\":\"TCP\"}": {".": {}, "f:containerPort": {}, "f:protocol": {}}}, "f:readinessProbe": {".": {}, "f:failureThreshold": {}, "f:httpGet": {".": {}, "f:path": {}, "f:port": {}, "f:scheme": {}}, "f:periodSeconds": {}, "f:successThreshold": {}, "f:timeoutSeconds": {}}, "f:resources": {".": {}, "f:limits": {".": {}, "f:cpu": {}, "f:memory": {}}, "f:requests": {".": {}, "f:cpu": {}, "f:memory": {}}}, "f:terminationMessagePath": {}, "f:terminationMessagePolicy": {}}}, "f:dnsPolicy": {}, "f:restartPolicy": {}, "f:schedulerName": {}, "f:securityContext": {}, "f:terminationGracePeriodSeconds": {}}}}}, "manager": "OpenAPI-Generator", "operation": "Update", "time": "2026-11-17T17:22:55Z"}, {"apiVersion": "apps/v1", "fieldsType": "FieldsV1", "fieldsV1": {"f:metadata": {"f:annotations": {".": {}, "f:deployment.kubernetes.io/revision": {}}}, "f:status": {"f:availableReplicas": {}, "f:conditions": {".": {}, "k:{\"type\":\"Available\"}": {".": {}, "f:lastTransitionTime": {}, "f:lastUpdateTime": {}, "f:message": {}, "f:reason": {}, "f:status": {}, "f:type": {}}, "k:{\"type\":\"Progressing\"}": {".": {}, "f:lastTransitionTime": {}, "f:lastUpdateTime": {}, "f:message": {}, "f:reason": {}, "f:status": {}, "f:type": {}}}, "f:observedGeneration": {}, "f:readyReplicas": {}, "f:replicas": {}, "f:terminatingReplicas": {}, "f:unavailableReplicas": {}, "f:updatedReplicas": {}}}, "manager": "kube-controller-manager", "operation": "Update", "subresource": "status", "time": "2026-11-17T17:22:55Z"}], "name": "webapp", "namespace": "legeni-staging", "resourceVersion": "218436", "uid": "d8b0cebd-a150-494e-8094-670a26cc265d"}, "spec": {"progressDeadlineSeconds": 600, "replicas": 2, "revisionHistoryLimit": 5, "selector": {"matchLabels": {"app": "webapp"}}, "strategy": {"rollingUpdate": {"maxSurge": 1, "maxUnavailable": 0}, "type": "RollingUpdate"}, "template": {"metadata": {"annotations": {"checksum/config": "07aa13bf5808d18ce0dbb4a54567588c446afe4f", "checksum/secret": "d5b802856d40db565834a9858d55fcdd5388ae61"}, "labels": {"app": "webapp", "env": "staging"}}, "spec": {"containers": [{"envFrom": [{"configMapRef": {"name": "webapp-config"}}, {"secretRef": {"name": "redis-secret"}}], "image": "nedstudio/legeni-webapp:1.1.0-13", "imagePullPolicy": "IfNotPresent", "lifecycle": {"preStop": {"exec": {"command": ["sleep", "5"]}}}, "livenessProbe": {"failureThreshold": 3, "httpGet": {"path": "/health", "port": 5000, "scheme": "HTTP"}, "initialDelaySeconds": 5, "periodSeconds": 10, "successThreshold": 1, "timeoutSeconds": 1}, "name": "webapp", "ports": [{"containerPort": 5000, "protocol": "TCP"}], "readinessProbe": {"failureThreshold": 2, "httpGet": {"path": "/pret", "port": 5000, "scheme": "HTTP"}, "periodSeconds": 5, "successThreshold": 1, "timeoutSeconds": 1}, "resources": {"limits": {"cpu": "200m", "memory": "128Mi"}, "requests": {"cpu": "50m", "memory": "64Mi"}}, "terminationMessagePath": "/dev/termination-log", "terminationMessagePolicy": "File"}], "dnsPolicy": "ClusterFirst", "restartPolicy": "Always", "schedulerName": "default-scheduler", "securityContext": {}, "terminationGracePeriodSeconds": 30}}}, "status": {"availableReplicas": 2, "conditions": [{"lastTransitionTime": "2026-11-17T16:59:17Z", "lastUpdateTime": "2026-11-17T16:59:17Z", "message": "Deployment has minimum availability.", "reason": "MinimumReplicasAvailable", "status": "True", "type": "Available"}, {"lastTransitionTime": "2026-11-17T16:09:28Z", "lastUpdateTime": "2026-11-17T17:22:55Z", "message": "ReplicaSet \"webapp-d4d57b9fb\" is progressing.", "reason": "ReplicaSetUpdated", "status": "True", "type": "Progressing"}], "observedGeneration": 5, "readyReplicas": 2, "replicas": 3, "terminatingReplicas": 0, "unavailableReplicas": 1, "updatedReplicas": 1}}}
+[2026-11-17T17:25:57.541Z] 
+[2026-11-17T17:25:57.541Z] TASK [Retour à la version précédente] ******************************************
+[2026-11-17T17:26:00.030Z] changed: [localhost]
+[2026-11-17T17:26:00.030Z] 
+[2026-11-17T17:26:00.030Z] TASK [Attendre que la version précédente soit de nouveau prête] ****************
+[2026-11-17T17:26:02.515Z] ok: [localhost]
+[2026-11-17T17:26:02.515Z] 
+[2026-11-17T17:26:02.516Z] TASK [Échouer explicitement (le pipeline doit passer au rouge)] ****************
+[2026-11-17T17:26:02.516Z] fatal: [localhost]: FAILED! => {"changed": false, "msg": "Déploiement de 1.1.0-13 en staging échoué : rollback effectué"}
+[2026-11-17T17:26:02.516Z] 
+[2026-11-17T17:26:02.516Z] PLAY RECAP *********************************************************************
+[2026-11-17T17:26:02.516Z] localhost                  : ok=6    changed=1    unreachable=0    failed=1    skipped=0    rescued=1    ignored=0   
+[2026-11-17T17:26:02.516Z] 
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Validation production)
+Stage "Validation production" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Déploiement production)
+Stage "Déploiement production" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Tag Git)
+Stage "Tag Git" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] emailext
+[2026-11-17T17:26:03.742Z] Sending email to: nedstudio237@gmail.com
+[2026-11-17T17:26:03.746Z] SMTP connection error while sending email. Retrying once more in 10 seconds.
+[2026-11-17T17:26:13.747Z] SMTP connection error while sending email. Retrying once more in 10 seconds.
+[2026-11-17T17:26:23.748Z] Failed after second try sending email
+[Pipeline] cleanWs
+[2026-11-17T17:26:23.782Z] [WS-CLEANUP] Deleting project workspace...
+[2026-11-17T17:26:23.782Z] [WS-CLEANUP] Deferred wipeout is used...
+[2026-11-17T17:26:23.793Z] [WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 2

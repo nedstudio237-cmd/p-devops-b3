@@ -1,0 +1,295 @@
+Branch indexing
+Connecting to https://api.github.com using nedstudio237-cmd/****** (GitHub (Personal Access Token))
+Obtained Jenkinsfile from d407a19c2d9788ceeb0301a3fbaffa6a21727e09
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/eni-webapp-mb_feature_test-casse
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git init /var/jenkins_home/workspace/eni-webapp-mb_feature_test-casse # timeout=10
+Fetching upstream changes from https://github.com/nedstudio237-cmd/legeni-webapp.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials GitHub (Personal Access Token)
+ > git fetch --no-tags --force --progress -- https://github.com/nedstudio237-cmd/legeni-webapp.git +refs/heads/feature/test-casse:refs/remotes/origin/feature/test-casse # timeout=10
+ > git config remote.origin.url https://github.com/nedstudio237-cmd/legeni-webapp.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/feature/test-casse:refs/remotes/origin/feature/test-casse # timeout=10
+Avoid second fetch
+Checking out Revision d407a19c2d9788ceeb0301a3fbaffa6a21727e09 (feature/test-casse)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f d407a19c2d9788ceeb0301a3fbaffa6a21727e09 # timeout=10
+Commit message: "Scénario 2 : test volontairement faux"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-11-17T17:13:23.398Z] Timeout set to expire in 1 hr 0 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Préparation)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] readFile
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Qualité)
+[Pipeline] parallel
+[Pipeline] { (Branch: Tests + couverture)
+[Pipeline] { (Branch: flake8)
+[Pipeline] { (Branch: hadolint)
+[Pipeline] { (Branch: Syntaxe Ansible)
+[Pipeline] stage
+[Pipeline] { (Tests + couverture)
+[Pipeline] stage
+[Pipeline] { (flake8)
+[Pipeline] stage
+[Pipeline] { (hadolint)
+[Pipeline] stage
+[Pipeline] { (Syntaxe Ansible)
+[Pipeline] getContext
+[Pipeline] getContext
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] withCredentials
+[2026-11-17T17:13:26.242Z] Masking supported pattern matches of $VAULT_PASS
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-17T17:13:26.445Z] + mkdir -p reports
+[2026-11-17T17:13:26.445Z] + docker run --rm -i hadolint/hadolint:v2.12.0 hadolint -f json -
+[2026-11-17T17:13:26.546Z] + docker inspect -f . python:3.12-slim
+[Pipeline] {
+[2026-11-17T17:13:26.986Z] + docker inspect -f . python:3.12-slim
+[Pipeline] dir
+[2026-11-17T17:13:27.717Z] Running in /var/jenkins_home/workspace/eni-webapp-mb_feature_test-casse/ansible
+[Pipeline] {
+[Pipeline] sh
+[2026-11-17T17:13:27.919Z] .
+[2026-11-17T17:13:28.150Z] .
+[2026-11-17T17:13:28.208Z] + ansible-playbook provision.yml --syntax-check
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+[2026-11-17T17:13:29.906Z] Jenkins seems to be running inside container 39f9e3169725f52face97d4617a47f30f857ec634e1f2c3f330af2edea7b6650
+[2026-11-17T17:13:30.603Z] $ docker run -t -d -u 1000:1000 -e HOME=/tmp -w /var/jenkins_home/workspace/eni-webapp-mb_feature_test-casse --volumes-from 39f9e3169725f52face97d4617a47f30f857ec634e1f2c3f330af2edea7b6650 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12-slim cat
+[2026-11-17T17:13:34.627Z] $ docker top 1047d6a9e1432d2c568bf734250b68a9925a3393e4357355a280ff3664691e4f -eo pid,comm
+[Pipeline] {
+[Pipeline] withDockerContainer
+[2026-11-17T17:13:36.327Z] 
+[2026-11-17T17:13:36.328Z] playbook: provision.yml
+[2026-11-17T17:13:36.748Z] Jenkins seems to be running inside container 39f9e3169725f52face97d4617a47f30f857ec634e1f2c3f330af2edea7b6650
+[2026-11-17T17:13:37.262Z] + ansible-playbook deploy.yml --syntax-check --vault-password-file ****
+[2026-11-17T17:13:37.895Z] $ docker run -t -d -u 1000:1000 -e HOME=/tmp -w /var/jenkins_home/workspace/eni-webapp-mb_feature_test-casse --volumes-from 39f9e3169725f52face97d4617a47f30f857ec634e1f2c3f330af2edea7b6650 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12-slim cat
+[2026-11-17T17:13:40.296Z] $ docker top b0d1ace3ec0aad9dbf41b9290267db4912353e13847e7bd77b589647cd75f8ce -eo pid,comm
+[Pipeline] {
+Post stage
+[Pipeline] recordIssues
+[2026-11-17T17:13:41.372Z] [HadoLint] Searching for all files in '/var/jenkins_home/workspace/eni-webapp-mb_feature_test-casse' that match the pattern 'reports/hadolint.json'
+[2026-11-17T17:13:41.372Z] [HadoLint] Traversing of symbolic links: enabled
+[2026-11-17T17:13:41.372Z] [HadoLint] -> found 1 file
+[2026-11-17T17:13:41.372Z] [HadoLint] Successfully parsed file /var/jenkins_home/workspace/eni-webapp-mb_feature_test-casse/reports/hadolint.json
+[2026-11-17T17:13:41.372Z] [HadoLint] -> found 0 issues (skipped 0 duplicates)
+[2026-11-17T17:13:41.372Z] [HadoLint] Successfully processed file 'reports/hadolint.json'
+[2026-11-17T17:13:41.400Z] [HadoLint] Skipping post processing
+[2026-11-17T17:13:41.400Z] [HadoLint] No filter has been set, publishing all 0 issues
+[2026-11-17T17:13:41.400Z] [HadoLint] Repository miner is not configured, skipping repository mining
+[2026-11-17T17:13:41.447Z] [HadoLint] Reference build recorder is not configured
+[2026-11-17T17:13:41.447Z] [HadoLint] No valid reference build found
+[2026-11-17T17:13:41.447Z] [HadoLint] All reported issues will be considered outstanding
+[2026-11-17T17:13:41.447Z] [HadoLint] No quality gates have been set - skipping
+[2026-11-17T17:13:41.447Z] [HadoLint] Health report is disabled - skipping
+[2026-11-17T17:13:41.447Z] [HadoLint] Created analysis result for 0 issues (found 0 new issues, fixed 0 issues)
+[2026-11-17T17:13:41.447Z] [HadoLint] Attaching ResultAction with ID 'hadolint' to build 'legeni-webapp-mb/feature%2Ftest-casse #1'.
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-17T17:13:42.022Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[2026-11-17T17:13:42.515Z] 
+[2026-11-17T17:13:42.515Z] playbook: deploy.yml
+[Pipeline] }
+[2026-11-17T17:13:43.081Z] + python -m venv /tmp/venv
+[2026-11-17T17:13:43.270Z] + python -m venv /tmp/venv-lint
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-17T17:14:09.536Z] + /tmp/venv/bin/pip install -q -r requirements.txt -r requirements-dev.txt
+[2026-11-17T17:14:09.730Z] + /tmp/venv-lint/bin/pip install -q flake8==7.1.1
+[2026-11-17T17:14:21.842Z] 
+[2026-11-17T17:14:21.842Z] [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-17T17:14:21.842Z] [notice] To update, run: python -m pip install --upgrade pip
+[2026-11-17T17:14:21.842Z] + mkdir -p reports
+[2026-11-17T17:14:21.842Z] + /tmp/venv-lint/bin/flake8 --output-file=reports/flake8.txt --tee .
+Post stage
+[Pipeline] recordIssues
+[2026-11-17T17:14:25.204Z] [Flake8] Searching for all files in '/var/jenkins_home/workspace/eni-webapp-mb_feature_test-casse' that match the pattern 'reports/flake8.txt'
+[2026-11-17T17:14:25.204Z] [Flake8] Traversing of symbolic links: enabled
+[2026-11-17T17:14:25.204Z] [Flake8] -> found 1 file
+[2026-11-17T17:14:25.204Z] [Flake8] Skipping file 'reports/flake8.txt' because it's empty
+[2026-11-17T17:14:25.205Z] [Flake8] Skipping post processing
+[2026-11-17T17:14:25.205Z] [Flake8] No filter has been set, publishing all 0 issues
+[2026-11-17T17:14:25.205Z] [Flake8] Repository miner is not configured, skipping repository mining
+[2026-11-17T17:14:25.207Z] [Flake8] Reference build recorder is not configured
+[2026-11-17T17:14:25.207Z] [Flake8] No valid reference build found
+[2026-11-17T17:14:25.207Z] [Flake8] All reported issues will be considered outstanding
+[2026-11-17T17:14:25.207Z] [Flake8] No quality gates have been set - skipping
+[2026-11-17T17:14:25.207Z] [Flake8] Health report is disabled - skipping
+[2026-11-17T17:14:25.207Z] [Flake8] Created analysis result for 0 issues (found 0 new issues, fixed 0 issues)
+[2026-11-17T17:14:25.207Z] [Flake8] Attaching ResultAction with ID 'flake8' to build 'legeni-webapp-mb/feature%2Ftest-casse #1'.
+[2026-11-17T17:14:25.396Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[2026-11-17T17:14:25.505Z] $ docker stop --time=1 b0d1ace3ec0aad9dbf41b9290267db4912353e13847e7bd77b589647cd75f8ce
+[2026-11-17T17:14:27.888Z] $ docker rm -f --volumes b0d1ace3ec0aad9dbf41b9290267db4912353e13847e7bd77b589647cd75f8ce
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-17T17:14:48.135Z] 
+[2026-11-17T17:14:48.135Z] [notice] A new release of pip is available: 25.0.1 -> 26.3
+[2026-11-17T17:14:48.135Z] [notice] To update, run: python -m pip install --upgrade pip
+[2026-11-17T17:14:48.135Z] + mkdir -p reports
+[2026-11-17T17:14:48.135Z] + /tmp/venv/bin/pytest --junitxml=reports/junit.xml --cov=app --cov-report=xml:reports/coverage.xml --cov-fail-under=80
+[2026-11-17T17:14:53.345Z] ============================= test session starts ==============================
+[2026-11-17T17:14:53.345Z] platform linux -- Python 3.12.16, pytest-8.3.4, pluggy-1.7.0
+[2026-11-17T17:14:53.345Z] rootdir: /var/jenkins_home/workspace/eni-webapp-mb_feature_test-casse
+[2026-11-17T17:14:53.345Z] configfile: pytest.ini
+[2026-11-17T17:14:53.345Z] testpaths: tests
+[2026-11-17T17:14:53.345Z] plugins: cov-6.0.0
+[2026-11-17T17:14:53.345Z] collected 7 items
+[2026-11-17T17:14:53.345Z] 
+[2026-11-17T17:14:53.345Z] tests/test_app.py ......F                                                [100%]
+[2026-11-17T17:14:53.345Z] 
+[2026-11-17T17:14:53.345Z] =================================== FAILURES ===================================
+[2026-11-17T17:14:53.345Z] ____________________________ test_echec_volontaire _____________________________
+[2026-11-17T17:14:53.345Z] 
+[2026-11-17T17:14:53.345Z]     def test_echec_volontaire():
+[2026-11-17T17:14:53.345Z] >       assert 1 + 1 == 3, "scénario 2 : test volontairement faux"
+[2026-11-17T17:14:53.345Z] E       AssertionError: scénario 2 : test volontairement faux
+[2026-11-17T17:14:53.345Z] E       assert (1 + 1) == 3
+[2026-11-17T17:14:53.345Z] 
+[2026-11-17T17:14:53.345Z] tests/test_app.py:56: AssertionError
+[2026-11-17T17:14:53.345Z] - generated xml file: /var/jenkins_home/workspace/eni-webapp-mb_feature_test-casse/reports/junit.xml -
+[2026-11-17T17:14:53.345Z] 
+[2026-11-17T17:14:53.345Z] ---------- coverage: platform linux, python 3.12.16-final-0 ----------
+[2026-11-17T17:14:53.345Z] Coverage XML written to file reports/coverage.xml
+[2026-11-17T17:14:53.345Z] 
+[2026-11-17T17:14:53.345Z] Required test coverage of 80% reached. Total coverage: 83.64%
+[2026-11-17T17:14:53.345Z] =========================== short test summary info ============================
+[2026-11-17T17:14:53.345Z] FAILED tests/test_app.py::test_echec_volontaire - AssertionError: scénario 2 : test volontairement faux
+[2026-11-17T17:14:53.345Z] assert (1 + 1) == 3
+[2026-11-17T17:14:53.345Z] ========================= 1 failed, 6 passed in 1.94s ==========================
+Post stage
+[Pipeline] junit
+[2026-11-17T17:14:53.617Z] Recording test results
+[2026-11-17T17:14:53.761Z] [Checks API] No suitable checks publisher found.
+[Pipeline] recordCoverage
+[2026-11-17T17:14:53.851Z] [Coverage] Skipping execution of coverage recorder since overall result is 'FAILURE'
+[Pipeline] }
+[2026-11-17T17:14:54.048Z] $ docker stop --time=1 1047d6a9e1432d2c568bf734250b68a9925a3393e4357355a280ff3664691e4f
+[2026-11-17T17:14:55.997Z] $ docker rm -f --volumes 1047d6a9e1432d2c568bf734250b68a9925a3393e4357355a280ff3664691e4f
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-17T17:14:57.149Z] Failed in branch Tests + couverture
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build image)
+Stage "Build image" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Scan Trivy)
+Stage "Scan Trivy" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Docker Hub)
+Stage "Push Docker Hub" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Déploiement staging)
+Stage "Déploiement staging" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Validation production)
+Stage "Validation production" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Déploiement production)
+Stage "Déploiement production" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Tag Git)
+Stage "Tag Git" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] emailext
+[2026-11-17T17:15:00.841Z] Sending email to: nedstudio237@gmail.com
+[2026-11-17T17:15:00.929Z] SMTP connection error while sending email. Retrying once more in 10 seconds.
+[2026-11-17T17:15:10.933Z] SMTP connection error while sending email. Retrying once more in 10 seconds.
+[2026-11-17T17:15:20.934Z] Failed after second try sending email
+[Pipeline] cleanWs
+[2026-11-17T17:15:21.045Z] [WS-CLEANUP] Deleting project workspace...
+[2026-11-17T17:15:21.045Z] [WS-CLEANUP] Deferred wipeout is used...
+[2026-11-17T17:15:21.054Z] [WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+
+GitHub has been notified of this commit’s build result
+
+Finished: FAILURE

@@ -1,0 +1,8 @@
+deployment.apps/webapp 
+REVISION  CHANGE-CAUSE
+2         <none>
+3         <none>
+
+NAME                DESIRED   CURRENT   READY   AGE
+webapp-7dcfc7986c   0         0         0       3m53s
+webapp-867c7f6b47   3         3         3       5m29s

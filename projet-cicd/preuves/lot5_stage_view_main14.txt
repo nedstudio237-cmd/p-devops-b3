@@ -1,0 +1,15 @@
+Declarative: Checkout SCM    SUCCESS    6s
+Préparation                  SUCCESS    0s
+Qualité                      SUCCESS    0s
+Tests + couverture           SUCCESS    74s
+flake8                       SUCCESS    58s
+hadolint                     SUCCESS    22s
+Syntaxe Ansible              SUCCESS    25s
+Build image                  SUCCESS    10s
+Scan Trivy                   SUCCESS    14s
+Push Docker Hub              SUCCESS    12s
+Déploiement staging          SUCCESS    113s
+Validation production        SUCCESS    8s
+Déploiement production       SUCCESS    126s
+Tag Git                      SUCCESS    2s
+Declarative: Post Actions    SUCCESS    0s

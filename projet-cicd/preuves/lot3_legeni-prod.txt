@@ -1,0 +1,30 @@
+$ kubectl get all,pvc,secret -n legeni-prod
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/redis-0                   1/1     Running   0          5m31s
+pod/webapp-867c7f6b47-84zss   1/1     Running   0          5m26s
+pod/webapp-867c7f6b47-glbf4   1/1     Running   0          5m26s
+pod/webapp-867c7f6b47-wscpm   1/1     Running   0          5m26s
+
+NAME             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/redis    ClusterIP   10.104.40.129   <none>        6379/TCP       5m26s
+service/webapp   NodePort    10.109.130.14   <none>        80:30082/TCP   5m1s
+
+NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/webapp   3/3     3            3           5m26s
+
+NAME                                DESIRED   CURRENT   READY   AGE
+replicaset.apps/webapp-7dcfc7986c   0         0         0       3m50s
+replicaset.apps/webapp-867c7f6b47   3         3         3       5m26s
+
+NAME                     READY   AGE
+statefulset.apps/redis   1/1     5m31s
+
+NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data-redis-0   Bound    pvc-838dc52d-bbc6-44e0-b795-11ae8ef5290c   1Gi        RWO            standard       <unset>                 5m32s
+
+NAME                  TYPE     DATA   AGE
+secret/redis-secret   Opaque   1      5m35s
+
+$ curl -s $(minikube ip):30082/api/info
+{"app":"legeni-webapp","env":"prod","hostname":"webapp-867c7f6b47-84zss","version":"1.0.0-1"}
+

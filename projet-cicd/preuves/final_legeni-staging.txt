@@ -1,0 +1,25 @@
+NAME                         READY   STATUS    RESTARTS   AGE
+pod/redis-0                  1/1     Running   0          98m
+pod/webapp-7bb58f6bf-54h7t   1/1     Running   0          4m57s
+pod/webapp-7bb58f6bf-jz2zv   1/1     Running   0          5m40s
+
+NAME             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/redis    ClusterIP   10.99.87.13     <none>        6379/TCP       98m
+service/webapp   NodePort    10.96.155.215   <none>        80:30081/TCP   97m
+
+NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/webapp   2/2     2            2           98m
+
+NAME                                DESIRED   CURRENT   READY   AGE
+replicaset.apps/webapp-5b996df8bc   0         0         0       38m
+replicaset.apps/webapp-7487747dc8   0         0         0       98m
+replicaset.apps/webapp-74d6cbdf47   0         0         0       49m
+replicaset.apps/webapp-7bb58f6bf    2         2         2       5m40s
+replicaset.apps/webapp-c98c5d5d4    0         0         0       62m
+replicaset.apps/webapp-d4d57b9fb    0         0         0       24m
+
+NAME                     READY   AGE
+statefulset.apps/redis   1/1     98m
+
+NAME                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data-redis-0   Bound    pvc-b57f36e1-fa3d-4c87-8200-c7c5d5ea64e6   1Gi        RWO            standard       <unset>                 98m
